@@ -446,6 +446,21 @@ a.vl-kanban-card-title:hover {
   border-radius: 4px;
 }
 
+/* README display */
+.vl-projet-readme {
+  background: var(--background-alt-grey, #f6f6f6);
+  border-radius: 8px;
+  padding: 1.5rem 2rem;
+  max-height: 80vh;
+  overflow-y: auto;
+}
+
+.vl-projet-readme img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
 /* --- Badge colors DSFR --- */
 .fr-badge--error {
   --idle: var(--error-950-100, #fef4f4);

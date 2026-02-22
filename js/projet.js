@@ -75,6 +75,7 @@ const Projet = (() => {
     renderMetrics();
     renderNotes();
     renderScreenshots();
+    fetchReadme();
 
     // GitHub section
     const ghSection = document.getElementById('projet-github-section');
@@ -295,6 +296,59 @@ const Projet = (() => {
     overlay.innerHTML = `<img src="${escapeAttr(src)}" alt="Capture d'écran">`;
     overlay.addEventListener('click', () => overlay.remove());
     document.body.appendChild(overlay);
+  }
+
+  // --- README GitHub ---
+  async function fetchReadme() {
+    const match = (card.repo_url || '').match(/github\.com\/([^\/]+\/[^\/\?#]+)/);
+    if (!match) return;
+    const repoPath = match[1].replace(/\.git$/, '');
+
+    const section = document.getElementById('projet-readme-section');
+    section.classList.remove('vl-hidden');
+
+    try {
+      const res = await fetch(API_BASE_URL + '/api/github-proxy/' + repoPath + '/readme', {
+        headers: apiHeaders()
+      });
+
+      if (!res.ok) {
+        document.getElementById('projet-readme-loading').classList.add('vl-hidden');
+        document.getElementById('projet-readme-empty').classList.remove('vl-hidden');
+        return;
+      }
+
+      const data = await res.json();
+      const cleanBase64 = (data.content || '').replace(/\n/g, '');
+      const bytes = Uint8Array.from(atob(cleanBase64), function(c) { return c.charCodeAt(0); });
+      const decoded = new TextDecoder('utf-8').decode(bytes);
+
+      // Réécrire les URLs relatives des images vers GitHub raw
+      const rawBase = 'https://raw.githubusercontent.com/' + repoPath + '/HEAD/';
+      const processed = decoded.replace(
+        /!\[([^\]]*)\]\((?!https?:\/\/)([^)]+)\)/g,
+        function(_, alt, url) {
+          return '![' + alt + '](' + rawBase + url.replace(/^\.\//, '') + ')';
+        }
+      );
+
+      var html = '';
+      if (typeof marked !== 'undefined' && marked.parse) {
+        html = marked.parse(processed);
+      } else {
+        // Fallback : afficher le markdown brut
+        html = '<pre style="white-space:pre-wrap">' + escapeHtml(decoded) + '</pre>';
+      }
+
+      document.getElementById('projet-readme-loading').classList.add('vl-hidden');
+      var contentEl = document.getElementById('projet-readme-content');
+      contentEl.innerHTML = html;
+      contentEl.classList.remove('vl-hidden');
+    } catch (e) {
+      console.error('Fetch README error:', e);
+      document.getElementById('projet-readme-loading').classList.add('vl-hidden');
+      document.getElementById('projet-readme-empty').classList.remove('vl-hidden');
+    }
   }
 
   // --- Mode édition inline ---

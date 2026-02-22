@@ -561,10 +561,19 @@ def github_proxy(repo_path):
         return jsonify(error='Chemin GitHub invalide'), 400
 
     url = 'https://api.github.com/repos/' + repo_path
-    req = urllib.request.Request(url, headers={
+    qs = request.query_string.decode()
+    if qs:
+        url += '?' + qs
+
+    headers = {
         'Accept': 'application/vnd.github.v3+json',
         'User-Agent': 'VibeLab-Bercy/1.0'
-    })
+    }
+    gh_token = os.environ.get('GITHUB_TOKEN')
+    if gh_token:
+        headers['Authorization'] = 'token ' + gh_token
+
+    req = urllib.request.Request(url, headers=headers)
     try:
         with urllib.request.urlopen(req, timeout=10) as response:
             data = json_module.loads(response.read().decode())
