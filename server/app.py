@@ -1,10 +1,13 @@
+import io
 import json as json_module
 import os
+import re
 import secrets
 import urllib.error
 import urllib.request
 from datetime import datetime, timezone
 
+import markdown
 from flask import Flask, send_from_directory, render_template, jsonify, request, g
 from werkzeug.security import check_password_hash
 from werkzeug.utils import secure_filename
@@ -98,6 +101,62 @@ def js_files(filename):
 @app.route('/docs/<path:filename>')
 def docs_files(filename):
     return send_from_directory(os.path.join(STATIC_ROOT, 'docs'), filename)
+
+
+# ---------------------------------------------------------------------------
+# Markdown viewer + DOCX export
+# ---------------------------------------------------------------------------
+
+# Map of slug → human title for the doc viewer
+DOC_TITLES = {
+    'dossier-complet-vibe-lab': 'Dossier complet Vibe Lab',
+    'rapport-vibe-coding-snum': 'Rapport SNUM',
+    'rapport-vibe-coding-miweb': 'Rapport MIWEB',
+    'rapport-vibe-coding-communication': 'Rapport SIRCOM',
+    'rapport-vibe-lab-sg': 'Rapport SG',
+    'manifeste-vibe-lab': 'Manifeste',
+    'gouvernance-vibe-lab': 'Gouvernance',
+    'plan-communication-vibe-lab': 'Plan de communication',
+    'presentation-vibe-lab': 'Présentation synthétique',
+    'vibe-lab-pitch': 'Pitch deck',
+    'excelexit-vibe-lab': 'ExcelExit',
+    'grille-evaluation-vibe-lab': "Grille d'évaluation",
+    'matrice-risques-vibe-lab': 'Matrice de risques',
+}
+
+
+@app.route('/docs/view/<slug>')
+def view_doc(slug):
+    safe = re.sub(r'[^a-z0-9_-]', '', slug)
+    md_path = os.path.join(STATIC_ROOT, 'docs', f'{safe}.md')
+    if not os.path.isfile(md_path):
+        return 'Document non trouvé', 404
+    with open(md_path, encoding='utf-8') as f:
+        md_text = f.read()
+    html = markdown.markdown(md_text, extensions=['tables', 'toc', 'fenced_code'])
+    title = DOC_TITLES.get(safe, safe)
+    return render_template('doc_view.html', content_html=html, title=title,
+                           slug=safe, current_page='documents')
+
+
+@app.route('/docs/export/<slug>.docx')
+def export_docx(slug):
+    safe = re.sub(r'[^a-z0-9_-]', '', slug)
+    md_path = os.path.join(STATIC_ROOT, 'docs', f'{safe}.md')
+    if not os.path.isfile(md_path):
+        return 'Document non trouvé', 404
+    with open(md_path, encoding='utf-8') as f:
+        md_text = f.read()
+    from server.md_to_docx import md_to_docx
+    buf = md_to_docx(md_text, DOC_TITLES.get(safe, safe))
+    return (
+        buf.getvalue(),
+        200,
+        {
+            'Content-Type': 'application/vnd.openxmlformats-officedocument.wordprocessingml.document',
+            'Content-Disposition': f'attachment; filename="{safe}.docx"',
+        },
+    )
 
 
 # ---------------------------------------------------------------------------

@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+
+{% block title %}{{ title }} — Vibe Lab{% endblock %}
+
+{% block content %}
+  <div class="fr-grid-row fr-grid-row--gutters">
+    <div class="fr-col-12">
+      <div class="fr-mb-3w" style="display:flex; align-items:center; gap:1rem; flex-wrap:wrap;">
+        <a href="/documents" class="fr-btn fr-btn--tertiary fr-btn--icon-left fr-icon-arrow-left-line fr-btn--sm">Retour aux documents</a>
+        <a href="/docs/export/{{ slug }}.docx" class="fr-btn fr-btn--secondary fr-btn--icon-left fr-icon-download-line fr-btn--sm" download>Télécharger en DOCX</a>
+      </div>
+      <div class="fr-callout fr-p-4w markdown-body">
+        {{ content_html | safe }}
+      </div>
+    </div>
+  </div>
+{% endblock %}
