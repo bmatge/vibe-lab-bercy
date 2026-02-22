@@ -141,6 +141,8 @@ def _migrate_project_detail_columns(db):
         ('potential_users', "TEXT DEFAULT ''"),
         ('sponsor', "TEXT DEFAULT ''"),
         ('dev_duration', "TEXT DEFAULT ''"),
+        ('dev_duration_real', "TEXT DEFAULT ''"),
+        ('commit_count', 'INTEGER DEFAULT NULL'),
     ]
     for col_name, col_def in new_columns:
         try:

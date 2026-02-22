@@ -119,7 +119,8 @@ const Projet = (() => {
       { label: 'Sponsor', value: card.sponsor },
       { label: 'Publics ciblés', value: card.target_audience },
       { label: 'Utilisateurs potentiels', value: card.potential_users },
-      { label: 'Durée de développement', value: card.dev_duration },
+      { label: 'Durée estimée (J/H presta.)', value: card.dev_duration },
+      { label: 'Durée réelle (vibe coding)', value: card.dev_duration_real },
       { label: 'Catégorie', value: card.category },
       { label: 'Créé le', value: card.created_at },
       { label: 'Mis à jour le', value: card.updated_at },
@@ -178,6 +179,7 @@ const Projet = (() => {
       { value: card.loc, label: 'Lignes de code', suffix: '' },
       { value: card.test_coverage, label: 'Couverture tests', suffix: '%' },
       { value: card.file_count, label: 'Fichiers', suffix: '' },
+      { value: card.commit_count, label: 'Commits', suffix: '' },
     ];
 
     const filled = metrics.filter(m => m.value != null);
@@ -309,9 +311,11 @@ const Projet = (() => {
     document.getElementById('pm-potential-users').value = card.potential_users || '';
     document.getElementById('pm-stack').value = card.stack || '';
     document.getElementById('pm-dev-duration').value = card.dev_duration || '';
+    document.getElementById('pm-dev-duration-real').value = card.dev_duration_real || '';
     document.getElementById('pm-loc').value = card.loc != null ? card.loc : '';
     document.getElementById('pm-test-coverage').value = card.test_coverage != null ? card.test_coverage : '';
     document.getElementById('pm-file-count').value = card.file_count != null ? card.file_count : '';
+    document.getElementById('pm-commit-count').value = card.commit_count != null ? card.commit_count : '';
     document.getElementById('pm-repo-url').value = card.repo_url || '';
     document.getElementById('pm-prod-url').value = card.prod_url || '';
     document.getElementById('pm-notes').value = card.notes || '';
@@ -342,9 +346,11 @@ const Projet = (() => {
       potential_users: document.getElementById('pm-potential-users').value.trim(),
       stack: document.getElementById('pm-stack').value.trim(),
       dev_duration: document.getElementById('pm-dev-duration').value.trim(),
+      dev_duration_real: document.getElementById('pm-dev-duration-real').value.trim(),
       loc: locVal ? parseInt(locVal, 10) : null,
       test_coverage: coverageVal ? parseFloat(coverageVal) : null,
       file_count: fileCountVal ? parseInt(fileCountVal, 10) : null,
+      commit_count: (() => { const v = document.getElementById('pm-commit-count').value; return v ? parseInt(v, 10) : null; })(),
       repo_url: document.getElementById('pm-repo-url').value.trim(),
       prod_url: document.getElementById('pm-prod-url').value.trim(),
       notes: document.getElementById('pm-notes').value,
@@ -366,11 +372,14 @@ const Projet = (() => {
     btn.disabled = true;
 
     try {
-      const [langRes, repoRes] = await Promise.all([
+      const [langRes, repoRes, commitsRes] = await Promise.all([
         fetch(API_BASE_URL + '/api/github-proxy/' + repoPath + '/languages', {
           headers: apiHeaders()
         }),
         fetch(API_BASE_URL + '/api/github-proxy/' + repoPath, {
+          headers: apiHeaders()
+        }),
+        fetch(API_BASE_URL + '/api/github-proxy/' + repoPath + '/contributors?per_page=100', {
           headers: apiHeaders()
         })
       ]);
@@ -397,6 +406,14 @@ const Projet = (() => {
       const totalBytes = Object.values(languages).reduce((sum, b) => sum + b, 0);
       if (totalBytes > 0) {
         updates.loc = Math.round(totalBytes / 40);
+      }
+
+      // Nombre de commits (via liste des contributeurs)
+      if (commitsRes.ok) {
+        const contributors = await commitsRes.json();
+        if (Array.isArray(contributors)) {
+          updates.commit_count = contributors.reduce((sum, c) => sum + (c.contributions || 0), 0);
+        }
       }
 
       if (Object.keys(updates).length > 0) {

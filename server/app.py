@@ -225,7 +225,8 @@ def update_card(card_id):
 
     allowed = ('title', 'description', 'priority', 'category', 'column_name', 'position',
                'repo_url', 'prod_url', 'stack', 'loc', 'test_coverage', 'file_count',
-               'notes', 'target_audience', 'potential_users', 'sponsor', 'dev_duration')
+               'notes', 'target_audience', 'potential_users', 'sponsor', 'dev_duration',
+               'dev_duration_real', 'commit_count')
     updates = {k: data[k] for k in allowed if k in data}
     if not updates:
         return jsonify(card=dict(existing))

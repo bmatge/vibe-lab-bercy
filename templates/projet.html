@@ -115,18 +115,26 @@
             </div>
             <div class="fr-col-6">
               <div class="fr-input-group">
-                <label class="fr-label" for="pm-dev-duration">Durée de développement</label>
-                <input class="fr-input" type="text" id="pm-dev-duration" placeholder="4h, 2 jours...">
+                <label class="fr-label" for="pm-dev-duration">Durée estimée (J/H presta.)</label>
+                <input class="fr-input" type="text" id="pm-dev-duration" placeholder="520 j/h...">
               </div>
             </div>
           </div>
           <div class="fr-grid-row fr-grid-row--gutters fr-mt-1w">
             <div class="fr-col-6">
               <div class="fr-input-group">
+                <label class="fr-label" for="pm-dev-duration-real">Durée réelle (vibe coding)</label>
+                <input class="fr-input" type="text" id="pm-dev-duration-real" placeholder="2 jours, 4h...">
+              </div>
+            </div>
+            <div class="fr-col-6">
+              <div class="fr-input-group">
                 <label class="fr-label" for="pm-target-audience">Publics ciblés</label>
                 <input class="fr-input" type="text" id="pm-target-audience" placeholder="Agents MEF, DSI...">
               </div>
             </div>
+          </div>
+          <div class="fr-grid-row fr-grid-row--gutters fr-mt-1w">
             <div class="fr-col-6">
               <div class="fr-input-group">
                 <label class="fr-label" for="pm-potential-users">Utilisateurs potentiels</label>
@@ -200,9 +208,13 @@
             <label class="fr-label" for="pm-test-coverage">Couverture tests (%)</label>
             <input class="fr-input" type="number" id="pm-test-coverage" min="0" max="100">
           </div>
-          <div class="fr-input-group">
+          <div class="fr-input-group fr-mb-1w">
             <label class="fr-label" for="pm-file-count">Nombre de fichiers</label>
             <input class="fr-input" type="number" id="pm-file-count" min="0">
+          </div>
+          <div class="fr-input-group">
+            <label class="fr-label" for="pm-commit-count">Nombre de commits</label>
+            <input class="fr-input" type="number" id="pm-commit-count" min="0">
           </div>
         </div>
 
