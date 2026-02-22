@@ -1,0 +1,289 @@
+/* ============================================================
+   Styles custom Vibe Lab — .vl-* prefix
+   Complète le DSFR, ne le remplace jamais.
+   ============================================================ */
+
+/* --- Utilitaires --- */
+.vl-hidden {
+  display: none !important;
+}
+
+/* --- Login page --- */
+.vl-login {
+  background: linear-gradient(135deg, #f5f5fe 0%, #e3e3fd 100%);
+  min-height: 100vh;
+}
+
+.vl-login-header {
+  text-align: center;
+}
+
+.vl-login-header h1 {
+  color: var(--blue-france-sun-113-625, #000091);
+  font-size: 2.5rem;
+  font-weight: 700;
+}
+
+.vl-login-subtitle {
+  color: var(--text-default-grey, #3a3a3a);
+}
+
+/* --- Hero section --- */
+.vl-hero h2 {
+  color: var(--blue-france-sun-113-625, #000091);
+  font-size: 2rem;
+}
+
+.vl-hero .fr-callout {
+  text-align: center;
+}
+
+.vl-hero .fr-callout__title {
+  color: var(--blue-france-sun-113-625, #000091);
+  font-size: 1.75rem;
+}
+
+/* --- Kanban Board --- */
+.vl-kanban-header {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.vl-kanban-board {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 0.75rem;
+  min-height: 400px;
+  overflow-x: auto;
+}
+
+.vl-kanban-board--6cols {
+  grid-template-columns: repeat(6, minmax(180px, 1fr));
+}
+
+@media (max-width: 1200px) {
+  .vl-kanban-board--6cols {
+    grid-template-columns: repeat(6, minmax(160px, 1fr));
+  }
+}
+
+@media (max-width: 992px) {
+  .vl-kanban-board,
+  .vl-kanban-board--6cols {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 576px) {
+  .vl-kanban-board,
+  .vl-kanban-board--6cols {
+    grid-template-columns: 1fr;
+  }
+}
+
+.vl-kanban-column {
+  background: var(--background-alt-grey, #f6f6f6);
+  border-radius: 8px;
+  padding: 1rem;
+  min-height: 300px;
+}
+
+.vl-kanban-column-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--border-default-grey, #e5e5e5);
+}
+
+.vl-kanban-column-header h3 {
+  font-size: 0.95rem;
+  margin: 0;
+}
+
+.vl-kanban-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  min-height: 100px;
+}
+
+/* --- Kanban Card --- */
+.vl-kanban-card {
+  background: #fff;
+  border: 1px solid var(--border-default-grey, #e5e5e5);
+  border-radius: 6px;
+  padding: 0.75rem;
+  cursor: grab;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+
+.vl-kanban-card:hover {
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.vl-kanban-card:active {
+  cursor: grabbing;
+}
+
+.vl-kanban-card--ghost {
+  opacity: 0.4;
+  background: var(--blue-france-975-75, #f5f5fe);
+  border: 2px dashed var(--blue-france-sun-113-625, #000091);
+}
+
+.vl-kanban-card--drag {
+  transform: rotate(2deg);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+}
+
+.vl-kanban-card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 0.5rem;
+}
+
+.vl-kanban-card-title {
+  font-weight: 600;
+  font-size: 0.875rem;
+  line-height: 1.3;
+  flex: 1;
+}
+
+.vl-kanban-card-actions {
+  display: flex;
+  gap: 2px;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.vl-kanban-card:hover .vl-kanban-card-actions {
+  opacity: 1;
+}
+
+.vl-card-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 2px;
+  border-radius: 4px;
+  color: var(--text-mention-grey, #666);
+}
+
+.vl-card-btn:hover {
+  background: var(--background-alt-grey, #f6f6f6);
+  color: var(--blue-france-sun-113-625, #000091);
+}
+
+.vl-card-btn--delete:hover {
+  color: var(--error-425-625, #ce0500);
+}
+
+.vl-kanban-card-desc {
+  font-size: 0.8rem;
+  color: var(--text-mention-grey, #666);
+  margin: 0.5rem 0;
+  line-height: 1.4;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.vl-kanban-card-footer {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  flex-wrap: wrap;
+  margin-top: 0.5rem;
+}
+
+/* --- Modal override --- */
+.fr-modal--opened {
+  display: flex !important;
+  align-items: center;
+  justify-content: center;
+}
+
+dialog.fr-modal {
+  border: none;
+  max-width: 100vw;
+  width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  padding: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+dialog.fr-modal .fr-modal__body {
+  background: #fff;
+  border-radius: 8px;
+  padding: 2rem;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* --- Cards enhancements --- */
+.fr-card--grey {
+  background: var(--background-alt-grey, #f6f6f6);
+}
+
+/* --- Tabs panel transitions --- */
+.fr-tabs__panel {
+  display: none;
+}
+
+.fr-tabs__panel--selected {
+  display: block;
+  animation: vl-fadeIn 0.2s ease;
+}
+
+@keyframes vl-fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --- Tiles as steps --- */
+.fr-tile {
+  text-align: center;
+}
+
+/* --- Badge colors DSFR --- */
+.fr-badge--error {
+  --idle: var(--error-950-100, #fef4f4);
+  --hover: var(--error-950-100-hover, #fce4e4);
+}
+
+/* --- Responsive tweaks --- */
+@media (max-width: 768px) {
+  .vl-login-header h1 {
+    font-size: 1.75rem;
+  }
+
+  .vl-hero .fr-callout__title {
+    font-size: 1.25rem;
+  }
+
+  .fr-tabs__list {
+    flex-wrap: wrap;
+  }
+}
+
+/* --- Print styles --- */
+@media print {
+  .vl-login,
+  .fr-header__tools,
+  .fr-footer,
+  .vl-kanban-card-actions,
+  #kanban-add-btn {
+    display: none !important;
+  }
+
+  .vl-kanban-board {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

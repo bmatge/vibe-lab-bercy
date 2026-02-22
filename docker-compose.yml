@@ -1,0 +1,23 @@
+services:
+  vibelab:
+    build: .
+    container_name: vibelab
+    restart: unless-stopped
+    env_file: .env
+    volumes:
+      - vibelab-data:/app/data
+    networks:
+      - ecosystem-network
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vibelab.rule=Host(`vibelab.bercy.matge.com`)"
+      - "traefik.http.routers.vibelab.entrypoints=websecure"
+      - "traefik.http.routers.vibelab.tls.certresolver=letsencrypt"
+      - "traefik.http.services.vibelab.loadbalancer.server.port=5000"
+
+volumes:
+  vibelab-data:
+
+networks:
+  ecosystem-network:
+    external: true

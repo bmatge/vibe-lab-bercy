@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-scheme="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000091">
+  <title>Vibe Lab — Ministères Économiques et Financiers</title>
+  <meta name="description" content="Laboratoire de prototypage augmenté par l'IA — Ministères Économiques et Financiers">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/utility/icons/icons.min.css">
+  <link rel="stylesheet" href="css/custom.css">
+</head>
+<body>
+
+  <!-- ============================================================ -->
+  <!-- PAGE LOGIN                                                    -->
+  <!-- ============================================================ -->
+  <div id="login-page" class="vl-login">
+    <div class="fr-container">
+      <div class="fr-grid-row fr-grid-row--center" style="min-height:100vh; align-items:center;">
+        <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+
+          <div class="vl-login-header">
+            <p class="fr-logo">
+              République<br>Française
+            </p>
+            <h1 class="fr-mt-3w">Vibe Lab</h1>
+            <p class="fr-text--lg fr-text--regular vl-login-subtitle">
+              Laboratoire de prototypage augmenté par l'IA
+            </p>
+            <p class="fr-text--sm" style="color:var(--text-mention-grey)">
+              Ministères Économiques et Financiers
+            </p>
+          </div>
+
+          <div class="fr-mt-4w">
+            <fieldset class="fr-fieldset" id="login-fieldset" aria-labelledby="login-fieldset-legend">
+              <legend class="fr-fieldset__legend--regular" id="login-fieldset-legend">
+                Connexion
+              </legend>
+
+              <div class="fr-fieldset__element">
+                <div class="fr-input-group" id="email-group">
+                  <label class="fr-label" for="login-email">Adresse e-mail</label>
+                  <input class="fr-input" type="email" id="login-email" name="email" autocomplete="email" required>
+                </div>
+              </div>
+
+              <div class="fr-fieldset__element">
+                <div class="fr-input-group" id="password-group">
+                  <label class="fr-label" for="login-password">Mot de passe</label>
+                  <input class="fr-input" type="password" id="login-password" name="password" autocomplete="current-password" required>
+                </div>
+              </div>
+
+              <div id="login-error" class="fr-alert fr-alert--error fr-alert--sm fr-mt-2w vl-hidden" role="alert">
+                <p id="login-error-msg">Identifiants incorrects.</p>
+              </div>
+
+              <div class="fr-fieldset__element fr-mt-3w">
+                <button id="login-btn" class="fr-btn fr-btn--lg" style="width:100%" type="button">
+                  Se connecter
+                </button>
+              </div>
+            </fieldset>
+          </div>
+
+          <p class="fr-text--xs fr-mt-4w" style="color:var(--text-mention-grey); text-align:center">
+            Accès réservé aux agents habilités
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============================================================ -->
+  <!-- APPLICATION PRINCIPALE                                        -->
+  <!-- ============================================================ -->
+  <div id="main-app" class="vl-hidden">
+
+    <!-- HEADER DSFR -->
+    <header role="banner" class="fr-header">
+      <div class="fr-header__body">
+        <div class="fr-container">
+          <div class="fr-header__body-row">
+            <div class="fr-header__brand fr-enlarge-link">
+              <div class="fr-header__brand-top">
+                <div class="fr-header__logo">
+                  <p class="fr-logo">
+                    République<br>Française
+                  </p>
+                </div>
+              </div>
+              <div class="fr-header__service">
+                <a href="#" title="Accueil - Vibe Lab">
+                  <p class="fr-header__service-title">Vibe Lab</p>
+                </a>
+                <p class="fr-header__service-tagline">Laboratoire de prototypage augmenté par l'IA</p>
+              </div>
+            </div>
+            <div class="fr-header__tools">
+              <div class="fr-header__tools-links">
+                <ul class="fr-btns-group">
+                  <li>
+                    <span id="user-display" class="fr-btn fr-btn--tertiary-no-outline fr-icon-user-line" style="pointer-events:none"></span>
+                  </li>
+                  <li>
+                    <button id="logout-btn" class="fr-btn fr-btn--tertiary-no-outline fr-icon-logout-box-r-line">
+                      Déconnexion
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- NAVIGATION ONGLETS -->
+    <div class="fr-container fr-mt-4w">
+      <div class="fr-tabs">
+        <ul class="fr-tabs__list" role="tablist" aria-label="Sections du Vibe Lab">
+          <li role="presentation">
+            <button id="tab-accueil" class="fr-tabs__tab" role="tab" aria-selected="true" aria-controls="panel-accueil" tabindex="0">
+              Accueil
+            </button>
+          </li>
+          <li role="presentation">
+            <button id="tab-constat" class="fr-tabs__tab" role="tab" aria-selected="false" aria-controls="panel-constat" tabindex="-1">
+              Le constat
+            </button>
+          </li>
+          <li role="presentation">
+            <button id="tab-proposition" class="fr-tabs__tab" role="tab" aria-selected="false" aria-controls="panel-proposition" tabindex="-1">
+              La proposition
+            </button>
+          </li>
+          <li role="presentation">
+            <button id="tab-outils" class="fr-tabs__tab" role="tab" aria-selected="false" aria-controls="panel-outils" tabindex="-1">
+              Les outils
+            </button>
+          </li>
+          <li role="presentation">
+            <button id="tab-gouvernance" class="fr-tabs__tab" role="tab" aria-selected="false" aria-controls="panel-gouvernance" tabindex="-1">
+              Gouvernance
+            </button>
+          </li>
+          <li role="presentation">
+            <button id="tab-kanban" class="fr-tabs__tab" role="tab" aria-selected="false" aria-controls="panel-kanban" tabindex="-1">
+              Kanban
+            </button>
+          </li>
+          <li role="presentation">
+            <button id="tab-documents" class="fr-tabs__tab" role="tab" aria-selected="false" aria-controls="panel-documents" tabindex="-1">
+              Documents
+            </button>
+          </li>
+        </ul>
+
+        <!-- ======== PANEL : ACCUEIL ======== -->
+        <div id="panel-accueil" class="fr-tabs__panel fr-tabs__panel--selected" role="tabpanel" aria-labelledby="tab-accueil">
+          <div class="vl-hero fr-py-6w">
+            <h2 class="fr-mb-2w">Vibe Lab</h2>
+            <p class="fr-text--xl fr-mb-4w">
+              Transformer la fabrique numérique du ministère grâce au prototypage augmenté par l'IA.
+            </p>
+
+            <div class="fr-grid-row fr-grid-row--gutters">
+              <div class="fr-col-12 fr-col-md-4">
+                <div class="fr-callout">
+                  <h3 class="fr-callout__title">72h &rarr; 4h</h3>
+                  <p class="fr-callout__text">Temps de développement d'un prototype fonctionnel</p>
+                </div>
+              </div>
+              <div class="fr-col-12 fr-col-md-4">
+                <div class="fr-callout">
+                  <h3 class="fr-callout__title">12 000 &euro; &rarr; 800 &euro;</h3>
+                  <p class="fr-callout__text">Coût complet d'un prototype vs. prestation externe</p>
+                </div>
+              </div>
+              <div class="fr-col-12 fr-col-md-4">
+                <div class="fr-callout">
+                  <h3 class="fr-callout__title">47 / 50</h3>
+                  <p class="fr-callout__text">Score d'ExcelExit, premier projet du Lab</p>
+                </div>
+              </div>
+            </div>
+
+            <div class="fr-highlight fr-mt-4w">
+              <p>
+                Le Vibe Lab est un laboratoire interne au sein de la SNUM. Il utilise le <strong>vibe coding</strong> — une approche où l'agent métier exprime son besoin en langage naturel et l'IA génère le code — pour produire des prototypes fonctionnels en quelques heures au lieu de plusieurs semaines.
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== PANEL : LE CONSTAT ======== -->
+        <div id="panel-constat" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tab-constat">
+          <h2 class="fr-mb-3w">Le constat</h2>
+
+          <div class="fr-callout fr-callout--brown-caramel fr-mb-4w">
+            <h3 class="fr-callout__title">Le Shadow IT Excel : une dette silencieuse</h3>
+            <p class="fr-callout__text">
+              Des centaines de fichiers Excel critiques circulent dans les services : tableaux de suivi budgétaire, outils de pilotage RH, bases de données de référence. Sans versioning, sans contrôle d'accès, sans traçabilité. La rupture technologique de l'IA générative offre une opportunité inédite de résorber cette dette.
+            </p>
+          </div>
+
+          <h3 class="fr-mb-2w">Avant / Après : ce que change le vibe coding</h3>
+          <div class="fr-grid-row fr-grid-row--gutters">
+            <div class="fr-col-12 fr-col-md-6">
+              <div class="fr-card fr-card--grey">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title">Avant</h4>
+                    <p class="fr-card__desc">
+                      <strong>Cycle classique :</strong> expression de besoin (2 sem.) &rarr; cahier des charges (4 sem.) &rarr; marché public (3-6 mois) &rarr; développement (6-12 mois) &rarr; recette (2 mois).
+                    </p>
+                    <ul class="fr-mt-2w">
+                      <li>Délai total : <strong>12 à 18 mois</strong></li>
+                      <li>Coût minimum : <strong>50 000 &euro;</strong></li>
+                      <li>Taux d'abandon : <strong>30 %</strong></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-6">
+              <div class="fr-card" style="border-left: 4px solid var(--blue-france-sun-113-625)">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title">Après — Vibe Coding</h4>
+                    <p class="fr-card__desc">
+                      <strong>Cycle Vibe Lab :</strong> expression du besoin en langage naturel &rarr; prototype IA en 4h &rarr; test utilisateur immédiat &rarr; itération le jour même.
+                    </p>
+                    <ul class="fr-mt-2w">
+                      <li>Délai : <strong>4 heures</strong> pour un prototype</li>
+                      <li>Coût : <strong>800 &euro;</strong> tout compris</li>
+                      <li>Taux de satisfaction : <strong>&gt; 90 %</strong></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="fr-grid-row fr-grid-row--gutters fr-mt-3w">
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-tile fr-tile--horizontal">
+                <div class="fr-tile__body">
+                  <div class="fr-tile__content">
+                    <h4 class="fr-tile__title">Facteur x18</h4>
+                    <p class="fr-tile__desc">Réduction du temps de développement</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-tile fr-tile--horizontal">
+                <div class="fr-tile__body">
+                  <div class="fr-tile__content">
+                    <h4 class="fr-tile__title">Facteur x15</h4>
+                    <p class="fr-tile__desc">Réduction du coût par prototype</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-tile fr-tile--horizontal">
+                <div class="fr-tile__body">
+                  <div class="fr-tile__content">
+                    <h4 class="fr-tile__title">0 marché public</h4>
+                    <p class="fr-tile__desc">Prototypage en ressources internes</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== PANEL : LA PROPOSITION ======== -->
+        <div id="panel-proposition" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tab-proposition">
+          <h2 class="fr-mb-3w">La proposition</h2>
+
+          <!-- 5 Règles cardinales -->
+          <h3 class="fr-mb-2w">Les 5 règles cardinales</h3>
+          <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-card">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">1</span> Prototype, pas produit</h4>
+                    <p class="fr-card__desc">Le Vibe Lab produit des prototypes fonctionnels, jamais des applications de production. L'industrialisation passe par les filières classiques.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-card">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">2</span> Besoin métier d'abord</h4>
+                    <p class="fr-card__desc">Chaque projet répond à un irritant métier identifié. Pas de technologie pour la technologie.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-card">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">3</span> Transparence totale</h4>
+                    <p class="fr-card__desc">Code ouvert, documentation partagée, résultats publiés. Tout est auditable et reproductible.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-4 fr-mt-3w">
+              <div class="fr-card">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">4</span> Réversibilité garantie</h4>
+                    <p class="fr-card__desc">Aucune dépendance créée. Si le Lab s'arrête, les outils existants continuent de fonctionner.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-4 fr-mt-3w">
+              <div class="fr-card">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">5</span> Données non sensibles</h4>
+                    <p class="fr-card__desc">Le Lab ne traite que des données non confidentielles. Les données sensibles passent par BercyHub.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Modèle éclaireur 3 temps -->
+          <h3 class="fr-mb-2w">Le modèle éclaireur : 3 temps</h3>
+          <p class="fr-mb-3w">Le Vibe Lab fonctionne comme un éclaireur : il explore rapidement, valide avec les utilisateurs, puis transmet à la filière pour industrialisation.</p>
+          <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-callout fr-callout--green-emeraude">
+                <h4 class="fr-callout__title">1. Explorer</h4>
+                <p class="fr-callout__text">Prototypage rapide en vibe coding (4h). L'agent métier exprime son besoin, l'IA génère le code. Premier livrable tangible immédiat.</p>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-callout fr-callout--blue-ecume">
+                <h4 class="fr-callout__title">2. Valider</h4>
+                <p class="fr-callout__text">Test utilisateur, scoring via la grille d'évaluation (/50), itérations. Si le score est suffisant, le projet passe au comité de priorisation.</p>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-callout">
+                <h4 class="fr-callout__title">3. Industrialiser</h4>
+                <p class="fr-callout__text">Transfert vers la filière SI classique ou vers BercyHub pour les données sensibles. Le prototype devient cahier des charges vivant.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- BercyHub -->
+          <h3 class="fr-mb-2w">Articulation avec BercyHub</h3>
+          <div class="fr-highlight">
+            <p>
+              <strong>BercyHub</strong> est le hub souverain d'IA du ministère pour les données sensibles. Le Vibe Lab et BercyHub sont complémentaires : le Lab explore avec des données non sensibles via des outils commerciaux (Claude, Copilot), puis transfère vers BercyHub quand le projet nécessite des données protégées. Une synchronisation trimestrielle assure la cohérence des deux démarches.
+            </p>
+          </div>
+        </div>
+
+        <!-- ======== PANEL : LES OUTILS ======== -->
+        <div id="panel-outils" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tab-outils">
+          <h2 class="fr-mb-3w">Les outils du Lab</h2>
+
+          <div class="fr-grid-row fr-grid-row--gutters">
+            <!-- ExcelExit -->
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h3 class="fr-card__title">
+                      <a href="docs/excelexit-vibe-lab.docx">ExcelExit</a>
+                    </h3>
+                    <p class="fr-card__detail fr-icon-arrow-right-s-line">Score : 47/50</p>
+                    <p class="fr-card__desc">
+                      Migration systématique des fichiers Excel critiques vers des applications collaboratives Grist avec interfaces web conformes DSFR. Premier projet du Lab, il démontre la viabilité de l'approche.
+                    </p>
+                  </div>
+                  <div class="fr-card__footer">
+                    <ul class="fr-tags-group">
+                      <li><p class="fr-tag">Infrastructure</p></li>
+                      <li><p class="fr-tag fr-tag--sm">Priorité haute</p></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Grille d'évaluation -->
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h3 class="fr-card__title">
+                      <a href="docs/grille-evaluation-vibe-lab.docx">Grille d'évaluation</a>
+                    </h3>
+                    <p class="fr-card__detail fr-icon-arrow-right-s-line">6 critères, scoring /50</p>
+                    <p class="fr-card__desc">
+                      Outil d'évaluation objectif des projets candidats. 6 critères d'entrée (tous obligatoires) et 6 critères pondérés sur 50 points : impact métier, faisabilité technique, alignement stratégique, maturité des données, potentiel d'industrialisation, risque maîtrisé.
+                    </p>
+                  </div>
+                  <div class="fr-card__footer">
+                    <ul class="fr-tags-group">
+                      <li><p class="fr-tag">Méthodologie</p></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Matrice de risques -->
+            <div class="fr-col-12 fr-col-md-4">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h3 class="fr-card__title">
+                      <a href="docs/matrice-risques-vibe-lab.docx">Matrice de risques</a>
+                    </h3>
+                    <p class="fr-card__detail fr-icon-arrow-right-s-line">Identification &amp; mitigation</p>
+                    <p class="fr-card__desc">
+                      Framework systématique d'identification des risques projet : techniques (qualité du code IA, dépendance fournisseur), organisationnels (résistance au changement, gouvernance), sécurité (données, conformité). Chaque risque a une probabilité, un impact et une mesure de mitigation.
+                    </p>
+                  </div>
+                  <div class="fr-card__footer">
+                    <ul class="fr-tags-group">
+                      <li><p class="fr-tag">Gouvernance</p></li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== PANEL : GOUVERNANCE ======== -->
+        <div id="panel-gouvernance" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tab-gouvernance">
+          <h2 class="fr-mb-3w">Gouvernance</h2>
+
+          <p class="fr-mb-3w">Le cadre de gouvernance assure que le Vibe Lab reste aligné avec la stratégie du ministère tout en conservant l'agilité nécessaire au prototypage rapide.</p>
+
+          <h3 class="fr-mb-2w">Instances de gouvernance</h3>
+          <div class="fr-table fr-mb-4w">
+            <div class="fr-table__wrapper">
+              <div class="fr-table__container">
+                <div class="fr-table__content">
+                  <table>
+                    <caption>Les trois instances du Vibe Lab</caption>
+                    <thead>
+                      <tr>
+                        <th scope="col">Instance</th>
+                        <th scope="col">Fréquence</th>
+                        <th scope="col">Participants</th>
+                        <th scope="col">Livrables</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <td><strong>Comité de priorisation</strong></td>
+                        <td>Mensuel</td>
+                        <td>Responsable Lab + sponsors métier + SNUM</td>
+                        <td>Backlog priorisé, arbitrages, Go/No-Go</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Revue trimestrielle</strong></td>
+                        <td>Trimestriel</td>
+                        <td>Direction SNUM + représentants métiers</td>
+                        <td>Bilan, KPIs, ajustements stratégiques</td>
+                      </tr>
+                      <tr>
+                        <td><strong>Synchronisation BercyHub</strong></td>
+                        <td>Trimestriel</td>
+                        <td>Responsable Lab + équipe BercyHub</td>
+                        <td>Transferts, cohérence IA souveraine</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="fr-mb-2w">Cycle de vie d'un projet</h3>
+          <div class="fr-grid-row fr-grid-row--gutters">
+            <div class="fr-col-12 fr-col-md-2">
+              <div class="fr-tile">
+                <div class="fr-tile__body">
+                  <div class="fr-tile__content">
+                    <h4 class="fr-tile__title">Demande</h4>
+                    <p class="fr-tile__desc">Expression du besoin métier</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-2">
+              <div class="fr-tile">
+                <div class="fr-tile__body">
+                  <div class="fr-tile__content">
+                    <h4 class="fr-tile__title">Évaluation</h4>
+                    <p class="fr-tile__desc">Scoring grille /50</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-2">
+              <div class="fr-tile">
+                <div class="fr-tile__body">
+                  <div class="fr-tile__content">
+                    <h4 class="fr-tile__title">Prototype</h4>
+                    <p class="fr-tile__desc">Vibe coding 4h</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-2">
+              <div class="fr-tile">
+                <div class="fr-tile__body">
+                  <div class="fr-tile__content">
+                    <h4 class="fr-tile__title">Test</h4>
+                    <p class="fr-tile__desc">Validation utilisateurs</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-2">
+              <div class="fr-tile">
+                <div class="fr-tile__body">
+                  <div class="fr-tile__content">
+                    <h4 class="fr-tile__title">Itération</h4>
+                    <p class="fr-tile__desc">Ajustements rapides</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-2">
+              <div class="fr-tile">
+                <div class="fr-tile__body">
+                  <div class="fr-tile__content">
+                    <h4 class="fr-tile__title">Décision</h4>
+                    <p class="fr-tile__desc">Industrialiser ou archiver</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== PANEL : KANBAN ======== -->
+        <div id="panel-kanban" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tab-kanban">
+          <div class="vl-kanban-header fr-mb-3w">
+            <h2 style="display:inline">Roadmap &amp; Suivi de projets</h2>
+            <button id="kanban-add-btn" class="fr-btn fr-btn--secondary fr-btn--sm fr-icon-add-line fr-btn--icon-left fr-ml-2w">
+              Nouveau projet
+            </button>
+          </div>
+
+          <div class="vl-kanban-board vl-kanban-board--6cols">
+            <div class="vl-kanban-column" data-column="propose">
+              <div class="vl-kanban-column-header">
+                <h3 class="fr-text--bold">Proposé</h3>
+                <span class="fr-badge fr-badge--sm vl-count" data-column="propose">0</span>
+              </div>
+              <div class="vl-kanban-cards" id="sortable-propose"></div>
+            </div>
+
+            <div class="vl-kanban-column" data-column="roadmap">
+              <div class="vl-kanban-column-header">
+                <h3 class="fr-text--bold">Dans roadmap</h3>
+                <span class="fr-badge fr-badge--sm fr-badge--blue-france vl-count" data-column="roadmap">0</span>
+              </div>
+              <div class="vl-kanban-cards" id="sortable-roadmap"></div>
+            </div>
+
+            <div class="vl-kanban-column" data-column="developpement">
+              <div class="vl-kanban-column-header">
+                <h3 class="fr-text--bold">En développement</h3>
+                <span class="fr-badge fr-badge--sm fr-badge--blue-ecume vl-count" data-column="developpement">0</span>
+              </div>
+              <div class="vl-kanban-cards" id="sortable-developpement"></div>
+            </div>
+
+            <div class="vl-kanban-column" data-column="test">
+              <div class="vl-kanban-column-header">
+                <h3 class="fr-text--bold">En test</h3>
+                <span class="fr-badge fr-badge--sm fr-badge--yellow-tournesol vl-count" data-column="test">0</span>
+              </div>
+              <div class="vl-kanban-cards" id="sortable-test"></div>
+            </div>
+
+            <div class="vl-kanban-column" data-column="candidat">
+              <div class="vl-kanban-column-header">
+                <h3 class="fr-text--bold">Candidat</h3>
+                <span class="fr-badge fr-badge--sm fr-badge--green-emeraude vl-count" data-column="candidat">0</span>
+              </div>
+              <div class="vl-kanban-cards" id="sortable-candidat"></div>
+            </div>
+
+            <div class="vl-kanban-column" data-column="deploye">
+              <div class="vl-kanban-column-header">
+                <h3 class="fr-text--bold">Déployé</h3>
+                <span class="fr-badge fr-badge--sm fr-badge--purple-glycine vl-count" data-column="deploye">0</span>
+              </div>
+              <div class="vl-kanban-cards" id="sortable-deploye"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- ======== PANEL : DOCUMENTS ======== -->
+        <div id="panel-documents" class="fr-tabs__panel" role="tabpanel" aria-labelledby="tab-documents">
+          <h2 class="fr-mb-3w">Documents &amp; Ressources</h2>
+          <p class="fr-mb-3w">L'ensemble des documents de référence du Vibe Lab, téléchargeables au format Word et PowerPoint.</p>
+
+          <h3 class="fr-mb-2w">Document de référence</h3>
+          <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+            <div class="fr-col-12">
+              <div class="fr-card fr-card--horizontal fr-card--shadow fr-enlarge-link" style="border-left:4px solid var(--blue-france-sun-113-625)">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title">
+                      <a href="docs/dossier-complet-vibe-lab.docx" download>Dossier complet Vibe Lab</a>
+                    </h4>
+                    <p class="fr-card__detail">DOCX — Document de synthèse</p>
+                    <p class="fr-card__desc">Document autonome fusionnant l'ensemble des travaux : constat, proposition, outils, gouvernance, risques, communication. Destiné à tous les publics.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="fr-mb-2w">Rapports par destinataire</h3>
+          <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title"><a href="docs/rapport-vibe-coding-snum.docx" download>Rapport SNUM</a></h4>
+                    <p class="fr-card__detail">DOCX</p>
+                    <p class="fr-card__desc">Rapport technique pour le chef de la SNUM</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title"><a href="docs/rapport-vibe-coding-miweb.docx" download>Rapport MIWEB</a></h4>
+                    <p class="fr-card__detail">DOCX</p>
+                    <p class="fr-card__desc">Rapport pour la Mission interministérielle du web</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title"><a href="docs/rapport-vibe-coding-communication.docx" download>Rapport DIRCOM</a></h4>
+                    <p class="fr-card__detail">DOCX</p>
+                    <p class="fr-card__desc">Rapport pour la direction de la communication</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-3">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body">
+                  <div class="fr-card__content">
+                    <h4 class="fr-card__title"><a href="docs/rapport-vibe-lab-sg.docx" download>Rapport SG</a></h4>
+                    <p class="fr-card__detail">DOCX</p>
+                    <p class="fr-card__desc">Rapport pour le secrétariat général</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="fr-mb-2w">Documents thématiques</h3>
+          <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body"><div class="fr-card__content">
+                  <h4 class="fr-card__title"><a href="docs/manifeste-vibe-lab.docx" download>Manifeste</a></h4>
+                  <p class="fr-card__detail">DOCX</p>
+                  <p class="fr-card__desc">Vision, principes et ambition du Vibe Lab</p>
+                </div></div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body"><div class="fr-card__content">
+                  <h4 class="fr-card__title"><a href="docs/gouvernance-vibe-lab.docx" download>Gouvernance</a></h4>
+                  <p class="fr-card__detail">DOCX</p>
+                  <p class="fr-card__desc">Cadre de gouvernance et instances de pilotage</p>
+                </div></div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body"><div class="fr-card__content">
+                  <h4 class="fr-card__title"><a href="docs/plan-communication-vibe-lab.docx" download>Plan de communication</a></h4>
+                  <p class="fr-card__detail">DOCX</p>
+                  <p class="fr-card__desc">Stratégie de communication sur 12 semaines</p>
+                </div></div>
+              </div>
+            </div>
+          </div>
+
+          <h3 class="fr-mb-2w">Présentations</h3>
+          <div class="fr-grid-row fr-grid-row--gutters">
+            <div class="fr-col-12 fr-col-md-6">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body"><div class="fr-card__content">
+                  <h4 class="fr-card__title"><a href="docs/presentation-vibe-lab.pptx" download>Présentation synthétique</a></h4>
+                  <p class="fr-card__detail">PPTX — 10 slides</p>
+                  <p class="fr-card__desc">Synthèse visuelle du dossier complet</p>
+                </div></div>
+              </div>
+            </div>
+            <div class="fr-col-12 fr-col-md-6">
+              <div class="fr-card fr-card--shadow fr-enlarge-link">
+                <div class="fr-card__body"><div class="fr-card__content">
+                  <h4 class="fr-card__title"><a href="docs/vibe-lab-pitch.pptx" download>Pitch deck</a></h4>
+                  <p class="fr-card__detail">PPTX</p>
+                  <p class="fr-card__desc">Présentation pitch pour les décideurs</p>
+                </div></div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </div><!-- fin fr-tabs -->
+    </div><!-- fin fr-container -->
+
+    <!-- FOOTER DSFR -->
+    <footer class="fr-footer fr-mt-8w" role="contentinfo" id="footer">
+      <div class="fr-container">
+        <div class="fr-footer__body">
+          <div class="fr-footer__brand fr-enlarge-link">
+            <p class="fr-logo">
+              République<br>Française
+            </p>
+            <a class="fr-footer__brand-link" href="#" title="Accueil - Vibe Lab">Vibe Lab</a>
+          </div>
+          <div class="fr-footer__content">
+            <p class="fr-footer__content-desc">
+              Vibe Lab — Laboratoire de prototypage augmenté par l'IA<br>
+              Ministères Économiques et Financiers — SNUM
+            </p>
+            <ul class="fr-footer__content-list">
+              <li class="fr-footer__content-item">
+                <a class="fr-footer__content-link" href="https://github.com/bmatge/vibe-lab-bercy" target="_blank" rel="noopener">
+                  Dépôt GitHub
+                </a>
+              </li>
+              <li class="fr-footer__content-item">
+                <a class="fr-footer__content-link" href="mailto:bertrand@matge.com">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="fr-footer__bottom">
+          <ul class="fr-footer__bottom-list">
+            <li class="fr-footer__bottom-item">
+              <span class="fr-footer__bottom-link">Accessibilité : partiellement conforme</span>
+            </li>
+            <li class="fr-footer__bottom-item">
+              <span class="fr-footer__bottom-link">Mentions légales</span>
+            </li>
+          </ul>
+          <div class="fr-footer__bottom-copy">
+            <p>Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous
+              <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener">licence etalab-2.0</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- fin main-app -->
+
+  <!-- ============================================================ -->
+  <!-- MODALE KANBAN (ajout / édition)                               -->
+  <!-- ============================================================ -->
+  <dialog id="kanban-modal" class="fr-modal" role="dialog" aria-labelledby="kanban-modal-title">
+    <div class="fr-container fr-container--fluid fr-container-md">
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+          <div class="fr-modal__body">
+            <div class="fr-modal__header">
+              <button class="fr-btn--close fr-btn" id="modal-close-btn" title="Fermer" aria-controls="kanban-modal">Fermer</button>
+            </div>
+            <div class="fr-modal__content">
+              <h1 id="kanban-modal-title" class="fr-modal__title">Nouveau projet</h1>
+
+              <div class="fr-input-group fr-mt-2w">
+                <label class="fr-label" for="card-title">Titre du projet *</label>
+                <input class="fr-input" type="text" id="card-title" required>
+              </div>
+
+              <div class="fr-input-group fr-mt-2w">
+                <label class="fr-label" for="card-description">Description</label>
+                <textarea class="fr-input" id="card-description" rows="3"></textarea>
+              </div>
+
+              <div class="fr-grid-row fr-grid-row--gutters fr-mt-2w">
+                <div class="fr-col-6">
+                  <div class="fr-select-group">
+                    <label class="fr-label" for="card-priority">Priorité</label>
+                    <select class="fr-select" id="card-priority">
+                      <option value="haute">Haute</option>
+                      <option value="moyenne" selected>Moyenne</option>
+                      <option value="basse">Basse</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="fr-col-6">
+                  <div class="fr-input-group">
+                    <label class="fr-label" for="card-category">Catégorie</label>
+                    <input class="fr-input" type="text" id="card-category" placeholder="Infrastructure, Outil...">
+                  </div>
+                </div>
+              </div>
+
+              <input type="hidden" id="card-column" value="backlog">
+              <input type="hidden" id="card-id" value="">
+            </div>
+            <div class="fr-modal__footer">
+              <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
+                <button class="fr-btn" id="modal-save-btn" type="button">Enregistrer</button>
+                <button class="fr-btn fr-btn--secondary" id="modal-cancel-btn" type="button">Annuler</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.module.min.js" type="module"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+  <script src="js/config.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/kanban.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
