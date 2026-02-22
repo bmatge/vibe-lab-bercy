@@ -46,9 +46,11 @@
 
   function convertList(ul, depth) {
     ul.classList.add('fr-sidemenu__list');
+    if (depth > 0) ul.classList.add('fr-sidemenu__list--nested');
     var items = ul.querySelectorAll(':scope > li');
     items.forEach(function(li) {
       li.classList.add('fr-sidemenu__item');
+      li.setAttribute('data-depth', depth);
       var a = li.querySelector(':scope > a');
       if (a) {
         a.classList.add('fr-sidemenu__link');
