@@ -1,6 +1,6 @@
 // ============================================================
 // Module Fiche Projet — Vibe Lab
-// Affichage détaillé, édition, GitHub API, screenshots
+// Affichage détaillé, édition inline, GitHub proxy, screenshots
 // ============================================================
 
 const Projet = (() => {
@@ -57,35 +57,23 @@ const Projet = (() => {
   // --- Rendu principal ---
   function renderCard() {
     document.getElementById('projet-loading').classList.add('vl-hidden');
-    document.getElementById('projet-content').classList.remove('vl-hidden');
+    const content = document.getElementById('projet-content');
+    content.classList.remove('vl-hidden');
+    content.setAttribute('data-mode', 'view');
 
-    // Titre
     document.getElementById('projet-title').textContent = card.title;
     document.title = card.title + ' — Vibe Lab';
 
-    // Badges
     renderBadges();
 
-    // Description
     const descEl = document.getElementById('projet-description');
     descEl.textContent = card.description || 'Aucune description.';
 
-    // Tableau d'infos
     renderInfoTable();
-
-    // Liens
     renderLinks();
-
-    // Stack
     renderStack();
-
-    // Métriques
     renderMetrics();
-
-    // Notes
     renderNotes();
-
-    // Screenshots
     renderScreenshots();
 
     // GitHub section
@@ -97,7 +85,7 @@ const Projet = (() => {
     }
   }
 
-  // --- Badges (statut + priorité + catégorie) ---
+  // --- Badges ---
   function renderBadges() {
     const container = document.getElementById('projet-badges');
     const statusLabels = {
@@ -124,7 +112,7 @@ const Projet = (() => {
     container.innerHTML = html;
   }
 
-  // --- Tableau d'informations ---
+  // --- Tableau d'infos ---
   function renderInfoTable() {
     const tbody = document.getElementById('projet-info-tbody');
     const rows = [
@@ -178,8 +166,8 @@ const Projet = (() => {
     empty.classList.add('vl-hidden');
     const tags = card.stack.split(',').map(t => t.trim()).filter(Boolean);
     container.innerHTML = tags.map(t =>
-      `<li><p class="fr-tag fr-tag--sm">${escapeHtml(t)}</p></li>`
-    ).join('');
+      `<span class="fr-tag fr-tag--sm">${escapeHtml(t)}</span>`
+    ).join(' ');
   }
 
   // --- Métriques ---
@@ -200,7 +188,7 @@ const Projet = (() => {
     }
     empty.classList.add('vl-hidden');
     container.innerHTML = filled.map(m => `
-      <div class="fr-col-${12 / Math.min(filled.length, 3)}">
+      <div class="fr-col-${Math.max(4, Math.floor(12 / filled.length))}">
         <div class="vl-kpi" style="padding:0.75rem 0.5rem">
           <span class="vl-kpi__value" style="font-size:1.25rem">${m.value}${m.suffix}</span>
           <span class="vl-kpi__label">${escapeHtml(m.label)}</span>
@@ -212,38 +200,13 @@ const Projet = (() => {
   // --- Notes ---
   function renderNotes() {
     const display = document.getElementById('projet-notes');
-    const editSection = document.getElementById('projet-notes-edit');
-    editSection.classList.add('vl-hidden');
     if (card.notes) {
       display.textContent = card.notes;
-      display.classList.remove('vl-hidden');
+      display.style.color = '';
     } else {
       display.textContent = 'Aucune note.';
       display.style.color = 'var(--text-mention-grey)';
-      display.classList.remove('vl-hidden');
     }
-  }
-
-  function startEditNotes() {
-    document.getElementById('projet-notes').classList.add('vl-hidden');
-    document.getElementById('projet-notes-edit-btn').classList.add('vl-hidden');
-    const editSection = document.getElementById('projet-notes-edit');
-    editSection.classList.remove('vl-hidden');
-    const textarea = document.getElementById('projet-notes-input');
-    textarea.value = card.notes || '';
-    textarea.focus();
-  }
-
-  function cancelEditNotes() {
-    document.getElementById('projet-notes-edit').classList.add('vl-hidden');
-    document.getElementById('projet-notes').classList.remove('vl-hidden');
-    document.getElementById('projet-notes-edit-btn').classList.remove('vl-hidden');
-  }
-
-  async function saveNotes() {
-    const notes = document.getElementById('projet-notes-input').value;
-    await updateCard({ notes });
-    cancelEditNotes();
   }
 
   // --- Screenshots ---
@@ -268,7 +231,6 @@ const Projet = (() => {
       </div>
     `).join('');
 
-    // Listeners
     container.querySelectorAll('.vl-projet-screenshot-delete').forEach(btn => {
       btn.addEventListener('click', (e) => {
         e.stopPropagation();
@@ -333,85 +295,9 @@ const Projet = (() => {
     document.body.appendChild(overlay);
   }
 
-  // --- GitHub API ---
-  async function fetchGitHubData() {
-    const match = (card.repo_url || '').match(/github\.com\/([^\/]+\/[^\/\?#]+)/);
-    if (!match) return;
-    const repoPath = match[1].replace(/\.git$/, '');
-
-    const statusEl = document.getElementById('projet-github-status');
-    const btn = document.getElementById('projet-github-fetch');
-    statusEl.textContent = 'Chargement…';
-    btn.disabled = true;
-
-    try {
-      const [langRes, repoRes] = await Promise.all([
-        fetch(`https://api.github.com/repos/${repoPath}/languages`),
-        fetch(`https://api.github.com/repos/${repoPath}`)
-      ]);
-
-      if (!langRes.ok || !repoRes.ok) {
-        throw new Error('GitHub API error ' + langRes.status);
-      }
-
-      const languages = await langRes.json();
-      const repoInfo = await repoRes.json();
-
-      const updates = {};
-
-      // Top 5 langages
-      const topLangs = Object.entries(languages)
-        .sort((a, b) => b[1] - a[1])
-        .slice(0, 5)
-        .map(([lang]) => lang);
-      if (topLangs.length > 0) {
-        updates.stack = topLangs.join(', ');
-      }
-
-      // Taille du repo en KB (approximation)
-      if (repoInfo.size) {
-        updates.loc = repoInfo.size;
-      }
-
-      if (Object.keys(updates).length > 0) {
-        await updateCard(updates);
-      }
-
-      statusEl.textContent = 'Mis à jour depuis GitHub (' + new Date().toLocaleTimeString('fr-FR') + ')';
-    } catch (e) {
-      console.error('GitHub fetch error:', e);
-      statusEl.textContent = 'Erreur lors de la récupération GitHub.';
-    } finally {
-      btn.disabled = false;
-    }
-  }
-
-  // --- Mise à jour carte ---
-  async function updateCard(updates) {
-    try {
-      const res = await fetch(API_BASE_URL + '/api/kanban/cards/' + cardId, {
-        method: 'PUT',
-        headers: apiHeaders(),
-        body: JSON.stringify(updates)
-      });
-      if (res.ok) {
-        const data = await res.json();
-        // Conserver les screenshots (pas retournés par PUT)
-        const screenshots = card.screenshots;
-        card = data.card;
-        card.screenshots = screenshots;
-        renderCard();
-      } else {
-        handleAuthError(res);
-      }
-    } catch (e) {
-      console.error('Update card error:', e);
-    }
-  }
-
-  // --- Modale d'édition ---
-  function openEditModal() {
-    const modal = document.getElementById('projet-modal');
+  // --- Mode édition inline ---
+  function startEdit() {
+    document.getElementById('projet-content').setAttribute('data-mode', 'edit');
 
     document.getElementById('pm-title').value = card.title || '';
     document.getElementById('pm-description').value = card.description || '';
@@ -428,19 +314,16 @@ const Projet = (() => {
     document.getElementById('pm-file-count').value = card.file_count != null ? card.file_count : '';
     document.getElementById('pm-repo-url').value = card.repo_url || '';
     document.getElementById('pm-prod-url').value = card.prod_url || '';
+    document.getElementById('pm-notes').value = card.notes || '';
 
-    modal.showModal ? modal.showModal() : modal.setAttribute('open', '');
-    modal.classList.add('fr-modal--opened');
     document.getElementById('pm-title').focus();
   }
 
-  function closeEditModal() {
-    const modal = document.getElementById('projet-modal');
-    modal.close ? modal.close() : modal.removeAttribute('open');
-    modal.classList.remove('fr-modal--opened');
+  function cancelEdit() {
+    document.getElementById('projet-content').setAttribute('data-mode', 'view');
   }
 
-  async function handleEditSave() {
+  async function saveEdit() {
     const title = document.getElementById('pm-title').value.trim();
     if (!title) { document.getElementById('pm-title').focus(); return; }
 
@@ -464,10 +347,91 @@ const Projet = (() => {
       file_count: fileCountVal ? parseInt(fileCountVal, 10) : null,
       repo_url: document.getElementById('pm-repo-url').value.trim(),
       prod_url: document.getElementById('pm-prod-url').value.trim(),
+      notes: document.getElementById('pm-notes').value,
     };
 
-    closeEditModal();
+    document.getElementById('projet-content').setAttribute('data-mode', 'view');
     await updateCard(updates);
+  }
+
+  // --- GitHub via proxy serveur ---
+  async function fetchGitHubData() {
+    const match = (card.repo_url || '').match(/github\.com\/([^\/]+\/[^\/\?#]+)/);
+    if (!match) return;
+    const repoPath = match[1].replace(/\.git$/, '');
+
+    const statusEl = document.getElementById('projet-github-status');
+    const btn = document.getElementById('projet-github-fetch');
+    statusEl.textContent = 'Chargement…';
+    btn.disabled = true;
+
+    try {
+      const [langRes, repoRes] = await Promise.all([
+        fetch(API_BASE_URL + '/api/github-proxy/' + repoPath + '/languages', {
+          headers: apiHeaders()
+        }),
+        fetch(API_BASE_URL + '/api/github-proxy/' + repoPath, {
+          headers: apiHeaders()
+        })
+      ]);
+
+      if (!langRes.ok || !repoRes.ok) {
+        const errData = await (langRes.ok ? repoRes : langRes).json().catch(() => ({}));
+        throw new Error(errData.error || 'Erreur GitHub (code ' + (langRes.ok ? repoRes.status : langRes.status) + ')');
+      }
+
+      const languages = await langRes.json();
+      const repoInfo = await repoRes.json();
+      const updates = {};
+
+      // Top 5 langages
+      const topLangs = Object.entries(languages)
+        .sort((a, b) => b[1] - a[1])
+        .slice(0, 5)
+        .map(([lang]) => lang);
+      if (topLangs.length > 0) {
+        updates.stack = topLangs.join(', ');
+      }
+
+      // Estimation LOC depuis les bytes de code
+      const totalBytes = Object.values(languages).reduce((sum, b) => sum + b, 0);
+      if (totalBytes > 0) {
+        updates.loc = Math.round(totalBytes / 40);
+      }
+
+      if (Object.keys(updates).length > 0) {
+        await updateCard(updates);
+      }
+
+      statusEl.textContent = 'Mis à jour (' + new Date().toLocaleTimeString('fr-FR') + ')';
+    } catch (e) {
+      console.error('GitHub fetch error:', e);
+      statusEl.textContent = 'Erreur : ' + e.message;
+    } finally {
+      btn.disabled = false;
+    }
+  }
+
+  // --- Mise à jour carte ---
+  async function updateCard(updates) {
+    try {
+      const res = await fetch(API_BASE_URL + '/api/kanban/cards/' + cardId, {
+        method: 'PUT',
+        headers: apiHeaders(),
+        body: JSON.stringify(updates)
+      });
+      if (res.ok) {
+        const data = await res.json();
+        const screenshots = card.screenshots;
+        card = data.card;
+        card.screenshots = screenshots;
+        renderCard();
+      } else {
+        handleAuthError(res);
+      }
+    } catch (e) {
+      console.error('Update card error:', e);
+    }
   }
 
   // --- Init ---
@@ -475,13 +439,10 @@ const Projet = (() => {
     cardId = id;
     await loadCard();
 
-    // Boutons principaux
-    document.getElementById('projet-edit-btn').addEventListener('click', openEditModal);
-
-    // Notes
-    document.getElementById('projet-notes-edit-btn').addEventListener('click', startEditNotes);
-    document.getElementById('projet-notes-save').addEventListener('click', saveNotes);
-    document.getElementById('projet-notes-cancel').addEventListener('click', cancelEditNotes);
+    // Boutons édition
+    document.getElementById('projet-edit-btn').addEventListener('click', startEdit);
+    document.getElementById('projet-save-btn').addEventListener('click', saveEdit);
+    document.getElementById('projet-cancel-btn').addEventListener('click', cancelEdit);
 
     // GitHub
     const ghBtn = document.getElementById('projet-github-fetch');
@@ -493,14 +454,6 @@ const Projet = (() => {
         uploadScreenshot(e.target.files[0]);
         e.target.value = '';
       }
-    });
-
-    // Modale
-    document.getElementById('projet-modal-save').addEventListener('click', handleEditSave);
-    document.getElementById('projet-modal-cancel').addEventListener('click', closeEditModal);
-    document.getElementById('projet-modal-close').addEventListener('click', closeEditModal);
-    document.getElementById('projet-modal').addEventListener('click', (e) => {
-      if (e.target === e.currentTarget) closeEditModal();
     });
   }
 

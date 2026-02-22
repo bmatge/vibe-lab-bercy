@@ -1,5 +1,8 @@
+import json as json_module
 import os
 import secrets
+import urllib.error
+import urllib.request
 from datetime import datetime, timezone
 
 from flask import Flask, send_from_directory, render_template, jsonify, request, g
@@ -302,6 +305,29 @@ def upload_screenshot(card_id):
         'id': screenshot_id, 'filename': safe_filename,
         'original_name': file.filename, 'created_at': now
     }), 201
+
+
+# ---------------------------------------------------------------------------
+# GitHub proxy (avoid CORS from browser)
+# ---------------------------------------------------------------------------
+
+@app.route('/api/github-proxy/<path:repo_path>')
+@require_auth
+def github_proxy(repo_path):
+    url = 'https://api.github.com/repos/' + repo_path
+    req = urllib.request.Request(url, headers={
+        'Accept': 'application/vnd.github.v3+json',
+        'User-Agent': 'VibeLab-Bercy/1.0'
+    })
+    try:
+        with urllib.request.urlopen(req, timeout=10) as response:
+            data = json_module.loads(response.read().decode())
+            return jsonify(data)
+    except urllib.error.HTTPError as e:
+        body = e.read().decode() if e.fp else '{}'
+        return jsonify(error='GitHub API: ' + str(e.code)), e.code
+    except Exception as e:
+        return jsonify(error=str(e)), 502
 
 
 @app.route('/api/kanban/cards/<card_id>/screenshots/<screenshot_id>', methods=['DELETE'])

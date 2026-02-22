@@ -320,6 +320,15 @@ a.vl-kanban-card-title:hover {
   text-decoration: underline;
 }
 
+/* --- Project Detail Page — Edit mode toggle --- */
+#projet-content:not([data-mode="edit"]) .vl-edit-only {
+  display: none !important;
+}
+
+#projet-content[data-mode="edit"] .vl-view-only {
+  display: none !important;
+}
+
 /* --- Project Detail Page --- */
 .vl-projet-header {
   display: flex;
@@ -345,6 +354,13 @@ a.vl-kanban-card-title:hover {
   font-weight: 700;
   margin: 0 0 0.75rem 0;
   color: var(--text-default-grey, #3a3a3a);
+}
+
+/* Stack tags layout (sans puces) */
+#projet-stack {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
 }
 
 /* Screenshot gallery */
