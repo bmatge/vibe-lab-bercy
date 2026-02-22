@@ -1,64 +1,87 @@
 {% extends "base.html" %}
 
 {% block content %}
-  <div class="vl-hero fr-py-6w">
-    <h2 class="fr-mb-2w">Vibe Lab</h2>
-    <p class="fr-text--xl fr-mb-4w">
-      Transformer la fabrique numérique du ministère grâce au prototypage augmenté par l'IA.
-    </p>
-
+  <!-- Hero compact -->
+  <div class="vl-hero fr-py-4w">
+    <div class="fr-grid-row fr-grid-row--gutters fr-grid-row--middle">
+      <div class="fr-col-12 fr-col-md-7">
+        <h2 class="fr-mb-1w">Vibe Lab</h2>
+        <p class="fr-text--xl fr-mb-2w">
+          Transformer la fabrique numérique du ministère grâce au prototypage augmenté par l'IA.
+        </p>
+        <p class="fr-text--lg" style="color: var(--text-mention-grey)">
+          Le Vibe Lab utilise le <strong>vibe coding</strong> — l'agent métier exprime son besoin en langage naturel, l'IA génère le code — pour produire des prototypes fonctionnels en quelques heures au lieu de plusieurs semaines.
+        </p>
+      </div>
+      <div class="fr-col-12 fr-col-md-5">
+        <div class="fr-grid-row fr-grid-row--gutters">
+          <div class="fr-col-6">
+            <div class="vl-kpi">
+              <span class="vl-kpi__value">4h</span>
+              <span class="vl-kpi__label">par prototype</span>
+            </div>
+          </div>
+          <div class="fr-col-6">
+            <div class="vl-kpi">
+              <span class="vl-kpi__value">800 &euro;</span>
+              <span class="vl-kpi__label">coût complet</span>
+            </div>
+          </div>
+          <div class="fr-col-6">
+            <div class="vl-kpi">
+              <span class="vl-kpi__value">x18</span>
+              <span class="vl-kpi__label">plus rapide</span>
+            </div>
+          </div>
+          <div class="fr-col-6">
+            <div class="vl-kpi">
+              <span class="vl-kpi__value">0</span>
+              <span class="vl-kpi__label">marché public</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 
-  <!-- Promesse du Vibe Lab -->
-  <div class="fr-highlight fr-mt-4w fr-mb-4w">
-    <p>
-      Le Vibe Lab est un laboratoire interne au sein de la SNUM. Il utilise le <strong>vibe coding</strong> — une approche où l'agent métier exprime son besoin en langage naturel et l'IA génère le code — pour produire des prototypes fonctionnels en quelques heures au lieu de plusieurs semaines.
-    </p>
-  </div>
+  <hr class="fr-mt-2w fr-mb-4w">
 
-  <h3 class="fr-mb-2w">La promesse</h3>
-  <p class="fr-mb-3w">
-    Donner à chaque agent du ministère le pouvoir de transformer une idée en prototype fonctionnel en une demi-journée, sans compétence technique préalable, sans marché public, sans dette technique. Le Vibe Lab ne remplace pas la DSI — il lui fournit des cahiers des charges vivants, testés par les utilisateurs, prêts à industrialiser.
-  </p>
-
-  <h3 class="fr-mb-2w">Nos valeurs</h3>
+  <!-- Promesse + Valeurs côte à côte -->
   <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
-    <div class="fr-col-12 fr-col-md-3">
-      <div class="fr-tile">
-        <div class="fr-tile__body">
-          <div class="fr-tile__content">
-            <h4 class="fr-tile__title">Transparence</h4>
-            <p class="fr-tile__desc">Code ouvert, résultats publiés, tout est auditable et reproductible.</p>
+    <div class="fr-col-12 fr-col-md-6">
+      <h3 class="fr-mb-2w">La promesse</h3>
+      <p>
+        Donner à chaque agent du ministère le pouvoir de transformer une idée en prototype fonctionnel en une demi-journée, sans compétence technique préalable, sans marché public, sans dette technique.
+      </p>
+      <p class="fr-mt-1w" style="color: var(--text-mention-grey)">
+        Le Vibe Lab ne remplace pas la DSI — il lui fournit des cahiers des charges vivants, testés par les utilisateurs, prêts à industrialiser.
+      </p>
+    </div>
+    <div class="fr-col-12 fr-col-md-6">
+      <h3 class="fr-mb-2w">Nos valeurs</h3>
+      <div class="fr-grid-row fr-grid-row--gutters">
+        <div class="fr-col-6">
+          <div class="vl-value">
+            <h4 class="vl-value__title">Transparence</h4>
+            <p class="vl-value__desc">Code ouvert, résultats publiés, tout est auditable.</p>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="fr-col-12 fr-col-md-3">
-      <div class="fr-tile">
-        <div class="fr-tile__body">
-          <div class="fr-tile__content">
-            <h4 class="fr-tile__title">Frugalité</h4>
-            <p class="fr-tile__desc">800 euros par prototype. Pas de marché public, pas de prestation externe.</p>
+        <div class="fr-col-6">
+          <div class="vl-value">
+            <h4 class="vl-value__title">Frugalité</h4>
+            <p class="vl-value__desc">800 euros par prototype. Zéro prestation externe.</p>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="fr-col-12 fr-col-md-3">
-      <div class="fr-tile">
-        <div class="fr-tile__body">
-          <div class="fr-tile__content">
-            <h4 class="fr-tile__title">Autonomie métier</h4>
-            <p class="fr-tile__desc">L'agent métier pilote son prototype. L'IA code, l'humain décide.</p>
+        <div class="fr-col-6">
+          <div class="vl-value">
+            <h4 class="vl-value__title">Autonomie métier</h4>
+            <p class="vl-value__desc">L'agent métier pilote. L'IA code, l'humain décide.</p>
           </div>
         </div>
-      </div>
-    </div>
-    <div class="fr-col-12 fr-col-md-3">
-      <div class="fr-tile">
-        <div class="fr-tile__body">
-          <div class="fr-tile__content">
-            <h4 class="fr-tile__title">Réversibilité</h4>
-            <p class="fr-tile__desc">Aucune dépendance. Si le Lab s'arrête, les outils existants continuent.</p>
+        <div class="fr-col-6">
+          <div class="vl-value">
+            <h4 class="vl-value__title">Réversibilité</h4>
+            <p class="vl-value__desc">Aucune dépendance. Si le Lab s'arrête, tout continue.</p>
           </div>
         </div>
       </div>

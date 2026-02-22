@@ -40,13 +40,46 @@
   font-size: 2rem;
 }
 
-.vl-hero .fr-callout {
+/* --- KPI cards (accueil) --- */
+.vl-kpi {
+  background: var(--background-alt-grey, #f6f6f6);
+  border-radius: 8px;
+  padding: 1.25rem 1rem;
   text-align: center;
 }
 
-.vl-hero .fr-callout__title {
-  color: var(--blue-france-sun-113-625, #000091);
+.vl-kpi__value {
+  display: block;
   font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--blue-france-sun-113-625, #000091);
+  line-height: 1.2;
+}
+
+.vl-kpi__label {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--text-mention-grey, #666);
+  margin-top: 0.25rem;
+}
+
+/* --- Value cards (accueil) --- */
+.vl-value {
+  padding: 0.75rem 0;
+}
+
+.vl-value__title {
+  font-size: 0.9rem;
+  font-weight: 700;
+  margin: 0 0 0.25rem 0;
+  color: var(--blue-france-sun-113-625, #000091);
+}
+
+.vl-value__desc {
+  font-size: 0.85rem;
+  color: var(--text-mention-grey, #666);
+  margin: 0;
+  line-height: 1.4;
 }
 
 /* --- Kanban Board --- */
@@ -285,7 +318,7 @@ dialog.fr-modal .fr-modal__footer {
     font-size: 1.75rem;
   }
 
-  .vl-hero .fr-callout__title {
+  .vl-kpi__value {
     font-size: 1.25rem;
   }
 }
