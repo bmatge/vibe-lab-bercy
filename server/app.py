@@ -26,6 +26,19 @@ with app.app_context():
     init_db()
 
 # ---------------------------------------------------------------------------
+# Anti-cache sur les pages HTML (dev + déploiement rapide)
+# ---------------------------------------------------------------------------
+
+@app.after_request
+def add_no_cache(response):
+    if response.content_type and 'text/html' in response.content_type:
+        response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
+        response.headers['Pragma'] = 'no-cache'
+        response.headers['Expires'] = '0'
+    return response
+
+
+# ---------------------------------------------------------------------------
 # Pages (Jinja2 templates)
 # ---------------------------------------------------------------------------
 
