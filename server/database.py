@@ -114,6 +114,7 @@ def init_db():
 
     _migrate_kanban_columns(db)
     _migrate_project_detail_columns(db)
+    _migrate_scoring_columns(db)
     _seed_default_user(db)
     _seed_kanban_cards(db)
     db.close()
@@ -143,6 +144,38 @@ def _migrate_project_detail_columns(db):
         ('dev_duration', "TEXT DEFAULT ''"),
         ('dev_duration_real', "TEXT DEFAULT ''"),
         ('commit_count', 'INTEGER DEFAULT NULL'),
+    ]
+    for col_name, col_def in new_columns:
+        try:
+            db.execute(f'ALTER TABLE kanban_cards ADD COLUMN {col_name} {col_def}')
+            db.commit()
+        except sqlite3.OperationalError:
+            pass  # colonne existe deja
+
+
+def _migrate_scoring_columns(db):
+    """Ajoute les colonnes d'évaluation/scoring si absentes (migration)."""
+    new_columns = [
+        # 6 critères d'entrée (0/1)
+        ('entry_sponsor', 'INTEGER DEFAULT NULL'),
+        ('entry_besoin', 'INTEGER DEFAULT NULL'),
+        ('entry_donnees', 'INTEGER DEFAULT NULL'),
+        ('entry_hors_bercyhub', 'INTEGER DEFAULT NULL'),
+        ('entry_pas_existant', 'INTEGER DEFAULT NULL'),
+        ('entry_prototypable', 'INTEGER DEFAULT NULL'),
+        # 6 notes de scoring (1-5)
+        ('score_impact', 'INTEGER DEFAULT NULL'),
+        ('score_urgence', 'INTEGER DEFAULT NULL'),
+        ('score_donnees', 'INTEGER DEFAULT NULL'),
+        ('score_visibilite', 'INTEGER DEFAULT NULL'),
+        ('score_complexite', 'INTEGER DEFAULT NULL'),
+        ('score_reutilisabilite', 'INTEGER DEFAULT NULL'),
+        # Agrégats calculés
+        ('score_total', 'INTEGER DEFAULT NULL'),
+        ('entry_criteria_met', 'INTEGER DEFAULT NULL'),
+        # Métadonnées évaluation
+        ('evaluated_at', 'TEXT DEFAULT NULL'),
+        ('evaluation_notes', "TEXT DEFAULT ''"),
     ]
     for col_name, col_def in new_columns:
         try:

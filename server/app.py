@@ -70,6 +70,11 @@ def page_documents():
     return render_template('documents.html', current_page='documents')
 
 
+@app.route('/backlog')
+def page_backlog():
+    return render_template('backlog.html', current_page='backlog')
+
+
 @app.route('/projet/<card_id>')
 def page_projet(card_id):
     return render_template('projet.html', current_page='kanban', card_id=card_id)
@@ -279,7 +284,13 @@ def update_card(card_id):
     allowed = ('title', 'description', 'priority', 'category', 'column_name', 'position',
                'repo_url', 'prod_url', 'stack', 'loc', 'test_coverage', 'file_count',
                'notes', 'target_audience', 'potential_users', 'sponsor', 'dev_duration',
-               'dev_duration_real', 'commit_count')
+               'dev_duration_real', 'commit_count',
+               'entry_sponsor', 'entry_besoin', 'entry_donnees',
+               'entry_hors_bercyhub', 'entry_pas_existant', 'entry_prototypable',
+               'score_impact', 'score_urgence', 'score_donnees',
+               'score_visibilite', 'score_complexite', 'score_reutilisabilite',
+               'score_total', 'entry_criteria_met',
+               'evaluated_at', 'evaluation_notes')
     updates = {k: data[k] for k in allowed if k in data}
     if not updates:
         return jsonify(card=dict(existing))
@@ -312,6 +323,85 @@ def delete_card(card_id):
     db.execute('DELETE FROM kanban_cards WHERE id = ?', (card_id,))
     db.commit()
     return jsonify(ok=True)
+
+
+# ---------------------------------------------------------------------------
+# Backlog API
+# ---------------------------------------------------------------------------
+
+@app.route('/api/backlog/cards')
+@require_auth
+def list_backlog_cards():
+    db = get_db()
+    rows = db.execute('''
+        SELECT * FROM kanban_cards
+        WHERE column_name IN ('propose', 'roadmap')
+           OR score_total IS NOT NULL
+        ORDER BY
+            CASE WHEN score_total IS NOT NULL THEN 0 ELSE 1 END,
+            score_total DESC,
+            created_at DESC
+    ''').fetchall()
+    return jsonify(cards=[dict(r) for r in rows])
+
+
+@app.route('/api/kanban/cards/<card_id>/evaluate', methods=['PUT'])
+@require_auth
+def evaluate_card(card_id):
+    data = request.get_json(silent=True) or {}
+    db = get_db()
+
+    existing = db.execute('SELECT * FROM kanban_cards WHERE id = ?', (card_id,)).fetchone()
+    if not existing:
+        return jsonify(error='Carte non trouvee'), 404
+
+    entry_fields = ['entry_sponsor', 'entry_besoin', 'entry_donnees',
+                    'entry_hors_bercyhub', 'entry_pas_existant', 'entry_prototypable']
+    score_fields = ['score_impact', 'score_urgence', 'score_donnees',
+                    'score_visibilite', 'score_complexite', 'score_reutilisabilite']
+    weights = {'score_impact': 3, 'score_urgence': 2, 'score_donnees': 2,
+               'score_visibilite': 1, 'score_complexite': 1, 'score_reutilisabilite': 1}
+
+    updates = {}
+
+    # Critères d'entrée
+    for f in entry_fields:
+        if f in data:
+            updates[f] = 1 if data[f] else 0
+
+    # Notes de scoring (1-5)
+    for f in score_fields:
+        if f in data and data[f] is not None:
+            val = int(data[f])
+            if val < 1 or val > 5:
+                return jsonify(error=f'{f} doit etre entre 1 et 5'), 400
+            updates[f] = val
+
+    # Calculer entry_criteria_met
+    merged_entry = {f: updates.get(f, existing[f]) for f in entry_fields}
+    all_filled = all(merged_entry[f] is not None for f in entry_fields)
+    all_met = all(merged_entry[f] == 1 for f in entry_fields if merged_entry[f] is not None)
+    updates['entry_criteria_met'] = 1 if (all_filled and all_met) else 0
+
+    # Calculer score_total
+    merged_scores = {f: updates.get(f, existing[f]) for f in score_fields}
+    if all(merged_scores[f] is not None for f in score_fields):
+        updates['score_total'] = sum(merged_scores[f] * weights[f] for f in score_fields)
+    elif any(merged_scores[f] is not None for f in score_fields):
+        updates['score_total'] = sum((merged_scores[f] or 0) * weights[f] for f in score_fields)
+
+    if 'evaluation_notes' in data:
+        updates['evaluation_notes'] = data['evaluation_notes']
+    updates['evaluated_at'] = _now()
+    updates['updated_at'] = _now()
+
+    set_clause = ', '.join(f'{k} = ?' for k in updates)
+    values = list(updates.values()) + [card_id]
+    db.execute(f'UPDATE kanban_cards SET {set_clause} WHERE id = ?', values)
+    db.commit()
+
+    card = db.execute('SELECT * FROM kanban_cards WHERE id = ?', (card_id,)).fetchone()
+    return jsonify(card=dict(card))
 
 
 # ---------------------------------------------------------------------------

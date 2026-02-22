@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+
+{% block title %}Backlog — Vibe Lab{% endblock %}
+
+{% block content %}
+  <h2 class="fr-mb-3w">Backlog — Comité d'évaluation</h2>
+  <p class="fr-text--sm fr-mb-3w" style="color:var(--text-mention-grey)">Outil de travail pour le comité mensuel de priorisation des projets.</p>
+
+  <div class="fr-tabs">
+    <ul class="fr-tabs__list" role="tablist" aria-label="Onglets du backlog">
+      <li role="presentation">
+        <button id="tabpanel-backlog-tab" class="fr-tabs__tab"
+                tabindex="0" role="tab" aria-selected="true"
+                aria-controls="tabpanel-backlog">
+          Backlog
+        </button>
+      </li>
+      <li role="presentation">
+        <button id="tabpanel-evaluer-tab" class="fr-tabs__tab"
+                tabindex="-1" role="tab" aria-selected="false"
+                aria-controls="tabpanel-evaluer">
+          Évaluer un projet
+        </button>
+      </li>
+      <li role="presentation">
+        <button id="tabpanel-saisir-tab" class="fr-tabs__tab"
+                tabindex="-1" role="tab" aria-selected="false"
+                aria-controls="tabpanel-saisir">
+          Saisir un projet
+        </button>
+      </li>
+    </ul>
+
+    <!-- TAB 1: Backlog table -->
+    <div id="tabpanel-backlog" class="fr-tabs__panel fr-tabs__panel--selected"
+         role="tabpanel" aria-labelledby="tabpanel-backlog-tab" tabindex="0">
+      <div id="backlog-table-container">
+        <p>Chargement du backlog…</p>
+      </div>
+    </div>
+
+    <!-- TAB 2: Évaluer un projet -->
+    <div id="tabpanel-evaluer" class="fr-tabs__panel"
+         role="tabpanel" aria-labelledby="tabpanel-evaluer-tab" tabindex="0">
+      <div id="backlog-eval-container"></div>
+    </div>
+
+    <!-- TAB 3: Saisir un projet -->
+    <div id="tabpanel-saisir" class="fr-tabs__panel"
+         role="tabpanel" aria-labelledby="tabpanel-saisir-tab" tabindex="0">
+      <div id="backlog-form-container"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block page_scripts %}
+  <script src="/js/backlog.js"></script>
+  <script>
+    document.addEventListener('vl:app-shown', function () {
+      Backlog.init();
+    });
+  </script>
+{% endblock %}

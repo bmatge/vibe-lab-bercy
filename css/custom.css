@@ -703,3 +703,95 @@ a.vl-kanban-card-title:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 }
+
+/* ============================================================
+   Backlog / Évaluation
+   ============================================================ */
+
+.vl-backlog-score {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: var(--blue-france-sun-113-625, #000091);
+  line-height: 1.2;
+}
+
+.vl-backlog-score--pass {
+  color: var(--success-425-625, #18753c);
+}
+
+.vl-backlog-score--fail {
+  color: var(--error-425-625, #ce0500);
+}
+
+.vl-backlog-threshold {
+  font-size: 0.875rem;
+  color: var(--text-mention-grey, #666);
+  margin-top: 0.25rem;
+}
+
+/* Scoring grid hover */
+.vl-eval-grid tbody tr:hover {
+  background: var(--blue-france-975-75, #f5f5fe);
+}
+
+.vl-eval-weighted {
+  font-weight: 700;
+  text-align: center;
+  min-width: 3rem;
+}
+
+/* Entry criteria 2-col grid */
+.vl-entry-criteria {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 768px) {
+  .vl-entry-criteria {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Entry result badge */
+.vl-entry-result {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.75rem 1rem;
+  border-radius: 0.25rem;
+  font-weight: 600;
+}
+
+.vl-entry-result--pass {
+  background: var(--success-950-100, #e6faf0);
+  color: var(--success-425-625, #18753c);
+}
+
+.vl-entry-result--fail {
+  background: var(--error-950-100, #fef4f4);
+  color: var(--error-425-625, #ce0500);
+}
+
+/* Sortable table headers */
+.vl-sortable-header {
+  cursor: pointer;
+  user-select: none;
+  white-space: nowrap;
+}
+
+.vl-sortable-header:hover {
+  color: var(--blue-france-sun-113-625, #000091);
+}
+
+.vl-sort-indicator {
+  margin-left: 0.25rem;
+  font-size: 0.75rem;
+}
+
+/* Print: only show backlog table */
+@media print {
+  .fr-tabs__list { display: none !important; }
+  .fr-tabs__panel { display: block !important; opacity: 1 !important; max-height: none !important; }
+  .fr-tabs__panel:not(#tabpanel-backlog) { display: none !important; }
+}
