@@ -246,7 +246,21 @@ dialog.fr-modal .fr-modal__body {
   border-radius: 8px;
   padding: 2rem;
   max-height: 90vh;
+  display: flex;
+  flex-direction: column;
+}
+
+dialog.fr-modal .fr-modal__content {
+  flex: 1;
   overflow-y: auto;
+}
+
+dialog.fr-modal .fr-modal__footer {
+  position: relative;
+  background: #fff;
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--border-default-grey, #e5e5e5);
+  margin-top: 1rem;
 }
 
 /* --- Cards enhancements --- */
