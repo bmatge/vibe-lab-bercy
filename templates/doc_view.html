@@ -44,23 +44,21 @@
   var tocUl = nav.querySelector('.fr-collapse > ul');
   if (!tocUl) return;
 
-  function convertList(ul, depth) {
+  function convertList(ul) {
     ul.classList.add('fr-sidemenu__list');
-    if (depth > 0) ul.classList.add('fr-sidemenu__list--nested');
     var items = ul.querySelectorAll(':scope > li');
     items.forEach(function(li) {
       li.classList.add('fr-sidemenu__item');
-      li.setAttribute('data-depth', depth);
       var a = li.querySelector(':scope > a');
       if (a) {
         a.classList.add('fr-sidemenu__link');
         a.setAttribute('target', '_self');
       }
       var subUl = li.querySelector(':scope > ul');
-      if (subUl) convertList(subUl, depth + 1);
+      if (subUl) convertList(subUl);
     });
   }
-  convertList(tocUl, 0);
+  convertList(tocUl);
 
   // Highlight active section on scroll
   var links = nav.querySelectorAll('a.fr-sidemenu__link');
