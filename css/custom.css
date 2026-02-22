@@ -463,6 +463,108 @@ a.vl-kanban-card-title:hover {
   }
 }
 
+/* --- Document viewer --- */
+.vl-doc-sidemenu {
+  position: sticky;
+  top: 1rem;
+  max-height: calc(100vh - 2rem);
+  overflow-y: auto;
+}
+
+.vl-doc-content {
+  line-height: 1.8;
+  font-size: 1rem;
+}
+
+.vl-doc-content h1 {
+  font-size: 1.75rem;
+  color: var(--blue-france-sun-113-625, #000091);
+  margin: 2rem 0 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid var(--blue-france-sun-113-625, #000091);
+}
+
+.vl-doc-content h2 {
+  font-size: 1.35rem;
+  color: var(--blue-france-sun-113-625, #000091);
+  margin: 1.75rem 0 0.75rem;
+  padding-bottom: 0.25rem;
+  border-bottom: 1px solid var(--border-default-grey, #e5e5e5);
+}
+
+.vl-doc-content h3 {
+  font-size: 1.1rem;
+  margin: 1.5rem 0 0.5rem;
+}
+
+.vl-doc-content p {
+  margin: 0.5rem 0 1rem;
+}
+
+.vl-doc-content ul,
+.vl-doc-content ol {
+  margin: 0.5rem 0 1rem 1.5rem;
+}
+
+.vl-doc-content li {
+  margin-bottom: 0.35rem;
+}
+
+.vl-doc-content table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 1rem 0;
+  font-size: 0.9rem;
+}
+
+.vl-doc-content th,
+.vl-doc-content td {
+  border: 1px solid var(--border-default-grey, #e5e5e5);
+  padding: 0.5rem 0.75rem;
+  text-align: left;
+}
+
+.vl-doc-content th {
+  background: var(--background-alt-grey, #f6f6f6);
+  font-weight: 700;
+}
+
+.vl-doc-content tr:nth-child(even) {
+  background: var(--background-alt-grey, #f6f6f6);
+}
+
+.vl-doc-content blockquote {
+  border-left: 4px solid var(--blue-france-sun-113-625, #000091);
+  margin: 1rem 0;
+  padding: 0.5rem 1rem;
+  background: var(--blue-france-975-75, #f5f5fe);
+  color: var(--text-default-grey, #3a3a3a);
+}
+
+.vl-doc-content strong {
+  color: var(--text-title-grey, #161616);
+}
+
+.vl-doc-content code {
+  background: var(--background-alt-grey, #f6f6f6);
+  padding: 0.15rem 0.4rem;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+
+.vl-doc-content hr {
+  border: none;
+  border-top: 1px solid var(--border-default-grey, #e5e5e5);
+  margin: 2rem 0;
+}
+
+@media (max-width: 768px) {
+  .vl-doc-sidemenu {
+    position: static;
+    max-height: none;
+  }
+}
+
 /* --- Print styles --- */
 @media print {
   .vl-login,

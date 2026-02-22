@@ -133,10 +133,13 @@ def view_doc(slug):
         return 'Document non trouvé', 404
     with open(md_path, encoding='utf-8') as f:
         md_text = f.read()
-    html = markdown.markdown(md_text, extensions=['tables', 'toc', 'fenced_code'])
+    md = markdown.Markdown(extensions=['tables', 'toc', 'fenced_code'],
+                           extension_configs={'toc': {'toc_depth': '1-3'}})
+    html = md.convert(md_text)
+    toc_html = md.toc
     title = DOC_TITLES.get(safe, safe)
-    return render_template('doc_view.html', content_html=html, title=title,
-                           slug=safe, current_page='documents')
+    return render_template('doc_view.html', content_html=html, toc_html=toc_html,
+                           title=title, slug=safe, current_page='documents')
 
 
 @app.route('/docs/export/<slug>.docx')

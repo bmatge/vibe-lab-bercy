@@ -1,241 +1,229 @@
-Vibe Lab — MIWEB / SNUM
-Ministère de l’Économie et des Finances — Février 2026
+# ExcelExit — Transformer les fichiers Excel du ministere en applications collaboratives Grist
 
-# 1. Le problème
+**Note de cadrage projet** | Vibe Lab — MIWEB / SNUM
+Ministere de l'Economie et des Finances — Fevrier 2026
 
-Dans chaque direction, chaque bureau, chaque service, des fichiers Excel assurent des fonctions critiques : suivi d’activité, planification, reporting, calculs métier, tableaux de bord, listes de contacts, historiques. Certains ont 10 ou 15 ans. Certains contiennent des macros VBA que plus personne ne comprend. Certains sont le seul endroit où une information critique existe.
-Et ils partagent tous les mêmes problèmes :
+> Chaque direction du ministere a ses dizaines de fichiers Excel critiques. Sans versioning, sans partage, sans interface, sans audit trail. Quand la personne qui les maintient s'en va, c'est la crise silencieuse.
+>
+> ExcelExit propose une migration systematique vers Grist (grist.numerique.gouv.fr) — infrastructure interministerielle deja en place — avec des interfaces web DSFR generees par le Vibe Lab. **La valeur repose dans les donnees et les formules. L'interface est un bonus jetable.**
 
-Pourquoi personne n’a résolu ce problème ? Parce que migrer un fichier Excel vers une application web coûte classiquement entre 10 000 et 50 000 € en prestation. Pour un seul fichier. Quand il y en a des centaines, le calcul s’arrête là. On vit avec le risque.
-# 2. La solution : Grist + Vibe Lab
-## 2.1 Grist : l’infrastructure existe déjà
+---
 
-Grist est un tableur collaboratif open source (licence Apache 2.0) qui combine la familiarité d’un tableur avec la puissance d’une base de données relationnelle :
+## 1. Le probleme
 
-## 2.2 Le rôle du Vibe Lab
-Grist résout le problème de la donnée. Le Vibe Lab résout le problème de l’adoption, de la migration et de l’expérience utilisateur.
+Dans chaque direction, chaque bureau, chaque service, des fichiers Excel assurent des fonctions critiques : suivi d'activite, planification, reporting, calculs metier, tableaux de bord, listes de contacts, historiques. Certains ont 10 ou 15 ans. Certains contiennent des macros VBA que plus personne ne comprend. Certains sont le seul endroit ou une information critique existe.
 
-# 3. Où est la valeur
+Et ils partagent tous les memes problemes :
 
-Cette architecture à deux couches est la clé de la pérennité :
-
-C’est l’exact inverse du modèle Excel : dans un fichier Excel, les données, la logique et l’interface sont fusionnées dans un seul objet opaque. Si l’interface est cassée, tout est cassé. Dans le modèle ExcelExit, chaque couche est indépendante et remplaçable.
-# 4. Avant / Après : exemples concrets
-▶ Tableau de suivi d’activité d’un bureau
-
-▶ Fichier de reporting avec macros VBA
-
-▶ Annuaire / référentiel métier
-
-# 5. Modèle de passage à l’échelle
-
-## 5.1 Catégorisation des fichiers
-Tous les fichiers Excel ne se valent pas. La première étape est un diagnostic automatisé qui catégorise chaque fichier selon sa complexité :
-
-## 5.2 Effet de réseau
-Le modèle de scaling repose sur deux mécanismes :
-
-# 6. Scoring sur la grille Vibe Lab
-Application de la grille d’évaluation du Vibe Lab au projet ExcelExit :
-
-# 7. Positionnement
-## 7.1 Par rapport à BercyHub
-
-## 7.2 Par rapport à la DSI
-
-## 7.3 Par rapport à la DINUM
-
-# 8. Plan de déploiement
-
-# 9. Ce qu’ExcelExit ne fait pas
-# 10. En résumé
-
-Le ministère de l’Économie a des centaines de fichiers Excel dont le maintien repose sur la mémoire d’un agent. Chaque départ en retraite, chaque mutation, chaque réorganisation est un risque de perte silencieuse.
-
-ExcelExit transforme ce risque en opportunité. Pas en remplaçant Excel par un système lourd, mais en portant les données vers une plateforme ouverte, collaborative et souveraine — avec, en prime, des interfaces qui rendent le quotidien des agents plus agréable.
-
-Et si l’interface disparaît un jour, les données restent. C’est toute la différence.
-
-| NOTE DE CADRAGE PROJET
-ExcelExit
-Transformer les fichiers Excel du ministère
-en applications collaboratives Grist |
-| --- |
-
-| Chaque direction du ministère a ses dizaines de fichiers Excel critiques. Sans versioning, sans partage, sans interface, sans audit trail. Quand la personne qui les maintient s’en va, c’est la crise silencieuse.
-
-ExcelExit propose une migration systématique vers Grist (grist.numerique.gouv.fr) — infrastructure interministérielle déjà en place — avec des interfaces web DSFR générées par le Vibe Lab. La valeur repose dans les données et les formules. L’interface est un bonus jetable. |
-| --- |
-
-| Le shadow IT Excel est le plus grand système d’information non référencé du ministère. |
-| --- |
-
-| Problème | Conséquence |
+| Probleme | Consequence |
 | --- | --- |
-| Pas de partage simultané | Un seul utilisateur à la fois, ou des copies divergentes |
-| Pas de versioning | Qui a modifié quoi, quand ? Impossible à savoir |
-| Pas d’interface | Le fichier est son propre UI — illisible pour un non-initié |
-| Pas d’API | Aucune interopérabilité avec d’autres outils ou systèmes |
-| Pas de sécurité | Sur le bureau, dans un mail, sur une clé USB |
-| Pas de pérennité | Le départ du mainteneur = la perte du savoir |
+| Pas de partage simultane | Un seul utilisateur a la fois, ou des copies divergentes |
+| Pas de versioning | Qui a modifie quoi, quand ? Impossible a savoir |
+| Pas d'interface | Le fichier est son propre UI — illisible pour un non-initie |
+| Pas d'API | Aucune interoperabilite avec d'autres outils ou systemes |
+| Pas de securite | Sur le bureau, dans un mail, sur une cle USB |
+| Pas de perennite | Le depart du mainteneur = la perte du savoir |
 
-| grist.numerique.gouv.fr est une instance interministérielle Grist opérée par la DINUM, disponible pour tous les ministères. Aucune infrastructure à déployer, aucun marché à passer, aucun coût d’hébergement. |
-| --- |
+Pourquoi personne n'a resolu ce probleme ? Parce que migrer un fichier Excel vers une application web coute classiquement entre **10 000 et 50 000 EUR** en prestation. Pour un seul fichier. Quand il y en a des centaines, le calcul s'arrete la. On vit avec le risque.
 
-| Caractéristique | Détail |
+> Le shadow IT Excel est le plus grand systeme d'information non reference du ministere.
+
+---
+
+## 2. La solution : Grist + Vibe Lab
+
+### 2.1 Grist : l'infrastructure existe deja
+
+Grist est un tableur collaboratif open source (licence Apache 2.0) qui combine la familiarite d'un tableur avec la puissance d'une base de donnees relationnelle :
+
+| Caracteristique | Detail |
 | --- | --- |
-| Collaboratif | Co-édition en temps réel, comme Google Sheets, mais souverain |
-| Structuré | Vrais types de données, relations entre tables, intégrité référentielle |
-| Programmable | Formules Python (pas VBA), lisibles et maintenables |
-| Accessible par API | API REST native — chaque document Grist est une base de données interrogeable |
-| Sécurisé | Gestion des droits par document, table, colonne. Audit trail intégré |
-| Souverain | Hébergé par la DINUM, open source, données en France |
-| Familiar | Interface tableur — la courbe d’apprentissage est quasi nulle pour un utilisateur Excel |
+| **Collaboratif** | Co-edition en temps reel, comme Google Sheets, mais souverain |
+| **Structure** | Vrais types de donnees, relations entre tables, integrite referentielle |
+| **Programmable** | Formules Python (pas VBA), lisibles et maintenables |
+| **Accessible par API** | API REST native — chaque document Grist est une base de donnees interrogeable |
+| **Securise** | Gestion des droits par document, table, colonne. Audit trail integre |
+| **Souverain** | Heberge par la DINUM, open source, donnees en France |
+| **Familier** | Interface tableur — la courbe d'apprentissage est quasi nulle pour un utilisateur Excel |
 
-| 1. Analyse et diagnostic automatisé des fichiers Excel
-L’IA analyse chaque fichier : structure des données, formules, macros VBA, mise en forme conditionnelle (qui est souvent de la logique métier déguisée), relations implicites entre onglets. Elle produit un diagnostic de complexité et un plan de migration. |
-| --- |
+> **grist.numerique.gouv.fr** est une instance interministerielle Grist operee par la DINUM, disponible pour tous les ministeres. Aucune infrastructure a deployer, aucun marche a passer, aucun cout d'hebergement.
 
-| 2. Migration assistée vers Grist
-L’IA génère le schéma Grist : tables, colonnes, types, relations. Elle traduit les formules Excel en formules Python. Elle restructure les données (dénormalisation des onglets, nettoyage des formats). Le résultat est un document Grist propre, structuré, documenté. |
-| --- |
+### 2.2 Le role du Vibe Lab
 
-| 3. Création de widgets et interfaces DSFR
-Par-dessus les données Grist, le Vibe Lab produit des interfaces web DSFR : tableaux de bord, formulaires de saisie, vues filtrées, exports formatés. Ces interfaces rendent le processus convivial et professionnel. Mais elles sont un bonus, pas un fondement. |
-| --- |
+Grist resout le probleme de la donnee. Le Vibe Lab resout le probleme de l'**adoption**, de la **migration** et de l'**experience utilisateur**.
 
-| Principe fondamental d’ExcelExit :
+1. **Analyse et diagnostic automatise des fichiers Excel** — L'IA analyse chaque fichier : structure des donnees, formules, macros VBA, mise en forme conditionnelle (qui est souvent de la logique metier deguisee), relations implicites entre onglets. Elle produit un diagnostic de complexite et un plan de migration.
 
-La valeur repose dans les données et les formules Grist — pas dans l’interface.
+2. **Migration assistee vers Grist** — L'IA genere le schema Grist : tables, colonnes, types, relations. Elle traduit les formules Excel en formules Python. Elle restructure les donnees (denormalisation des onglets, nettoyage des formats). Le resultat est un document Grist propre, structure, documente.
 
-Si demain une interface web n’est plus maintenue ou plus à jour, ce n’est pas grave. Les données restent dans Grist : structurées, partageables, co-éditables, accessibles par API, pérennes. L’interface peut être reconstruite en quelques heures par le Vibe Lab — ou abandonnée si elle n’est plus nécessaire. |
-| --- |
+3. **Creation de widgets et interfaces DSFR** — Par-dessus les donnees Grist, le Vibe Lab produit des interfaces web DSFR : tableaux de bord, formulaires de saisie, vues filtrees, exports formates. Ces interfaces rendent le processus convivial et professionnel. Mais elles sont un bonus, pas un fondement.
 
-| Couche | Contenu | Hébergement | Durabilité |
+---
+
+## 3. Ou est la valeur
+
+Cette architecture a deux couches est la cle de la perennite :
+
+| Couche | Contenu | Hebergement | Durabilite |
 | --- | --- | --- | --- |
-| Données | Tables, colonnes, types, relations, historique | Grist (grist.numerique.gouv.fr) | Pérenne — infra DINUM |
-| Logique | Formules Python, calculs, validations, règles métier | Grist (intégré au document) | Pérenne — partie du document |
-| Interface | Widgets DSFR, tableaux de bord, formulaires, vues | Mini-apps web Vibe Lab | Jetable — reconstruit en heures |
+| **Donnees** | Tables, colonnes, types, relations, historique | Grist (grist.numerique.gouv.fr) | Perenne — infra DINUM |
+| **Logique** | Formules Python, calculs, validations, regles metier | Grist (integre au document) | Perenne — partie du document |
+| **Interface** | Widgets DSFR, tableaux de bord, formulaires, vues | Mini-apps web Vibe Lab | Jetable — reconstruit en heures |
 
-| Avant — Fichier Excel
-→ 12 onglets, 1 par mois, même structure
-→ Formules copiées à la main à chaque nouvel onglet
-→ 1 seul utilisateur à la fois (fichier verrouillé)
-→ Synthèse annuelle faite à la main
-→ Graphiques mal formatés, non imprimables | Après — Grist + interface
-→ 1 table Grist avec colonne « mois », une seule formule
-→ Co-édition simultanée par toute l’équipe
-→ Synthèse calculée automatiquement (vue + formule Python)
-→ Interface DSFR : tableau de bord avec filtres par mois, export PDF
-→ Accessible depuis n’importe quel navigateur |
+> **Principe fondamental d'ExcelExit :**
+>
+> La valeur repose dans les donnees et les formules Grist — pas dans l'interface.
+>
+> Si demain une interface web n'est plus maintenue ou plus a jour, ce n'est pas grave. Les donnees restent dans Grist : structurees, partageables, co-editables, accessibles par API, perennes. L'interface peut etre reconstruite en quelques heures par le Vibe Lab — ou abandonnee si elle n'est plus necessaire.
+
+C'est l'exact inverse du modele Excel : dans un fichier Excel, les donnees, la logique et l'interface sont fusionnees dans un seul objet opaque. Si l'interface est cassee, tout est casse. Dans le modele ExcelExit, **chaque couche est independante et remplacable**.
+
+---
+
+## 4. Avant / Apres : exemples concrets
+
+### Tableau de suivi d'activite d'un bureau
+
+| Avant — Fichier Excel | Apres — Grist + interface |
 | --- | --- |
+| 12 onglets, 1 par mois, meme structure | 1 table Grist avec colonne « mois », une seule formule |
+| Formules copiees a la main a chaque nouvel onglet | Co-edition simultanee par toute l'equipe |
+| 1 seul utilisateur a la fois (fichier verrouille) | Synthese calculee automatiquement (vue + formule Python) |
+| Synthese annuelle faite a la main | Interface DSFR : tableau de bord avec filtres par mois, export PDF |
+| Graphiques mal formates, non imprimables | Accessible depuis n'importe quel navigateur |
 
-| Avant — Fichier Excel
-→ Macro VBA de 500 lignes pour générer un rapport
-→ Ne fonctionne que sur la machine de Jean-Pierre
-→ Incompatible avec les mises à jour d’Office
-→ Personne ne sait comment ça marche
-→ Données et présentation mélangées | Après — Grist + interface
-→ Données dans Grist, logique en Python (lisible, documentée)
-→ Interface web de reporting générée par le Vibe Lab
-→ Fonctionne sur tout navigateur, tout OS
-→ La logique est visible et compréhensible par un non-développeur
-→ Si l’interface meurt, les données et calculs restent intacts |
+### Fichier de reporting avec macros VBA
+
+| Avant — Fichier Excel | Apres — Grist + interface |
 | --- | --- |
+| Macro VBA de 500 lignes pour generer un rapport | Donnees dans Grist, logique en Python (lisible, documentee) |
+| Ne fonctionne que sur la machine de Jean-Pierre | Interface web de reporting generee par le Vibe Lab |
+| Incompatible avec les mises a jour d'Office | Fonctionne sur tout navigateur, tout OS |
+| Personne ne sait comment ca marche | La logique est visible et comprehensible par un non-developpeur |
+| Donnees et presentation melangees | Si l'interface meurt, les donnees et calculs restent intacts |
 
-| Avant — Fichier Excel
-→ Fichier Excel partagé sur un lecteur réseau
-→ Données dupliquées entre onglets (pas de relations)
-→ Recherche par Ctrl+F uniquement
-→ Aucune API — impossible d’intégrer ailleurs | Après — Grist + interface
-→ Base relationnelle Grist avec tables liées
-→ Recherche full-text, filtres par colonne
-→ API REST : alimentation automatique depuis / vers d’autres outils
-→ Interface web avec fiche détaillée par enregistrement |
+### Annuaire / referentiel metier
+
+| Avant — Fichier Excel | Apres — Grist + interface |
 | --- | --- |
+| Fichier Excel partage sur un lecteur reseau | Base relationnelle Grist avec tables liees |
+| Donnees dupliquees entre onglets (pas de relations) | Recherche full-text, filtres par colonne |
+| Recherche par Ctrl+F uniquement | API REST : alimentation automatique depuis / vers d'autres outils |
+| Aucune API — impossible d'integrer ailleurs | Interface web avec fiche detaillee par enregistrement |
 
-| Chaque migration alimente un pipeline réutilisable. Le premier fichier Excel prend 3 jours. Le dixième prend 1 jour. Le centième prend 2 heures. L’outillage s’améliore, les patterns se répètent, l’IA apprend les structures typiques du ministère. |
-| --- |
+---
 
-| Niveau | Description | Effort | Part estimée |
+## 5. Modele de passage a l'echelle
+
+> Chaque migration alimente un pipeline reutilisable. Le premier fichier Excel prend 3 jours. Le dixieme prend 1 jour. Le centieme prend 2 heures. L'outillage s'ameliore, les patterns se repetent, l'IA apprend les structures typiques du ministere.
+
+### 5.1 Categorisation des fichiers
+
+Tous les fichiers Excel ne se valent pas. La premiere etape est un diagnostic automatise qui categorise chaque fichier selon sa complexite :
+
+| Niveau | Description | Effort | Part estimee |
 | --- | --- | --- | --- |
-| Niveau 1 | Tableau simple : 1-3 onglets, formules basiques (SOMME, SI, NB.SI), pas de macro | 2-4 heures | ~60 % |
-| Niveau 2 | Tableur structuré : 4-10 onglets, formules avancées (RECHERCHEV, INDEX, tableaux croisés), mises en forme conditionnelles | 1-2 jours | ~25 % |
-| Niveau 3 | Application Excel : macros VBA, formulaires, interactions entre classeurs, logique métier complexe | 3-5 jours | ~12 % |
-| Niveau 4 | Usine à gaz : VBA massif, connexions ODBC, dépendances externes, données sensibles | Hors scope | ~3 % |
+| **Niveau 1** | Tableau simple : 1-3 onglets, formules basiques (SOMME, SI, NB.SI), pas de macro | 2-4 heures | ~60 % |
+| **Niveau 2** | Tableur structure : 4-10 onglets, formules avancees (RECHERCHEV, INDEX, tableaux croises), mises en forme conditionnelles | 1-2 jours | ~25 % |
+| **Niveau 3** | Application Excel : macros VBA, formulaires, interactions entre classeurs, logique metier complexe | 3-5 jours | ~12 % |
+| **Niveau 4** | Usine a gaz : VBA massif, connexions ODBC, dependances externes, donnees sensibles | Hors scope | ~3 % |
 
-| Le niveau 4 est hors périmètre du Vibe Lab. Ces fichiers sont en réalité des applications métier déguisées qui relèvent d’un projet SI classique ou de BercyHub. |
-| --- |
+> Le **niveau 4** est hors perimetre du Vibe Lab. Ces fichiers sont en realite des applications metier deguisees qui relevent d'un projet SI classique ou de BercyHub.
 
-| L’outillage s’améliore à chaque migration
-Chaque fichier migré enrichit la bibliothèque de patterns : structures de données typiques, formules récurrentes, widgets réutilisables. Après 20 migrations, le diagnostic est quasi instantané et la génération du schéma Grist est automatisée à 80 %. |
-| --- |
+### 5.2 Effet de reseau
 
-| La demande se génère d’elle-même
-Quand un bureau voit que le bureau d’à côté a remplacé son Excel infernal par une mini-app web collaborative et esthétique, il demande la même chose. Pas besoin de vendre le projet — il se vend tout seul par l’exemple. |
-| --- |
+Le modele de scaling repose sur deux mecanismes :
 
-| Critère | Note | Pondéré | Justification |
+- **L'outillage s'ameliore a chaque migration** — Chaque fichier migre enrichit la bibliotheque de patterns : structures de donnees typiques, formules recurrentes, widgets reutilisables. Apres 20 migrations, le diagnostic est quasi instantane et la generation du schema Grist est automatisee a 80 %.
+
+- **La demande se genere d'elle-meme** — Quand un bureau voit que le bureau d'a cote a remplace son Excel infernal par une mini-app web collaborative et esthetique, il demande la meme chose. Pas besoin de vendre le projet — il se vend tout seul par l'exemple.
+
+---
+
+## 6. Scoring sur la grille Vibe Lab
+
+Application de la grille d'evaluation du Vibe Lab au projet ExcelExit :
+
+| Critere | Note | Pondere | Justification |
 | --- | --- | --- | --- |
-| Impact utilisateur | 5/5 | x3 = 15 | Potentiellement chaque agent du ministère. Des centaines de fichiers concernés. |
-| Urgence métier | 4/5 | x2 = 8 | Risque permanent de perte de données et de savoir. Chaque départ en retraite aggrave le problème. |
-| Disponibilité données | 5/5 | x2 = 10 | Les données sont dans les fichiers Excel eux-mêmes — fournies par le métier, pas à chercher. |
-| Visibilité | 5/5 | x1 = 5 | Projet universel. Chaque ministère a le même problème. Effet vitrine garanti. |
-| Complexité (inversée) | 4/5 | x1 = 4 | Niveaux 1-2 sont simples. Le mécanisme est répétitif et automatisé progressivement. |
-| Réutilisabilité | 5/5 | x1 = 5 | Chaque composant (diagnostic, génération de schéma, widgets) est réutilisable pour toute migration. |
+| Impact utilisateur | 5/5 | x3 = 15 | Potentiellement chaque agent du ministere. Des centaines de fichiers concernes. |
+| Urgence metier | 4/5 | x2 = 8 | Risque permanent de perte de donnees et de savoir. Chaque depart en retraite aggrave le probleme. |
+| Disponibilite donnees | 5/5 | x2 = 10 | Les donnees sont dans les fichiers Excel eux-memes — fournies par le metier, pas a chercher. |
+| Visibilite | 5/5 | x1 = 5 | Projet universel. Chaque ministere a le meme probleme. Effet vitrine garanti. |
+| Complexite (inversee) | 4/5 | x1 = 4 | Niveaux 1-2 sont simples. Le mecanisme est repetitif et automatise progressivement. |
+| Reutilisabilite | 5/5 | x1 = 5 | Chaque composant (diagnostic, generation de schema, widgets) est reutilisable pour toute migration. |
 
-| Score total : 47/50 — Entrée prioritaire dans le backlog
-C’est le score le plus élevé de tous les projets évalués. |
-| --- |
+> **Score total : 47/50 — Entree prioritaire dans le backlog.**
+> C'est le score le plus eleve de tous les projets evalues.
 
-| Zéro chevauchement.
+---
 
-ExcelExit migre des fichiers Excel de suivi, de planification, de reporting — pas des données de SI métier. Les données atterrissent dans Grist, hébergé par la DINUM, accessible par navigateur.
+## 7. Positionnement
 
-Si un fichier s’avère contenir des données sensibles (niveau 4), il est exclu du périmètre ExcelExit et signalé à BercyHub. La règle de démarcation s’applique comme pour tout projet du Lab. |
-| --- |
+### 7.1 Par rapport a BercyHub
 
-| La DSI est une alliée naturelle.
+> **Zero chevauchement.**
+>
+> ExcelExit migre des fichiers Excel de suivi, de planification, de reporting — pas des donnees de SI metier. Les donnees atterrissent dans Grist, heberge par la DINUM, accessible par navigateur.
+>
+> Si un fichier s'avere contenir des donnees sensibles (niveau 4), il est exclu du perimetre ExcelExit et signale a BercyHub. La regle de demarcation s'applique comme pour tout projet du Lab.
 
-La DSI rêve de réduire le shadow IT Excel. ExcelExit lui offre un chemin de migration concret, à coût marginal, vers une infrastructure souveraine déjà disponible. Chaque fichier migré est un fichier de moins qui échappe au radar. |
-| --- |
+### 7.2 Par rapport a la DSI
 
-| ExcelExit valorise l’infrastructure Grist interministérielle.
+> **La DSI est une alliee naturelle.**
+>
+> La DSI reve de reduire le shadow IT Excel. ExcelExit lui offre un chemin de migration concret, a cout marginal, vers une infrastructure souveraine deja disponible. Chaque fichier migre est un fichier de moins qui echappe au radar.
 
-grist.numerique.gouv.fr est un outil mis à disposition par la DINUM. Chaque migration ExcelExit est un cas d’usage supplémentaire qui démontre la pertinence de cet investissement. Le ministère de l’Économie peut devenir le premier ministère à utiliser Grist à l’échelle. |
-| --- |
+### 7.3 Par rapport a la DINUM
 
-| Semaine | Activité | Livrable |
+> **ExcelExit valorise l'infrastructure Grist interministerielle.**
+>
+> grist.numerique.gouv.fr est un outil mis a disposition par la DINUM. Chaque migration ExcelExit est un cas d'usage supplementaire qui demontre la pertinence de cet investissement. Le ministere de l'Economie peut devenir le premier ministere a utiliser Grist a l'echelle.
+
+---
+
+## 8. Plan de deploiement
+
+| Semaine | Activite | Livrable |
 | --- | --- | --- |
-| S1-S2 | Identification de 5 fichiers Excel pilotes dans 2-3 directions différentes. Critères : fichier utilisé quotidiennement, douleur visible, sponsor motivé. | Liste des 5 fichiers, diagnostic de complexité |
-| S3-S4 | Migration des 5 fichiers vers Grist. Création des interfaces web DSFR. Tests avec les utilisateurs. | 5 documents Grist fonctionnels + 5 mini-apps DSFR |
-| S5-S6 | Retours utilisateurs, itérations, documentation. Mesure de l’adoption (connexions, fréquence d’usage). | Bilan pilote chiffré, témoignages utilisateurs |
-| S7-S8 | Industrialisation de l’outillage : script de diagnostic automatisé, générateur de schéma, bibliothèque de widgets. | Pipeline de migration semi-automatisé |
-| S9+ | Montée en charge : traitement par lots, ouverture aux demandes de toutes les directions, communication interne. | 10-20 fichiers migrés/mois |
+| **S1-S2** | Identification de 5 fichiers Excel pilotes dans 2-3 directions differentes. Criteres : fichier utilise quotidiennement, douleur visible, sponsor motive. | Liste des 5 fichiers, diagnostic de complexite |
+| **S3-S4** | Migration des 5 fichiers vers Grist. Creation des interfaces web DSFR. Tests avec les utilisateurs. | 5 documents Grist fonctionnels + 5 mini-apps DSFR |
+| **S5-S6** | Retours utilisateurs, iterations, documentation. Mesure de l'adoption (connexions, frequence d'usage). | Bilan pilote chiffre, temoignages utilisateurs |
+| **S7-S8** | Industrialisation de l'outillage : script de diagnostic automatise, generateur de schema, bibliotheque de widgets. | Pipeline de migration semi-automatise |
+| **S9+** | Montee en charge : traitement par lots, ouverture aux demandes de toutes les directions, communication interne. | 10-20 fichiers migres/mois |
 
-| 0 €
-infrastructure
-Grist DINUM déjà disponible | 5
-fichiers pilotes
-en 6 semaines | 10-20/mois
-vitesse de croisière
-à partir de S9 |
-| --- | --- | --- |
+**Chiffres cles :**
 
-| →  Ne migre pas les fichiers contenant des données personnelles ou sensibles (niveau 4)
-→  Ne remplace pas les SI métier (Chorus, SI-RH, etc.)
-→  Ne force personne — la migration est proposée, pas imposée
-→  Ne supprime pas les fichiers Excel sources (ils restent en backup)
-→  Ne promet pas une interface éternelle — si l’interface meurt, les données vivent |
-| --- |
+- **0 EUR infrastructure** — Grist DINUM deja disponible
+- **5 fichiers pilotes** en 6 semaines
+- **10-20 fichiers/mois** en vitesse de croisiere a partir de S9
 
-| ExcelExit, c’est :
+---
 
-→  Un problème universel (chaque bureau a ses Excel critiques)
-→  Une infrastructure déjà en place (grist.numerique.gouv.fr)
-→  Un coût marginal (0 € d’infra, quelques heures par fichier)
-→  Une valeur pérenne (données + formules dans Grist, interface jetable)
-→  Un effet de réseau (la demande se génère d’elle-même)
-→  Zéro chevauchement BercyHub
-→  Score de 47/50 sur la grille d’évaluation Vibe Lab |
-| --- |
+## 9. Ce qu'ExcelExit ne fait pas
+
+- Ne migre pas les fichiers contenant des **donnees personnelles ou sensibles** (niveau 4)
+- Ne remplace pas les **SI metier** (Chorus, SI-RH, etc.)
+- Ne force personne — la migration est **proposee, pas imposee**
+- Ne supprime pas les fichiers Excel sources (ils restent en **backup**)
+- Ne promet pas une interface eternelle — **si l'interface meurt, les donnees vivent**
+
+---
+
+## 10. En resume
+
+Le ministere de l'Economie a des centaines de fichiers Excel dont le maintien repose sur la memoire d'un agent. Chaque depart en retraite, chaque mutation, chaque reorganisation est un risque de perte silencieuse.
+
+ExcelExit transforme ce risque en opportunite. Pas en remplacant Excel par un systeme lourd, mais en portant les donnees vers une plateforme ouverte, collaborative et souveraine — avec, en prime, des interfaces qui rendent le quotidien des agents plus agreable.
+
+**Et si l'interface disparait un jour, les donnees restent. C'est toute la difference.**
+
+> **ExcelExit, c'est :**
+>
+> - Un **probleme universel** (chaque bureau a ses Excel critiques)
+> - Une **infrastructure deja en place** (grist.numerique.gouv.fr)
+> - Un **cout marginal** (0 EUR d'infra, quelques heures par fichier)
+> - Une **valeur perenne** (donnees + formules dans Grist, interface jetable)
+> - Un **effet de reseau** (la demande se genere d'elle-meme)
+> - **Zero chevauchement** BercyHub
+> - **Score de 47/50** sur la grille d'evaluation Vibe Lab

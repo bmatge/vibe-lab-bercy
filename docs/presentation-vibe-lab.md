@@ -1,293 +1,134 @@
-## Slide 1
+# Vibe Lab — Dossier complet
 
-DOSSIER COMPLET
+> Laboratoire de prototypage augmente par l'IA
 
-Vibe Lab
+Bertrand Matge · MIWEB · SNUM · Fevrier 2026
 
-Laboratoire de prototypage augmenté par l’IA
+Retour d'experience · Proposition · Gouvernance · Feuille de route
 
-Bertrand Matgé · MIWEB · SNUM · Février 2026
+---
 
-Retour d’expérience · Proposition · Gouvernance · Feuille de route
+## Le constat : 6 mois d'experimentation
 
-## Slide 2
+- **8 outils produits** en 6 mois, 1 agent
+- **663 K€ de valeur produite** (cout presta. equiv.)
+- **88 % d'economie** vs. prestation
 
-Le constat : 6 mois d’expérimentation
+1 agent · Claude + Copilot · Aucun budget dedie · DSFR · RGAA · ANSSI
 
-8
+| Projet | Valeur | Detail |
+|---|---|---|
+| Ecosysteme (G3) | **312 K€** | Monitoring 18 criteres |
+| Portail Eco Browser | **162 K€** | Intelligence editoriale |
+| ChartsBuilder | **120 K€** | 24 web components DSFR |
+| LimeSurvey DSFR | **27 K€** | Theme + plugins Albert |
+| Organigrammes | **6 K€** | API Annuaire service public |
+| Comparateurs (x2) | **27 K€** | Open data grand public |
+| LeFouineur | **9 K€** | Extension qualite web |
 
-outils produits
+---
 
-en 6 mois, 1 agent
+## L'IA ne remplace pas — elle debloque
 
-663 K€
+| Aujourd'hui | Avec le Vibe Lab |
+|---|---|
+| Maquettes Figma statiques | Prototypes fonctionnels reels |
+| Mois de specification | Jours de prototypage |
+| Marches publics longs | Production immediate |
+| Decalage maquette / produit final | Ce qu'on teste = ce qui sera livre |
+| Budget = goulot d'etranglement | L'idee = seul filtre |
+| Audits RGAA ponctuels (tous les 3 ans) | Scan automatise permanent + correction IA |
 
-valeur produite
+---
 
-coût presta. équiv.
+## La proposition
 
-88 %
+- **1 a 3 agents** — Profils tech/produit qui connaissent les metiers du ministere
+- **~1 000 €/mois** — Licences IA (Claude + Copilot), infrastructure existante
+- **15 600 €/an** — Cout total hors masse salariale = 2,4 % de la valeur deja produite
 
-d’économie
+> Le Lab s'autofinance des son premier mois.
 
-vs. prestation
+---
 
-1 agent · Claude + Copilot · Aucun budget dédié · DSFR · RGAA · ANSSI
+## Vibe Lab + BercyHub = complementarite totale
 
-Écosystème (G3)
+1. **Le Lab explore** — Prototype sur donnees publiques, test utilisateur, validation du concept
+2. **La direction arbitre** — Le prototype est-il valide ? Faut-il un traitement sur donnees sensibles ?
+3. **BercyHub industrialise** — Reprend le concept valide, connecte aux SI metier, homologation securite
 
-312 K€
+> Le Vibe Lab est votre eclaireur — pas votre concurrent.
 
-Monitoring 18 critères
+**Regle absolue :** des qu'un projet touche aux SI metier, aux donnees personnelles ou a une homologation, il releve de BercyHub.
 
-Portail Eco Browser
+Point trimestriel structure entre les deux equipes.
 
-162 K€
+---
 
-Intelligence éditoriale
+## ExcelExit : la prochaine frontiere
 
-ChartsBuilder
+**Score : 47/50** — #1 du backlog
 
-120 K€
+> Si l'interface meurt, les donnees vivent.
 
-24 web components DSFR
+| Couche | Outil | Caracteristique |
+|---|---|---|
+| Donnees | Grist (DINUM) | perenne, partageable |
+| Logique | Formules Grist + API REST | — |
+| Interface | HTML/DSFR | jetable, remplacable |
 
-LimeSurvey DSFR
+- **Niveaux 1-3 :** Vibe Lab · **Niveau 4 (donnees sensibles) :** BercyHub
+- Migration systematique des fichiers Excel critiques vers Grist (grist.numerique.gouv.fr)
 
-27 K€
+---
 
-Thème + plugins Albert
+## Gouvernance legere et transparente
 
-Organigrammes
+**5 regles :**
 
-6 K€
+1. Pas de projet sans sponsor metier
+2. Donnees publiques uniquement
+3. Max 5 projets actifs
+4. Abandon a 4 semaines sans usage
+5. Transparence totale
 
-API Annuaire service public
+**Instances :**
 
-Comparateurs (x2)
+- **Comite mensuel (30 min)** — Backlog, priorisation, avancement
+- **Revue trimestrielle (1h)** — Bilan, indicateurs, arbitrages
+- **Point BercyHub (trim.)** — Transferts, coherence perimetres
 
-27 K€
+Grille de scoring : 50 points · 6 criteres ponderes · 6 criteres d'entree obligatoires
 
-Open data grand public
+Ecosysteme : **44/50** · ExcelExit : **47/50**
 
-LeFouineur
+---
 
-9 K€
+## Risques maitrises
 
-Extension qualité web
+- **6/8 risques** a residuel faible
+- **2/8** a residuel modere, sous surveillance
 
-## Slide 3
+---
 
-L’IA ne remplace pas — elle débloque
+## Feuille de route
 
-Aujourd’hui
+| Phase | Periode | Contenu | Equipe |
+|---|---|---|---|
+| Fondations | T0 – T+6 | Communication (acquis), ExcelExit, 2-3 projets RH/formation | 1 agent |
+| Extension | T+6 – T+12 | Finances / pilotage, Coordination interminist. | 2 agents |
+| Perimetre complet | T+12 – T+18 | Immobilier + DSI, Perimetre complet SG | 3 agents |
 
-Maquettes Figma statiques
+~1 000 €/mois de licences tout au long · Infrastructure existante · 0 investissement supplementaire
 
-Mois de spécification
+---
 
-Marchés publics longs
+## Conclusion
 
-Décalage maquette / produit final
+> Structurer le Vibe Lab, c'est transformer une initiative personnelle en capacite institutionnelle.
 
-Budget = goulot d’étranglement
-
-Audits RGAA ponctuels (tous les 3 ans)
-
-Avec le Vibe Lab
-
-Prototypes fonctionnels réels
-
-Jours de prototypage
-
-Production immédiate
-
-Ce qu’on teste = ce qui sera livré
-
-L’idée = seul filtre
-
-Scan automatisé permanent + correction IA
-
-## Slide 4
-
-La proposition
-
-1 à 3 agents
-
-Profils tech/produit qui connaissent les métiers du ministère
-
-~1 000 €/mois
-
-Licences IA (Claude + Copilot), infrastructure existante
-
-15 600 €/an
-
-Coût total hors masse salariale = 2,4 % de la valeur déjà produite
-
-Le Lab s’autofinance dès son premier mois.
-
-## Slide 5
-
-Vibe Lab + BercyHub = complémentarité totale
-
-1
-
-Le Lab explore
-
-Prototype sur données publiques, test utilisateur, validation du concept
-
-2
-
-La direction arbitre
-
-Le prototype est-il validé ? Faut-il un traitement sur données sensibles ?
-
-3
-
-BercyHub industrialise
-
-Reprend le concept validé, connecte aux SI métier, homologation sécurité
-
-→
-
-→
-
-Le Vibe Lab est votre éclaireur — pas votre concurrent.
-
-Règle absolue : dès qu’un projet touche aux SI métier, aux données personnelles ou à une homologation, il relève de BercyHub.
-
-Point trimestriel structuré entre les deux équipes
-
-## Slide 6
-
-ExcelExit : la prochaine frontière
-
-Score : 47/50 — #1 du backlog
-
-Si l’interface meurt, les données vivent.
-
-Données
-
-Grist (DINUM)
-
-pérenne, partageable
-
-Logique
-
-Formules Grist
-
-+ API REST
-
-Interface
-
-HTML/DSFR
-
-jetable, remplaçable
-
-Niveaux 1-3 : Vibe Lab  ·  Niveau 4 (données sensibles) : BercyHub
-
-Migration systématique des fichiers Excel critiques vers Grist (grist.numerique.gouv.fr)
-
-## Slide 7
-
-Gouvernance légère et transparente
-
-1
-
-Pas de projet sans sponsor métier
-
-2
-
-Données publiques uniquement
-
-3
-
-Max 5 projets actifs
-
-4
-
-Abandon à 4 semaines sans usage
-
-5
-
-Transparence totale
-
-Instances
-
-Comité mensuel (30 min)
-
-Backlog, priorisation, avancement
-
-Revue trimestrielle (1h)
-
-Bilan, indicateurs, arbitrages
-
-Point BercyHub (trim.)
-
-Transferts, cohérence périmètres
-
-Grille de scoring : 50 points · 6 critères pondérés · 6 critères d’entrée obligatoires
-
-Écosystème : 44/50  ·  ExcelExit : 47/50
-
-## Slide 8
-
-Risques maîtrisés
-
-6/8 risques à résiduel faible
-
-2/8 à résiduel modéré, sous surveillance
-
-## Slide 9
-
-Feuille de route
-
-T0 – T+6
-
-Fondations
-
-Communication (acquis)
-
-ExcelExit
-
-2-3 projets RH/formation
-
-1 agent
-
-T+6 – T+12
-
-Extension
-
-Finances / pilotage
-
-Coordination interminist.
-
-2 agents
-
-T+12 – T+18
-
-Périmètre complet
-
-Immobilier + DSI
-
-Périmètre complet SG
-
-3 agents
-
-~1 000 €/mois de licences tout au long · Infrastructure existante · 0 investissement supplémentaire
-
-## Slide 10
-
-Structurer le Vibe Lab
-
-c’est transformer une initiative personnelle en capacité institutionnelle.
-
-8 outils produits · 663 K€ de valeur · 88 % d’économie
-
-Gouvernance formalisée · Risques maîtrisés · BercyHub articulé
-
-ExcelExit prêt (47/50) · 16 cas d’usage SG identifiés
-
-Plan de communication en 12 semaines
-
-1 à 3 agents  ·  ~1 000 €/mois  ·  infrastructure existante
+- **8 outils produits** · **663 K€ de valeur** · **88 % d'economie**
+- Gouvernance formalisee · Risques maitrises · BercyHub articule
+- ExcelExit pret (**47/50**) · 16 cas d'usage SG identifies
+- Plan de communication en 12 semaines
+- **1 a 3 agents · ~1 000 €/mois · infrastructure existante**
