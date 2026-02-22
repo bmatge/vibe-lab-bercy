@@ -8,6 +8,12 @@
   display: none !important;
 }
 
+/* --- Animation d'entrée --- */
+@keyframes vl-fadeIn {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 /* --- Login page --- */
 .vl-login {
   background: linear-gradient(135deg, #f5f5fe 0%, #e3e3fd 100%);
@@ -202,6 +208,22 @@
   margin-top: 0.5rem;
 }
 
+.vl-kanban-card-links {
+  display: flex;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+
+.vl-kanban-card-links a {
+  font-size: 0.75rem;
+  color: var(--blue-france-sun-113-625, #000091);
+  text-decoration: none;
+}
+
+.vl-kanban-card-links a:hover {
+  text-decoration: underline;
+}
+
 /* --- Modal override --- */
 .fr-modal--opened {
   display: flex !important;
@@ -232,21 +254,6 @@ dialog.fr-modal .fr-modal__body {
   background: var(--background-alt-grey, #f6f6f6);
 }
 
-/* --- Tabs panel transitions --- */
-.fr-tabs__panel {
-  display: none;
-}
-
-.fr-tabs__panel--selected {
-  display: block;
-  animation: vl-fadeIn 0.2s ease;
-}
-
-@keyframes vl-fadeIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
 /* --- Tiles as steps --- */
 .fr-tile {
   text-align: center;
@@ -267,10 +274,6 @@ dialog.fr-modal .fr-modal__body {
   .vl-hero .fr-callout__title {
     font-size: 1.25rem;
   }
-
-  .fr-tabs__list {
-    flex-wrap: wrap;
-  }
 }
 
 /* --- Print styles --- */
@@ -279,7 +282,8 @@ dialog.fr-modal .fr-modal__body {
   .fr-header__tools,
   .fr-footer,
   .vl-kanban-card-actions,
-  #kanban-add-btn {
+  #kanban-add-btn,
+  #kanban-export-btn {
     display: none !important;
   }
 

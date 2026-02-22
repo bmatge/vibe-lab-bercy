@@ -2,7 +2,7 @@ import os
 import secrets
 from datetime import datetime, timezone
 
-from flask import Flask, send_from_directory, jsonify, request, g
+from flask import Flask, send_from_directory, render_template, jsonify, request, g
 from werkzeug.security import check_password_hash
 
 from server.database import init_db, get_db, close_db
@@ -12,7 +12,10 @@ from server.auth_utils import create_token, require_auth
 # App
 # ---------------------------------------------------------------------------
 
-app = Flask(__name__, static_folder=None)
+app = Flask(__name__, static_folder=None,
+            template_folder=os.path.join(
+                os.path.dirname(os.path.dirname(os.path.abspath(__file__))),
+                'templates'))
 app.config['SECRET_KEY'] = os.environ.get('SECRET_KEY', 'dev-secret-change-me')
 
 STATIC_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -23,13 +26,42 @@ with app.app_context():
     init_db()
 
 # ---------------------------------------------------------------------------
-# Static files
+# Pages (Jinja2 templates)
 # ---------------------------------------------------------------------------
 
 @app.route('/')
-def index():
-    return send_from_directory(STATIC_ROOT, 'index.html')
+def page_accueil():
+    return render_template('accueil.html', current_page='accueil')
 
+
+@app.route('/constat')
+def page_constat():
+    return render_template('constat.html', current_page='constat')
+
+
+@app.route('/proposition')
+def page_proposition():
+    return render_template('proposition.html', current_page='proposition')
+
+
+@app.route('/methode')
+def page_methode():
+    return render_template('methode.html', current_page='methode')
+
+
+@app.route('/kanban')
+def page_kanban():
+    return render_template('kanban.html', current_page='kanban')
+
+
+@app.route('/documents')
+def page_documents():
+    return render_template('documents.html', current_page='documents')
+
+
+# ---------------------------------------------------------------------------
+# Static files
+# ---------------------------------------------------------------------------
 
 @app.route('/css/<path:filename>')
 def css_files(filename):
@@ -104,14 +136,17 @@ def create_card():
     now = _now()
     db.execute(
         '''INSERT INTO kanban_cards
-           (id, title, description, priority, category, column_name, position, created_by, created_at, updated_at)
-           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
+           (id, title, description, priority, category, column_name, position,
+            repo_url, prod_url, created_by, created_at, updated_at)
+           VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
         (card_id, title,
          data.get('description', ''),
          data.get('priority', 'moyenne'),
          data.get('category', ''),
          data.get('column_name', 'propose'),
          data.get('position', 0),
+         data.get('repo_url', ''),
+         data.get('prod_url', ''),
          g.current_user['id'], now, now),
     )
     db.commit()
@@ -129,7 +164,7 @@ def update_card(card_id):
     if not existing:
         return jsonify(error='Carte non trouvee'), 404
 
-    allowed = ('title', 'description', 'priority', 'category', 'column_name', 'position')
+    allowed = ('title', 'description', 'priority', 'category', 'column_name', 'position', 'repo_url', 'prod_url')
     updates = {k: data[k] for k in allowed if k in data}
     if not updates:
         return jsonify(card=dict(existing))

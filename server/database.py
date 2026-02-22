@@ -90,6 +90,8 @@ def init_db():
             column_name TEXT NOT NULL DEFAULT 'propose'
                         CHECK (column_name IN ('propose', 'roadmap', 'developpement', 'test', 'candidat', 'deploye')),
             position    INTEGER NOT NULL DEFAULT 0,
+            repo_url    TEXT DEFAULT '',
+            prod_url    TEXT DEFAULT '',
             created_by  TEXT REFERENCES users(id),
             created_at  TEXT NOT NULL,
             updated_at  TEXT NOT NULL
@@ -99,9 +101,20 @@ def init_db():
             ON kanban_cards(column_name, position);
     ''')
 
+    _migrate_kanban_columns(db)
     _seed_default_user(db)
     _seed_kanban_cards(db)
     db.close()
+
+
+def _migrate_kanban_columns(db):
+    """Ajoute les colonnes repo_url et prod_url si absentes (migration)."""
+    for col in ('repo_url', 'prod_url'):
+        try:
+            db.execute(f"ALTER TABLE kanban_cards ADD COLUMN {col} TEXT DEFAULT ''")
+            db.commit()
+        except sqlite3.OperationalError:
+            pass  # colonne existe deja
 
 
 def _now():

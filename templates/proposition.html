@@ -1,0 +1,94 @@
+{% extends "base.html" %}
+
+{% block title %}La proposition — Vibe Lab{% endblock %}
+
+{% block content %}
+  <h2 class="fr-mb-3w">La proposition</h2>
+
+  <!-- 5 Règles cardinales -->
+  <h3 class="fr-mb-2w">Les 5 règles cardinales</h3>
+  <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+    <div class="fr-col-12 fr-col-md-4">
+      <div class="fr-card">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">1</span> Prototype, pas produit</h4>
+            <p class="fr-card__desc">Le Vibe Lab produit des prototypes fonctionnels, jamais des applications de production. L'industrialisation passe par les filières classiques.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-4">
+      <div class="fr-card">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">2</span> Besoin métier d'abord</h4>
+            <p class="fr-card__desc">Chaque projet répond à un irritant métier identifié. Pas de technologie pour la technologie.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-4">
+      <div class="fr-card">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">3</span> Transparence totale</h4>
+            <p class="fr-card__desc">Code ouvert, documentation partagée, résultats publiés. Tout est auditable et reproductible.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-4 fr-mt-3w">
+      <div class="fr-card">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">4</span> Réversibilité garantie</h4>
+            <p class="fr-card__desc">Aucune dépendance créée. Si le Lab s'arrête, les outils existants continuent de fonctionner.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-4 fr-mt-3w">
+      <div class="fr-card">
+        <div class="fr-card__body">
+          <div class="fr-card__content">
+            <h4 class="fr-card__title"><span class="fr-badge fr-badge--blue-france fr-mr-1w">5</span> Données non sensibles</h4>
+            <p class="fr-card__desc">Le Lab ne traite que des données non confidentielles. Les données sensibles passent par BercyHub.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Modèle éclaireur 3 temps -->
+  <h3 class="fr-mb-2w">Le modèle éclaireur : 3 temps</h3>
+  <p class="fr-mb-3w">Le Vibe Lab fonctionne comme un éclaireur : il explore rapidement, valide avec les utilisateurs, puis transmet à la filière pour industrialisation.</p>
+  <div class="fr-grid-row fr-grid-row--gutters fr-mb-4w">
+    <div class="fr-col-12 fr-col-md-4">
+      <div class="fr-callout fr-callout--green-emeraude">
+        <h4 class="fr-callout__title">1. Explorer</h4>
+        <p class="fr-callout__text">Prototypage rapide en vibe coding (4h). L'agent métier exprime son besoin, l'IA génère le code. Premier livrable tangible immédiat.</p>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-4">
+      <div class="fr-callout fr-callout--blue-ecume">
+        <h4 class="fr-callout__title">2. Valider</h4>
+        <p class="fr-callout__text">Test utilisateur, scoring via la grille d'évaluation (/50), itérations. Si le score est suffisant, le projet passe au comité de priorisation.</p>
+      </div>
+    </div>
+    <div class="fr-col-12 fr-col-md-4">
+      <div class="fr-callout">
+        <h4 class="fr-callout__title">3. Industrialiser</h4>
+        <p class="fr-callout__text">Transfert vers la filière SI classique ou vers BercyHub pour les données sensibles. Le prototype devient cahier des charges vivant.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- BercyHub -->
+  <h3 class="fr-mb-2w">Articulation avec BercyHub</h3>
+  <div class="fr-highlight">
+    <p>
+      <strong>BercyHub</strong> est le hub souverain d'IA du ministère pour les données sensibles. Le Vibe Lab et BercyHub sont complémentaires : le Lab explore avec des données non sensibles via des outils commerciaux (Claude, Copilot), puis transfère vers BercyHub quand le projet nécessite des données protégées. Une synchronisation trimestrielle assure la cohérence des deux démarches.
+    </p>
+  </div>
+{% endblock %}

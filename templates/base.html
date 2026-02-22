@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="fr" data-fr-scheme="system">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#000091">
+  <title>{% block title %}Vibe Lab{% endblock %} — Ministères Économiques et Financiers</title>
+  <meta name="description" content="Laboratoire de prototypage augmenté par l'IA — Ministères Économiques et Financiers">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/utility/icons/icons.min.css">
+  <link rel="stylesheet" href="/css/custom.css">
+</head>
+<body>
+
+  <!-- PAGE LOGIN -->
+  <div id="login-page" class="vl-login">
+    <div class="fr-container">
+      <div class="fr-grid-row fr-grid-row--center" style="min-height:100vh; align-items:center;">
+        <div class="fr-col-12 fr-col-md-6 fr-col-lg-4">
+
+          <div class="vl-login-header">
+            <p class="fr-logo">
+              République<br>Française
+            </p>
+            <h1 class="fr-mt-3w">Vibe Lab</h1>
+            <p class="fr-text--lg fr-text--regular vl-login-subtitle">
+              Laboratoire de prototypage augmenté par l'IA
+            </p>
+            <p class="fr-text--sm" style="color:var(--text-mention-grey)">
+              Ministères Économiques et Financiers
+            </p>
+          </div>
+
+          <div class="fr-mt-4w">
+            <fieldset class="fr-fieldset" id="login-fieldset" aria-labelledby="login-fieldset-legend">
+              <legend class="fr-fieldset__legend--regular" id="login-fieldset-legend">
+                Connexion
+              </legend>
+
+              <div class="fr-fieldset__element">
+                <div class="fr-input-group" id="email-group">
+                  <label class="fr-label" for="login-email">Adresse e-mail</label>
+                  <input class="fr-input" type="email" id="login-email" name="email" autocomplete="email" required>
+                </div>
+              </div>
+
+              <div class="fr-fieldset__element">
+                <div class="fr-input-group" id="password-group">
+                  <label class="fr-label" for="login-password">Mot de passe</label>
+                  <input class="fr-input" type="password" id="login-password" name="password" autocomplete="current-password" required>
+                </div>
+              </div>
+
+              <div id="login-error" class="fr-alert fr-alert--error fr-alert--sm fr-mt-2w vl-hidden" role="alert">
+                <p id="login-error-msg">Identifiants incorrects.</p>
+              </div>
+
+              <div class="fr-fieldset__element fr-mt-3w">
+                <button id="login-btn" class="fr-btn fr-btn--lg" style="width:100%" type="button">
+                  Se connecter
+                </button>
+              </div>
+            </fieldset>
+          </div>
+
+          <p class="fr-text--xs fr-mt-4w" style="color:var(--text-mention-grey); text-align:center">
+            Accès réservé aux agents habilités
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- APPLICATION PRINCIPALE -->
+  <div id="main-app" class="vl-hidden">
+
+    <!-- HEADER DSFR + NAVIGATION -->
+    <header role="banner" class="fr-header">
+      <div class="fr-header__body">
+        <div class="fr-container">
+          <div class="fr-header__body-row">
+            <div class="fr-header__brand fr-enlarge-link">
+              <div class="fr-header__brand-top">
+                <div class="fr-header__logo">
+                  <p class="fr-logo">
+                    République<br>Française
+                  </p>
+                </div>
+                <div class="fr-header__navbar">
+                  <button class="fr-btn--menu fr-btn" data-fr-opened="false" aria-controls="header-nav" aria-haspopup="menu" id="header-menu-btn" title="Menu">
+                    Menu
+                  </button>
+                </div>
+              </div>
+              <div class="fr-header__service">
+                <a href="/" title="Accueil - Vibe Lab">
+                  <p class="fr-header__service-title">Vibe Lab</p>
+                </a>
+                <p class="fr-header__service-tagline">Laboratoire de prototypage augmenté par l'IA</p>
+              </div>
+            </div>
+            <div class="fr-header__tools">
+              <div class="fr-header__tools-links">
+                <ul class="fr-btns-group">
+                  <li>
+                    <span id="user-display" class="fr-btn fr-btn--tertiary-no-outline fr-icon-user-line" style="pointer-events:none"></span>
+                  </li>
+                  <li>
+                    <button id="logout-btn" class="fr-btn fr-btn--tertiary-no-outline fr-icon-logout-box-r-line">
+                      Déconnexion
+                    </button>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- Navigation -->
+      <div class="fr-header__menu fr-modal" id="header-nav">
+        <div class="fr-container">
+          <button class="fr-btn--close fr-btn" aria-controls="header-nav" title="Fermer">Fermer</button>
+          <nav class="fr-nav" role="navigation" aria-label="Menu principal">
+            <ul class="fr-nav__list">
+              <li class="fr-nav__item"><a class="fr-nav__link" href="/"{% if current_page == 'accueil' %} aria-current="page"{% endif %}>Accueil</a></li>
+              <li class="fr-nav__item"><a class="fr-nav__link" href="/constat"{% if current_page == 'constat' %} aria-current="page"{% endif %}>Le constat</a></li>
+              <li class="fr-nav__item"><a class="fr-nav__link" href="/proposition"{% if current_page == 'proposition' %} aria-current="page"{% endif %}>La proposition</a></li>
+              <li class="fr-nav__item"><a class="fr-nav__link" href="/methode"{% if current_page == 'methode' %} aria-current="page"{% endif %}>Méthode &amp; Gouvernance</a></li>
+              <li class="fr-nav__item"><a class="fr-nav__link" href="/kanban"{% if current_page == 'kanban' %} aria-current="page"{% endif %}>Kanban</a></li>
+              <li class="fr-nav__item"><a class="fr-nav__link" href="/documents"{% if current_page == 'documents' %} aria-current="page"{% endif %}>Documents</a></li>
+            </ul>
+          </nav>
+        </div>
+      </div>
+    </header>
+
+    <!-- CONTENU DE LA PAGE -->
+    <div class="fr-container fr-mt-4w fr-mb-8w">
+      {% block content %}{% endblock %}
+    </div>
+
+    <!-- FOOTER DSFR -->
+    <footer class="fr-footer" role="contentinfo" id="footer">
+      <div class="fr-container">
+        <div class="fr-footer__body">
+          <div class="fr-footer__brand fr-enlarge-link">
+            <p class="fr-logo">
+              République<br>Française
+            </p>
+            <a class="fr-footer__brand-link" href="/" title="Accueil - Vibe Lab">Vibe Lab</a>
+          </div>
+          <div class="fr-footer__content">
+            <p class="fr-footer__content-desc">
+              Vibe Lab — Laboratoire de prototypage augmenté par l'IA<br>
+              Ministères Économiques et Financiers — SNUM
+            </p>
+            <ul class="fr-footer__content-list">
+              <li class="fr-footer__content-item">
+                <a class="fr-footer__content-link" href="https://github.com/bmatge/vibe-lab-bercy" target="_blank" rel="noopener">
+                  Dépôt GitHub
+                </a>
+              </li>
+              <li class="fr-footer__content-item">
+                <a class="fr-footer__content-link" href="mailto:bertrand@matge.com">
+                  Contact
+                </a>
+              </li>
+            </ul>
+          </div>
+        </div>
+        <div class="fr-footer__bottom">
+          <ul class="fr-footer__bottom-list">
+            <li class="fr-footer__bottom-item">
+              <span class="fr-footer__bottom-link">Accessibilité : partiellement conforme</span>
+            </li>
+            <li class="fr-footer__bottom-item">
+              <span class="fr-footer__bottom-link">Mentions légales</span>
+            </li>
+          </ul>
+          <div class="fr-footer__bottom-copy">
+            <p>Sauf mention explicite de propriété intellectuelle détenue par des tiers, les contenus de ce site sont proposés sous
+              <a href="https://github.com/etalab/licence-ouverte/blob/master/LO.md" target="_blank" rel="noopener">licence etalab-2.0</a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+  </div><!-- fin main-app -->
+
+  {% block modal %}{% endblock %}
+
+  <!-- Affichage optimiste : évite le flash de la page login si un token existe -->
+  <script>
+    if (localStorage.getItem('vl_token')) {
+      document.getElementById('login-page').classList.add('vl-hidden');
+      document.getElementById('main-app').classList.remove('vl-hidden');
+    }
+  </script>
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/@gouvfr/dsfr@1.12.1/dist/dsfr.module.min.js" type="module"></script>
+  {% block extra_scripts %}{% endblock %}
+  <script src="/js/config.js"></script>
+  <script src="/js/auth.js"></script>
+  <script src="/js/app.js"></script>
+  {% block page_scripts %}{% endblock %}
+</body>
+</html>

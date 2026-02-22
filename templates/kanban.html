@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+
+{% block title %}Kanban — Vibe Lab{% endblock %}
+
+{% block content %}
+  <div class="vl-kanban-header fr-mb-3w">
+    <h2 style="display:inline">Roadmap &amp; Suivi de projets</h2>
+    <button id="kanban-add-btn" class="fr-btn fr-btn--secondary fr-btn--sm fr-icon-add-line fr-btn--icon-left fr-ml-2w">
+      Nouveau projet
+    </button>
+    <button id="kanban-export-btn" class="fr-btn fr-btn--tertiary fr-btn--sm fr-icon-download-line fr-btn--icon-left fr-ml-1w">
+      Exporter CSV
+    </button>
+  </div>
+
+  <div class="vl-kanban-board vl-kanban-board--6cols">
+    <div class="vl-kanban-column" data-column="propose">
+      <div class="vl-kanban-column-header">
+        <h3 class="fr-text--bold">Proposé</h3>
+        <span class="fr-badge fr-badge--sm vl-count" data-column="propose">0</span>
+      </div>
+      <div class="vl-kanban-cards" id="sortable-propose"></div>
+    </div>
+
+    <div class="vl-kanban-column" data-column="roadmap">
+      <div class="vl-kanban-column-header">
+        <h3 class="fr-text--bold">Dans roadmap</h3>
+        <span class="fr-badge fr-badge--sm fr-badge--blue-france vl-count" data-column="roadmap">0</span>
+      </div>
+      <div class="vl-kanban-cards" id="sortable-roadmap"></div>
+    </div>
+
+    <div class="vl-kanban-column" data-column="developpement">
+      <div class="vl-kanban-column-header">
+        <h3 class="fr-text--bold">En développement</h3>
+        <span class="fr-badge fr-badge--sm fr-badge--blue-ecume vl-count" data-column="developpement">0</span>
+      </div>
+      <div class="vl-kanban-cards" id="sortable-developpement"></div>
+    </div>
+
+    <div class="vl-kanban-column" data-column="test">
+      <div class="vl-kanban-column-header">
+        <h3 class="fr-text--bold">En test</h3>
+        <span class="fr-badge fr-badge--sm fr-badge--yellow-tournesol vl-count" data-column="test">0</span>
+      </div>
+      <div class="vl-kanban-cards" id="sortable-test"></div>
+    </div>
+
+    <div class="vl-kanban-column" data-column="candidat">
+      <div class="vl-kanban-column-header">
+        <h3 class="fr-text--bold">Candidat</h3>
+        <span class="fr-badge fr-badge--sm fr-badge--green-emeraude vl-count" data-column="candidat">0</span>
+      </div>
+      <div class="vl-kanban-cards" id="sortable-candidat"></div>
+    </div>
+
+    <div class="vl-kanban-column" data-column="deploye">
+      <div class="vl-kanban-column-header">
+        <h3 class="fr-text--bold">Déployé</h3>
+        <span class="fr-badge fr-badge--sm fr-badge--purple-glycine vl-count" data-column="deploye">0</span>
+      </div>
+      <div class="vl-kanban-cards" id="sortable-deploye"></div>
+    </div>
+  </div>
+{% endblock %}
+
+{% block modal %}
+  <!-- MODALE KANBAN (ajout / édition) -->
+  <dialog id="kanban-modal" class="fr-modal" role="dialog" aria-labelledby="kanban-modal-title">
+    <div class="fr-container fr-container--fluid fr-container-md">
+      <div class="fr-grid-row fr-grid-row--center">
+        <div class="fr-col-12 fr-col-md-8 fr-col-lg-6">
+          <div class="fr-modal__body">
+            <div class="fr-modal__header">
+              <button class="fr-btn--close fr-btn" id="modal-close-btn" title="Fermer" aria-controls="kanban-modal">Fermer</button>
+            </div>
+            <div class="fr-modal__content">
+              <h1 id="kanban-modal-title" class="fr-modal__title">Nouveau projet</h1>
+
+              <div class="fr-input-group fr-mt-2w">
+                <label class="fr-label" for="card-title">Titre du projet *</label>
+                <input class="fr-input" type="text" id="card-title" required>
+              </div>
+
+              <div class="fr-input-group fr-mt-2w">
+                <label class="fr-label" for="card-description">Description</label>
+                <textarea class="fr-input" id="card-description" rows="3"></textarea>
+              </div>
+
+              <div class="fr-grid-row fr-grid-row--gutters fr-mt-2w">
+                <div class="fr-col-6">
+                  <div class="fr-select-group">
+                    <label class="fr-label" for="card-priority">Priorité</label>
+                    <select class="fr-select" id="card-priority">
+                      <option value="haute">Haute</option>
+                      <option value="moyenne" selected>Moyenne</option>
+                      <option value="basse">Basse</option>
+                    </select>
+                  </div>
+                </div>
+                <div class="fr-col-6">
+                  <div class="fr-input-group">
+                    <label class="fr-label" for="card-category">Catégorie</label>
+                    <input class="fr-input" type="text" id="card-category" placeholder="Infrastructure, Outil...">
+                  </div>
+                </div>
+              </div>
+
+              <div class="fr-input-group fr-mt-2w">
+                <label class="fr-label" for="card-repo-url">Dépôt Git</label>
+                <input class="fr-input" type="url" id="card-repo-url" placeholder="https://github.com/...">
+              </div>
+
+              <div class="fr-input-group fr-mt-2w">
+                <label class="fr-label" for="card-prod-url">URL de production</label>
+                <input class="fr-input" type="url" id="card-prod-url" placeholder="https://outil.bercy.matge.com">
+              </div>
+
+              <input type="hidden" id="card-column" value="propose">
+              <input type="hidden" id="card-id" value="">
+            </div>
+            <div class="fr-modal__footer">
+              <div class="fr-btns-group fr-btns-group--right fr-btns-group--inline-lg">
+                <button class="fr-btn" id="modal-save-btn" type="button">Enregistrer</button>
+                <button class="fr-btn fr-btn--secondary" id="modal-cancel-btn" type="button">Annuler</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </dialog>
+{% endblock %}
+
+{% block extra_scripts %}
+  <script src="https://cdn.jsdelivr.net/npm/sortablejs@1.15.6/Sortable.min.js"></script>
+{% endblock %}
+
+{% block page_scripts %}
+  <script src="/js/kanban.js"></script>
+  <script>
+    document.addEventListener('vl:app-shown', function () {
+      Kanban.init();
+    });
+  </script>
+{% endblock %}

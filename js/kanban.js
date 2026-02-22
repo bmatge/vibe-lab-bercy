@@ -51,7 +51,9 @@ const Kanban = (() => {
             priority: card.priority,
             category: card.category,
             column_name: card.column_name,
-            position: card.position
+            position: card.position,
+            repo_url: card.repo_url || '',
+            prod_url: card.prod_url || ''
           })
         });
         if (!res.ok) handleAuthError(res);
@@ -66,7 +68,9 @@ const Kanban = (() => {
             priority: card.priority,
             category: card.category,
             column_name: card.column_name,
-            position: card.position
+            position: card.position,
+            repo_url: card.repo_url || '',
+            prod_url: card.prod_url || ''
           })
         });
         if (res.ok) {
@@ -122,6 +126,19 @@ const Kanban = (() => {
       basse: 'fr-badge--success'
     }[card.priority] || 'fr-badge--info';
 
+    // Liens repo / prod
+    let linksHtml = '';
+    if (card.repo_url || card.prod_url) {
+      linksHtml = '<div class="vl-kanban-card-links">';
+      if (card.prod_url) {
+        linksHtml += `<a href="${escapeAttr(card.prod_url)}" target="_blank" rel="noopener" title="Production">Prod</a>`;
+      }
+      if (card.repo_url) {
+        linksHtml += `<a href="${escapeAttr(card.repo_url)}" target="_blank" rel="noopener" title="Dépôt Git">Git</a>`;
+      }
+      linksHtml += '</div>';
+    }
+
     el.innerHTML = `
       <div class="vl-kanban-card-top">
         <span class="vl-kanban-card-title">${escapeHtml(card.title)}</span>
@@ -139,6 +156,7 @@ const Kanban = (() => {
         <span class="fr-badge fr-badge--sm fr-badge--no-icon ${priorityClass}">${card.priority}</span>
         ${card.category ? `<span class="fr-tag fr-tag--sm">${escapeHtml(card.category)}</span>` : ''}
       </div>
+      ${linksHtml}
     `;
 
     // Event listeners
@@ -162,6 +180,10 @@ const Kanban = (() => {
     return div.innerHTML;
   }
 
+  function escapeAttr(text) {
+    return (text || '').replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+  }
+
   // --- Modal ---
   function openModal(card) {
     const modal = document.getElementById('kanban-modal');
@@ -172,6 +194,8 @@ const Kanban = (() => {
     const prioInput = document.getElementById('card-priority');
     const catInput = document.getElementById('card-category');
     const colInput = document.getElementById('card-column');
+    const repoInput = document.getElementById('card-repo-url');
+    const prodInput = document.getElementById('card-prod-url');
 
     if (card) {
       title.textContent = 'Modifier le projet';
@@ -181,6 +205,8 @@ const Kanban = (() => {
       prioInput.value = card.priority;
       catInput.value = card.category || '';
       colInput.value = card.column_name;
+      repoInput.value = card.repo_url || '';
+      prodInput.value = card.prod_url || '';
     } else {
       title.textContent = 'Nouveau projet';
       idInput.value = '';
@@ -189,6 +215,8 @@ const Kanban = (() => {
       prioInput.value = 'moyenne';
       catInput.value = '';
       colInput.value = 'propose';
+      repoInput.value = '';
+      prodInput.value = '';
     }
 
     modal.showModal ? modal.showModal() : modal.setAttribute('open', '');
@@ -212,6 +240,8 @@ const Kanban = (() => {
     const priority = document.getElementById('card-priority').value;
     const category = document.getElementById('card-category').value.trim();
     const column_name = document.getElementById('card-column').value;
+    const repo_url = document.getElementById('card-repo-url').value.trim();
+    const prod_url = document.getElementById('card-prod-url').value.trim();
 
     if (id) {
       // Édition
@@ -221,6 +251,8 @@ const Kanban = (() => {
         card.description = description;
         card.priority = priority;
         card.category = category;
+        card.repo_url = repo_url;
+        card.prod_url = prod_url;
         saveCard(card);
       }
     } else {
@@ -229,7 +261,8 @@ const Kanban = (() => {
       const newCard = {
         id: 'temp-' + Date.now(),
         title, description, priority, category, column_name,
-        position: colCards.length
+        position: colCards.length,
+        repo_url, prod_url
       };
       cards.push(newCard);
       saveCard(newCard);
@@ -239,9 +272,33 @@ const Kanban = (() => {
     renderCards();
   }
 
+  // --- Export CSV ---
+  function exportCSV() {
+    if (cards.length === 0) return;
+
+    const headers = ['Titre', 'Description', 'Priorité', 'Catégorie', 'Colonne', 'Dépôt Git', 'URL Production', 'Créé le', 'Mis à jour le'];
+    const rows = cards.map(c => [
+      c.title, c.description || '', c.priority, c.category || '',
+      c.column_name, c.repo_url || '', c.prod_url || '',
+      c.created_at || '', c.updated_at || ''
+    ]);
+
+    const csvContent = [headers, ...rows]
+      .map(row => row.map(cell => '"' + String(cell).replace(/"/g, '""') + '"').join(','))
+      .join('\n');
+
+    const blob = new Blob(['\uFEFF' + csvContent], { type: 'text/csv;charset=utf-8;' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    const date = new Date().toISOString().slice(0, 10);
+    a.href = url;
+    a.download = `vibelab-kanban-${date}.csv`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
+
   // --- SortableJS ---
   function initSortable() {
-    // Détruire les instances précédentes
     sortables.forEach(s => s.destroy());
     sortables = [];
 
@@ -293,6 +350,9 @@ const Kanban = (() => {
 
     // Bouton ajouter
     document.getElementById('kanban-add-btn').addEventListener('click', () => openModal(null));
+
+    // Bouton export CSV
+    document.getElementById('kanban-export-btn').addEventListener('click', exportCSV);
 
     // Boutons modal
     document.getElementById('modal-save-btn').addEventListener('click', handleSave);

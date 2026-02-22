@@ -1,6 +1,6 @@
 // ============================================================
 // Module principal — Vibe Lab
-// Orchestration auth, navigation, initialisation
+// Auth, navigation, réalisations
 // ============================================================
 
 (function () {
@@ -33,6 +33,10 @@
     if (user) {
       userDisplay.textContent = user.email;
     }
+    // Charger les réalisations sur la page d'accueil
+    loadRealisations();
+    // Notifier les scripts de page (ex: kanban.init)
+    document.dispatchEvent(new Event('vl:app-shown'));
   }
 
   // --- Login handler ---
@@ -64,50 +68,93 @@
     loginError.classList.remove('vl-hidden');
   }
 
-  // --- Navigation onglets ---
-  function initTabs() {
-    const tabs = document.querySelectorAll('.fr-tabs__tab');
-    const panels = document.querySelectorAll('.fr-tabs__panel');
+  // --- Réalisations (accueil) ---
+  async function loadRealisations() {
+    const container = document.getElementById('realisations-container');
+    if (!container) return;
 
-    tabs.forEach(tab => {
-      tab.addEventListener('click', () => {
-        // Désactiver tous
-        tabs.forEach(t => {
-          t.setAttribute('aria-selected', 'false');
-          t.setAttribute('tabindex', '-1');
-        });
-        panels.forEach(p => p.classList.remove('fr-tabs__panel--selected'));
+    const token = Auth.getToken();
+    if (!token) return;
 
-        // Activer le cliqué
-        tab.setAttribute('aria-selected', 'true');
-        tab.setAttribute('tabindex', '0');
-        const panelId = tab.getAttribute('aria-controls');
-        const panel = document.getElementById(panelId);
-        if (panel) {
-          panel.classList.add('fr-tabs__panel--selected');
-        }
-
-        // Init Kanban si besoin
-        if (panelId === 'panel-kanban') {
-          Kanban.init();
-        }
-
-        // Sauvegarder onglet actif
-        localStorage.setItem('vl_active_tab', tab.id);
+    try {
+      const res = await fetch(API_BASE_URL + '/api/kanban/cards', {
+        headers: { 'Authorization': 'Bearer ' + token }
       });
-    });
+      if (!res.ok) return;
+      const data = await res.json();
+      const realisations = (data.cards || []).filter(c =>
+        ['test', 'candidat', 'deploye'].includes(c.column_name)
+      );
 
-    // Restaurer onglet actif
-    const savedTab = localStorage.getItem('vl_active_tab');
-    if (savedTab) {
-      const tab = document.getElementById(savedTab);
-      if (tab) tab.click();
+      if (realisations.length === 0) {
+        container.innerHTML = '';
+        return;
+      }
+
+      const statusLabels = {
+        test: { label: 'En test', badge: 'fr-badge--yellow-tournesol' },
+        candidat: { label: 'Candidat', badge: 'fr-badge--green-emeraude' },
+        deploye: { label: 'Déployé', badge: 'fr-badge--purple-glycine' }
+      };
+
+      let html = '<h3 class="fr-mb-2w">Réalisations</h3>';
+      html += '<div class="fr-grid-row fr-grid-row--gutters">';
+
+      realisations.forEach(card => {
+        const status = statusLabels[card.column_name] || { label: card.column_name, badge: '' };
+        const titleHtml = card.prod_url
+          ? `<a href="${escapeAttr(card.prod_url)}" target="_blank" rel="noopener">${escapeHtml(card.title)}</a>`
+          : escapeHtml(card.title);
+
+        let footerLinks = '';
+        if (card.repo_url || card.prod_url) {
+          footerLinks = '<div class="fr-card__footer"><ul class="fr-links-group">';
+          if (card.prod_url) {
+            footerLinks += `<li><a class="fr-link fr-link--sm" href="${escapeAttr(card.prod_url)}" target="_blank" rel="noopener">Accéder</a></li>`;
+          }
+          if (card.repo_url) {
+            footerLinks += `<li><a class="fr-link fr-link--sm" href="${escapeAttr(card.repo_url)}" target="_blank" rel="noopener">Code source</a></li>`;
+          }
+          footerLinks += '</ul></div>';
+        }
+
+        html += `
+          <div class="fr-col-12 fr-col-md-4">
+            <div class="fr-card fr-card--shadow">
+              <div class="fr-card__body">
+                <div class="fr-card__content">
+                  <h4 class="fr-card__title">${titleHtml}</h4>
+                  <p class="fr-card__detail">
+                    <span class="fr-badge fr-badge--sm fr-badge--no-icon ${status.badge}">${status.label}</span>
+                    ${card.category ? `<span class="fr-tag fr-tag--sm fr-ml-1w">${escapeHtml(card.category)}</span>` : ''}
+                  </p>
+                  ${card.description ? `<p class="fr-card__desc">${escapeHtml(card.description)}</p>` : ''}
+                </div>
+                ${footerLinks}
+              </div>
+            </div>
+          </div>`;
+      });
+
+      html += '</div>';
+      container.innerHTML = html;
+    } catch (e) {
+      console.error('Erreur chargement réalisations:', e);
     }
+  }
+
+  function escapeHtml(text) {
+    const div = document.createElement('div');
+    div.textContent = text;
+    return div.innerHTML;
+  }
+
+  function escapeAttr(text) {
+    return text.replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
   }
 
   // --- Keyboard navigation ---
   function initKeyboard() {
-    // Enter sur les champs login
     loginEmail.addEventListener('keydown', (e) => {
       if (e.key === 'Enter') loginPassword.focus();
     });
@@ -138,8 +185,7 @@
     loginBtn.addEventListener('click', handleLogin);
     logoutBtn.addEventListener('click', () => Auth.logout());
 
-    // Init navigation
-    initTabs();
+    // Init clavier
     initKeyboard();
   }
 
