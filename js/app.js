@@ -102,9 +102,7 @@
 
       realisations.forEach(card => {
         const status = statusLabels[card.column_name] || { label: card.column_name, badge: '' };
-        const titleHtml = card.prod_url
-          ? `<a href="${escapeAttr(card.prod_url)}" target="_blank" rel="noopener">${escapeHtml(card.title)}</a>`
-          : escapeHtml(card.title);
+        const titleHtml = `<a href="/projet/${card.id}">${escapeHtml(card.title)}</a>`;
 
         let footerLinks = '';
         if (card.repo_url || card.prod_url) {

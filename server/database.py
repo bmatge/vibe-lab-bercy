@@ -99,9 +99,21 @@ def init_db():
 
         CREATE INDEX IF NOT EXISTS idx_cards_column
             ON kanban_cards(column_name, position);
+
+        CREATE TABLE IF NOT EXISTS screenshots (
+            id            TEXT PRIMARY KEY,
+            card_id       TEXT NOT NULL REFERENCES kanban_cards(id) ON DELETE CASCADE,
+            filename      TEXT NOT NULL,
+            original_name TEXT DEFAULT '',
+            created_at    TEXT NOT NULL
+        );
+
+        CREATE INDEX IF NOT EXISTS idx_screenshots_card
+            ON screenshots(card_id);
     ''')
 
     _migrate_kanban_columns(db)
+    _migrate_project_detail_columns(db)
     _seed_default_user(db)
     _seed_kanban_cards(db)
     db.close()
@@ -112,6 +124,27 @@ def _migrate_kanban_columns(db):
     for col in ('repo_url', 'prod_url'):
         try:
             db.execute(f"ALTER TABLE kanban_cards ADD COLUMN {col} TEXT DEFAULT ''")
+            db.commit()
+        except sqlite3.OperationalError:
+            pass  # colonne existe deja
+
+
+def _migrate_project_detail_columns(db):
+    """Ajoute les colonnes fiche projet si absentes (migration)."""
+    new_columns = [
+        ('stack', "TEXT DEFAULT ''"),
+        ('loc', 'INTEGER DEFAULT NULL'),
+        ('test_coverage', 'REAL DEFAULT NULL'),
+        ('file_count', 'INTEGER DEFAULT NULL'),
+        ('notes', "TEXT DEFAULT ''"),
+        ('target_audience', "TEXT DEFAULT ''"),
+        ('potential_users', "TEXT DEFAULT ''"),
+        ('sponsor', "TEXT DEFAULT ''"),
+        ('dev_duration', "TEXT DEFAULT ''"),
+    ]
+    for col_name, col_def in new_columns:
+        try:
+            db.execute(f'ALTER TABLE kanban_cards ADD COLUMN {col_name} {col_def}')
             db.commit()
         except sqlite3.OperationalError:
             pass  # colonne existe deja

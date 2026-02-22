@@ -4,6 +4,7 @@ from datetime import datetime, timezone
 
 from flask import Flask, send_from_directory, render_template, jsonify, request, g
 from werkzeug.security import check_password_hash
+from werkzeug.utils import secure_filename
 
 from server.database import init_db, get_db, close_db
 from server.auth_utils import create_token, require_auth
@@ -72,6 +73,11 @@ def page_documents():
     return render_template('documents.html', current_page='documents')
 
 
+@app.route('/projet/<card_id>')
+def page_projet(card_id):
+    return render_template('projet.html', current_page='kanban', card_id=card_id)
+
+
 # ---------------------------------------------------------------------------
 # Static files
 # ---------------------------------------------------------------------------
@@ -89,6 +95,27 @@ def js_files(filename):
 @app.route('/docs/<path:filename>')
 def docs_files(filename):
     return send_from_directory(os.path.join(STATIC_ROOT, 'docs'), filename)
+
+
+# ---------------------------------------------------------------------------
+# Screenshots files (noms aléatoires → pas besoin d'auth)
+# ---------------------------------------------------------------------------
+
+ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
+MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 Mo
+
+
+def _screenshots_dir():
+    data_dir = os.environ.get('DATA_DIR', os.path.join(
+        os.path.dirname(os.path.dirname(os.path.abspath(__file__))), 'data'))
+    d = os.path.join(data_dir, 'screenshots')
+    os.makedirs(d, exist_ok=True)
+    return d
+
+
+@app.route('/data/screenshots/<path:filename>')
+def screenshot_files(filename):
+    return send_from_directory(_screenshots_dir(), filename)
 
 
 # ---------------------------------------------------------------------------
@@ -136,6 +163,22 @@ def list_cards():
     return jsonify(cards=[dict(r) for r in rows])
 
 
+@app.route('/api/kanban/cards/<card_id>')
+@require_auth
+def get_card(card_id):
+    db = get_db()
+    card = db.execute('SELECT * FROM kanban_cards WHERE id = ?', (card_id,)).fetchone()
+    if not card:
+        return jsonify(error='Carte non trouvee'), 404
+    screenshots = db.execute(
+        'SELECT id, filename, original_name, created_at FROM screenshots WHERE card_id = ? ORDER BY created_at',
+        (card_id,)
+    ).fetchall()
+    result = dict(card)
+    result['screenshots'] = [dict(s) for s in screenshots]
+    return jsonify(card=result)
+
+
 @app.route('/api/kanban/cards', methods=['POST'])
 @require_auth
 def create_card():
@@ -177,7 +220,9 @@ def update_card(card_id):
     if not existing:
         return jsonify(error='Carte non trouvee'), 404
 
-    allowed = ('title', 'description', 'priority', 'category', 'column_name', 'position', 'repo_url', 'prod_url')
+    allowed = ('title', 'description', 'priority', 'category', 'column_name', 'position',
+               'repo_url', 'prod_url', 'stack', 'loc', 'test_coverage', 'file_count',
+               'notes', 'target_audience', 'potential_users', 'sponsor', 'dev_duration')
     updates = {k: data[k] for k in allowed if k in data}
     if not updates:
         return jsonify(card=dict(existing))
@@ -200,6 +245,80 @@ def delete_card(card_id):
     if not existing:
         return jsonify(error='Carte non trouvee'), 404
 
+    # Nettoyer les fichiers screenshots du disque
+    screenshots = db.execute('SELECT filename FROM screenshots WHERE card_id = ?', (card_id,)).fetchall()
+    for s in screenshots:
+        filepath = os.path.join(_screenshots_dir(), s['filename'])
+        if os.path.exists(filepath):
+            os.remove(filepath)
+
     db.execute('DELETE FROM kanban_cards WHERE id = ?', (card_id,))
+    db.commit()
+    return jsonify(ok=True)
+
+
+# ---------------------------------------------------------------------------
+# Screenshots API
+# ---------------------------------------------------------------------------
+
+@app.route('/api/kanban/cards/<card_id>/screenshots', methods=['POST'])
+@require_auth
+def upload_screenshot(card_id):
+    db = get_db()
+    card = db.execute('SELECT id FROM kanban_cards WHERE id = ?', (card_id,)).fetchone()
+    if not card:
+        return jsonify(error='Carte non trouvee'), 404
+
+    if 'file' not in request.files:
+        return jsonify(error='Aucun fichier'), 400
+
+    file = request.files['file']
+    if not file.filename:
+        return jsonify(error='Nom de fichier vide'), 400
+
+    ext = file.filename.rsplit('.', 1)[-1].lower() if '.' in file.filename else ''
+    if ext not in ALLOWED_EXTENSIONS:
+        return jsonify(error='Format non autorise (png, jpg, gif, webp)'), 400
+
+    file_data = file.read()
+    if len(file_data) > MAX_FILE_SIZE:
+        return jsonify(error='Fichier trop volumineux (max 5 Mo)'), 400
+
+    screenshot_id = secrets.token_hex(16)
+    safe_filename = f'{screenshot_id}.{ext}'
+    filepath = os.path.join(_screenshots_dir(), safe_filename)
+
+    with open(filepath, 'wb') as f:
+        f.write(file_data)
+
+    now = _now()
+    db.execute(
+        'INSERT INTO screenshots (id, card_id, filename, original_name, created_at) VALUES (?, ?, ?, ?, ?)',
+        (screenshot_id, card_id, safe_filename, secure_filename(file.filename), now)
+    )
+    db.commit()
+
+    return jsonify(screenshot={
+        'id': screenshot_id, 'filename': safe_filename,
+        'original_name': file.filename, 'created_at': now
+    }), 201
+
+
+@app.route('/api/kanban/cards/<card_id>/screenshots/<screenshot_id>', methods=['DELETE'])
+@require_auth
+def delete_screenshot(card_id, screenshot_id):
+    db = get_db()
+    row = db.execute(
+        'SELECT filename FROM screenshots WHERE id = ? AND card_id = ?',
+        (screenshot_id, card_id)
+    ).fetchone()
+    if not row:
+        return jsonify(error='Screenshot non trouve'), 404
+
+    filepath = os.path.join(_screenshots_dir(), row['filename'])
+    if os.path.exists(filepath):
+        os.remove(filepath)
+
+    db.execute('DELETE FROM screenshots WHERE id = ?', (screenshot_id,))
     db.commit()
     return jsonify(ok=True)

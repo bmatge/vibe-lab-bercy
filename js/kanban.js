@@ -141,7 +141,7 @@ const Kanban = (() => {
 
     el.innerHTML = `
       <div class="vl-kanban-card-top">
-        <span class="vl-kanban-card-title">${escapeHtml(card.title)}</span>
+        <a href="/projet/${card.id}" class="vl-kanban-card-title">${escapeHtml(card.title)}</a>
         <div class="vl-kanban-card-actions">
           <button class="vl-card-btn" data-action="edit" data-id="${card.id}" title="Modifier">
             <span class="fr-icon-edit-line fr-icon--sm" aria-hidden="true"></span>
