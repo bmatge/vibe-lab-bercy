@@ -17,6 +17,10 @@ if ! docker network inspect ecosystem-network >/dev/null 2>&1; then
   exit 1
 fi
 
+# Mettre a jour le code
+echo "Mise a jour du code (git pull)..."
+git pull
+
 # Build et demarrage
 echo "Construction de l'image..."
 docker compose build
