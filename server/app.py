@@ -54,10 +54,6 @@ def page_accueil():
     return render_template('accueil.html', current_page='accueil')
 
 
-@app.route('/constat')
-def page_constat():
-    return render_template('constat.html', current_page='constat')
-
 
 @app.route('/proposition')
 def page_proposition():
