@@ -2,7 +2,7 @@
 
 **Le vibe coding comme levier de transformation du design, de l'UX et de l'accessibilité ministériels**
 
-Bertrand Matgé — MIWEB (Mission Ingénierie du Web) — Février 2026
+Bertrand Matge — MIWEB (Mission Ingénierie du Web) — Février 2026
 
 > En 6 mois, le vibe coding a permis de produire 8 outils numériques couvrant les trois dimensions du design ministériel : **design visuel**, **design de service** et **design éditorial**.
 >
