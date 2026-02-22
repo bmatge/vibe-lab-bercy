@@ -1,67 +1,135 @@
 # Vibe Lab — Ministères Économiques et Financiers
 
-Laboratoire de prototypage augmenté par l'IA.
+Laboratoire de prototypage augmenté par l'IA au service des agents du ministère.
 
-## Accès
+**Site** : [vibelab.bercy.matge.com](https://vibelab.bercy.matge.com)
 
-Site : [vibelab.bercy.matge.com](https://vibelab.bercy.matge.com)
+---
 
-## Mode démo
+## Le Vibe Lab en bref
 
-Par défaut, le site fonctionne en **mode démo** (sans Supabase) :
-- Email : n'importe quel email valide
-- Mot de passe : `vibe2025`
-- Les données du Kanban sont stockées en localStorage
+Le Vibe Lab permet à un agent métier d'exprimer un besoin en langage naturel et d'obtenir un prototype fonctionnel en quelques jours — sans compétence technique préalable, sans marché public, sans dette technique.
 
-## Configuration Supabase (production)
+Le prototype sert ensuite de cahier des charges vivant, testé par les utilisateurs, documenté et prêt à industrialiser par les équipes SI.
 
-1. Créer un projet gratuit sur [supabase.com](https://supabase.com)
-2. Exécuter le SQL ci-dessous dans l'éditeur SQL de Supabase
-3. Modifier `js/config.js` avec votre URL et clé anon
-4. Activer l'authentification Email/Password dans Authentication > Providers
+| | |
+|---|---|
+| **2 à 3 jours** par prototype | **20x** plus rapide qu'un cycle classique |
+| **~800 €/mois** hors ETP | **0** dépendance externe |
 
-### SQL de création
+## À qui ça s'adresse
 
-```sql
-CREATE TABLE kanban_cards (
-  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
-  title VARCHAR(255) NOT NULL,
-  description TEXT,
-  priority VARCHAR(20) NOT NULL DEFAULT 'moyenne',
-  category VARCHAR(50),
-  column_name VARCHAR(50) NOT NULL DEFAULT 'backlog',
-  position INT DEFAULT 0,
-  created_by UUID REFERENCES auth.users(id),
-  created_at TIMESTAMPTZ DEFAULT NOW(),
-  updated_at TIMESTAMPTZ DEFAULT NOW()
-);
+- **Agents métier** — proposer un projet, suivre son avancement sur le Kanban
+- **Comité d'évaluation** — scorer les projets candidats via la grille /50, prioriser le backlog mensuel
+- **Équipe Lab** — piloter le portefeuille de prototypes, documenter la démarche
 
-ALTER TABLE kanban_cards ENABLE ROW LEVEL SECURITY;
+## Ce que fait l'application
 
-CREATE POLICY "Authenticated read" ON kanban_cards
-  FOR SELECT USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated insert" ON kanban_cards
-  FOR INSERT WITH CHECK (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated update" ON kanban_cards
-  FOR UPDATE USING (auth.role() = 'authenticated');
-CREATE POLICY "Authenticated delete" ON kanban_cards
-  FOR DELETE USING (auth.role() = 'authenticated');
-```
+### Kanban de suivi des projets
 
-### Créer des utilisateurs
+Tableau en 6 colonnes (Proposé → Roadmap → En cours → Test → Candidat → Déployé) avec drag-and-drop, priorités, catégories et export CSV.
 
-Dans Supabase > Authentication > Users > Invite user, ajouter les adresses email des agents habilités.
+### Backlog et grille d'évaluation
 
-## Déploiement GitHub Pages
+Interface en 3 onglets pour le comité mensuel :
+- **Backlog** — tableau trié par score, statut des critères d'entrée
+- **Évaluer** — 6 critères d'entrée (oui/non) + 6 notes pondérées (impact ×3, urgence ×2, données ×2, visibilité ×1, complexité ×1, réutilisabilité ×1) = score /50
+- **Saisir** — formulaire de soumission d'un nouveau projet
 
-Le site se déploie automatiquement via GitHub Pages. Le fichier `CNAME` configure le domaine personnalisé.
+### Fiche projet détaillée
+
+Page par projet avec métriques techniques (stack, LOC, couverture de tests, commits), métadonnées (sponsor, public cible, durée estimée/réelle), galerie de screenshots et intégration GitHub.
+
+### Bibliothèque de documents
+
+13 documents Markdown (dossier complet, rapports par direction, manifeste, gouvernance, grille d'évaluation…) consultables en ligne avec table des matières et export DOCX en un clic.
 
 ## Stack technique
 
-- **Frontend** : HTML / CSS / JS vanilla + [DSFR v1.12](https://www.systeme-de-design.gouv.fr/)
-- **Auth + BDD** : [Supabase](https://supabase.com) (free tier)
-- **Drag & drop** : [SortableJS](https://sortablejs.github.io/Sortable/)
-- **Hébergement** : GitHub Pages
+| Couche | Technologies |
+|---|---|
+| **Backend** | Flask 3.1, SQLite (WAL), PyJWT, python-docx |
+| **Frontend** | Vanilla JS, [DSFR v1.12](https://www.systeme-de-design.gouv.fr/), Jinja2 |
+| **Auth** | JWT (HS256, 4h), rate limiting, hash bcrypt |
+| **Tests** | pytest (55 tests : unitaires, intégration, sécurité) |
+| **Déploiement** | Docker, Traefik, Let's Encrypt |
+
+## Installation
+
+### Développement local
+
+```bash
+# Cloner et installer les dépendances
+git clone https://github.com/bmatge/vibe-lab-bercy.git
+cd vibe-lab-bercy
+pip install -r server/requirements.txt
+
+# Configurer l'environnement
+cp .env.example .env
+# Éditer .env : SECRET_KEY, DEFAULT_USER_EMAIL, DEFAULT_USER_PASSWORD
+
+# Lancer
+flask --app server.app run --host 0.0.0.0 --port 5000
+```
+
+### Docker (production)
+
+```bash
+cp .env.example .env
+# Éditer .env
+
+docker compose build
+docker compose up -d
+# → http://localhost:5000
+```
+
+### Variables d'environnement
+
+| Variable | Description | Requis |
+|---|---|---|
+| `SECRET_KEY` | Clé de signature JWT | oui |
+| `DEFAULT_USER_EMAIL` | Email du premier utilisateur | oui |
+| `DEFAULT_USER_PASSWORD` | Mot de passe du premier utilisateur | oui |
+| `DATA_DIR` | Répertoire de la base SQLite (défaut : `./data`) | non |
+| `GITHUB_TOKEN` | Token GitHub pour les appels API | non |
+
+### Gestion des utilisateurs
+
+```bash
+docker exec vibelab python -m server.manage adduser email@domaine.fr motdepasse
+docker exec vibelab python -m server.manage listusers
+docker exec vibelab python -m server.manage changepassword email@domaine.fr nouveaumotdepasse
+docker exec vibelab python -m server.manage deluser email@domaine.fr
+```
+
+## Tests
+
+```bash
+pytest tests/ -v
+```
+
+55 tests couvrant : schéma et migrations, authentification JWT, conversion DOCX, API CRUD cartes, API backlog/évaluation, viewer de documents, et sécurité (validation d'entrées, traversée de chemin, magic bytes, rate limiting, headers).
+
+## Arborescence
+
+```
+vibe-lab-bercy/
+├── server/
+│   ├── app.py              # Application Flask principale
+│   ├── database.py         # Schéma SQLite et migrations
+│   ├── auth_utils.py       # JWT : création, décodage, décorateur
+│   ├── md_to_docx.py       # Conversion Markdown → DOCX
+│   └── manage.py           # CLI de gestion des utilisateurs
+├── templates/              # Templates Jinja2 (DSFR)
+├── js/                     # Modules JS vanilla (auth, kanban, backlog, projet)
+├── css/custom.css          # Styles personnalisés
+├── docs/                   # 13 documents Markdown
+├── tests/                  # Suite pytest
+├── data/                   # Base SQLite + screenshots (gitignored)
+├── Dockerfile
+├── docker-compose.yml
+└── deploy.sh
+```
 
 ## Licence
 
