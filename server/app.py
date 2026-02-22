@@ -64,11 +64,6 @@ def page_proposition():
     return render_template('proposition.html', current_page='proposition')
 
 
-@app.route('/methode')
-def page_methode():
-    return render_template('methode.html', current_page='methode')
-
-
 @app.route('/kanban')
 def page_kanban():
     return render_template('kanban.html', current_page='kanban')
