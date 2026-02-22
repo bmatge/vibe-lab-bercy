@@ -3,7 +3,7 @@
 **Retour d'experience sur 6 mois de prototypage assiste par IA -- Proposition de creation d'un Lab**
 
 Bertrand Matge -- Responsable MIWEB (Mission Ingenierie du Web)
-Sous-direction du Numerique (SNUM) -- Fevrier 2026
+Service du numérique (SNUM) -- Fevrier 2026
 
 ---
 

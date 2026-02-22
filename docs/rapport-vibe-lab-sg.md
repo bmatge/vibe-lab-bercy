@@ -285,7 +285,7 @@ Le Vibe Lab devient un **eclaireur** : il derisque les projets avant qu'ils ne m
 L'elargissement du Vibe Lab aux fonctions support du secretariat general ne necessite pas un changement de modele. Le meme dispositif s'applique :
 
 - **1 a 3 agents dedies a temps plein.** Les memes profils que pour le perimetre communication, avec une connaissance elargie des metiers du secretariat general. Le recrutement peut se faire progressivement : 1 agent supplementaire par perimetre ouvert.
-- **~1 000 \u20ac/mois de licences IA.** Montant inchange : les licences sont par agent, pas par projet. Ajouter des cas d'usage ne coute pas plus cher en licences.
+- **~1 000 /mois de licences IA.** Montant inchange : les licences sont par agent, pas par projet. Ajouter des cas d'usage ne coute pas plus cher en licences.
 - **Un backlog partage avec les directions.** Chaque direction concernee (DRH, DAF, SG Immobilier, DSI) propose des besoins. Le Vibe Lab priorise avec un comite mensuel. Les prototypes sont livres en sprints de 1 a 2 semaines.
 - **Une coordination legere avec BercyHub.** Un point trimestriel suffit : revue des projets en cours, identification des transferts possibles, partage des retours d'experience. Pas de gouvernance lourde.
 
@@ -319,7 +319,7 @@ Le secretariat general dispose de dizaines de problemes concrets dont la solutio
 
 > Le Vibe Lab a demontre son modele sur la communication. L'etendre aux fonctions support du secretariat general, c'est multiplier l'impact sans changer la recette :
 >
-> - **Memes moyens** (1-3 agents, ~1 000 \u20ac/mois)
+> - **Memes moyens** (1-3 agents, ~1 000 /mois)
 > - **Meme perimetre securise** (donnees publiques, aucun SI sensible)
 > - **Meme methode** (prototype rapide, test utilisateur, iteration)
 > - **Complementarite totale avec BercyHub** (pas de chevauchement)

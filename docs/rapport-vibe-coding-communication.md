@@ -3,7 +3,7 @@
 **8 outils numériques pour renforcer la visibilité, la gouvernance et l'image du ministère**
 
 Bertrand Matge — MIWEB, Mission Ingénierie du Web
-Sous-direction du Numérique (SNUM) — Février 2026
+Service du numérique (SNUM) — Février 2026
 
 > En 6 mois, **1 agent public** équipé d'IA générative a produit **8 outils numériques** directement utiles à la communication ministérielle — pour un coût estimé **8 fois inférieur** à une prestation équivalente.
 
