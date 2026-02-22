@@ -37,11 +37,16 @@ with app.app_context():
 # ---------------------------------------------------------------------------
 
 @app.after_request
-def add_no_cache(response):
+def add_security_headers(response):
+    # Anti-cache sur les pages HTML
     if response.content_type and 'text/html' in response.content_type:
         response.headers['Cache-Control'] = 'no-cache, no-store, must-revalidate'
         response.headers['Pragma'] = 'no-cache'
         response.headers['Expires'] = '0'
+    # Headers de sécurité
+    response.headers['X-Content-Type-Options'] = 'nosniff'
+    response.headers['X-Frame-Options'] = 'DENY'
+    response.headers['Referrer-Policy'] = 'strict-origin-when-cross-origin'
     return response
 
 
@@ -165,6 +170,24 @@ def export_docx(slug):
 ALLOWED_EXTENSIONS = {'png', 'jpg', 'jpeg', 'gif', 'webp'}
 MAX_FILE_SIZE = 5 * 1024 * 1024  # 5 Mo
 
+IMAGE_MAGIC = {
+    b'\x89PNG\r\n\x1a\n': 'png',
+    b'\xff\xd8\xff': 'jpg',
+    b'GIF87a': 'gif',
+    b'GIF89a': 'gif',
+}
+
+
+def _validate_image_magic(data):
+    """Vérifie que les magic bytes correspondent à un format image autorisé."""
+    for magic, fmt in IMAGE_MAGIC.items():
+        if data[:len(magic)] == magic:
+            return fmt
+    # WEBP: starts with RIFF....WEBP
+    if data[:4] == b'RIFF' and data[8:12] == b'WEBP':
+        return 'webp'
+    return None
+
 
 def _screenshots_dir():
     data_dir = os.environ.get('DATA_DIR', os.path.join(
@@ -185,6 +208,15 @@ def screenshot_files(filename):
 
 @app.route('/api/auth/login', methods=['POST'])
 def login():
+    # Rate limiting
+    ip = request.remote_addr or 'unknown'
+    now_ts = datetime.now(timezone.utc).timestamp()
+    attempts = _login_attempts.get(ip, [])
+    attempts = [t for t in attempts if now_ts - t < LOGIN_WINDOW_SECONDS]
+    if len(attempts) >= LOGIN_MAX_ATTEMPTS:
+        return jsonify(error='Trop de tentatives, reessayez dans une minute'), 429
+    _login_attempts[ip] = attempts
+
     data = request.get_json(silent=True) or {}
     email = (data.get('email') or '').strip()
     password = data.get('password') or ''
@@ -196,8 +228,11 @@ def login():
     user = db.execute('SELECT id, email, password FROM users WHERE email = ?', (email,)).fetchone()
 
     if not user or not check_password_hash(user['password'], password):
+        _login_attempts[ip] = attempts + [now_ts]
         return jsonify(error='Identifiants incorrects'), 401
 
+    # Reset attempts on success
+    _login_attempts.pop(ip, None)
     token = create_token(user['id'], user['email'])
     return jsonify(token=token, user={'id': user['id'], 'email': user['email']})
 
@@ -214,6 +249,54 @@ def me():
 
 def _now():
     return datetime.now(timezone.utc).strftime('%Y-%m-%d %H:%M:%S')
+
+
+VALID_PRIORITIES = ('haute', 'moyenne', 'basse')
+VALID_COLUMNS = ('propose', 'roadmap', 'developpement', 'test', 'candidat', 'deploye')
+MAX_FIELD_LENGTHS = {
+    'title': 255, 'description': 5000, 'notes': 10000,
+    'category': 255, 'stack': 1000, 'sponsor': 255,
+    'target_audience': 500, 'potential_users': 255,
+    'dev_duration': 100, 'dev_duration_real': 100,
+    'repo_url': 500, 'prod_url': 500, 'evaluation_notes': 5000,
+}
+
+
+def _validate_card_data(data):
+    """Valide les champs d'une carte. Retourne (None) si OK ou (error_msg, 400)."""
+    for field, max_len in MAX_FIELD_LENGTHS.items():
+        if field in data and isinstance(data[field], str) and len(data[field]) > max_len:
+            return jsonify(error=f'{field} trop long (max {max_len} caracteres)'), 400
+    if 'priority' in data and data['priority'] not in VALID_PRIORITIES:
+        return jsonify(error=f'Priorite invalide'), 400
+    if 'column_name' in data and data['column_name'] not in VALID_COLUMNS:
+        return jsonify(error=f'Colonne invalide'), 400
+    if 'position' in data:
+        try:
+            if int(data['position']) < 0:
+                return jsonify(error='Position invalide'), 400
+        except (ValueError, TypeError):
+            return jsonify(error='Position invalide'), 400
+    if 'loc' in data and data['loc'] is not None:
+        try:
+            if int(data['loc']) < 0:
+                return jsonify(error='LOC invalide'), 400
+        except (ValueError, TypeError):
+            return jsonify(error='LOC invalide'), 400
+    if 'test_coverage' in data and data['test_coverage'] is not None:
+        try:
+            v = float(data['test_coverage'])
+            if v < 0 or v > 100:
+                return jsonify(error='Couverture de tests invalide (0-100)'), 400
+        except (ValueError, TypeError):
+            return jsonify(error='Couverture de tests invalide'), 400
+    return None
+
+
+# Rate limiting basique pour login
+_login_attempts = {}  # {ip: [(timestamp, ...), ...]}
+LOGIN_MAX_ATTEMPTS = 5
+LOGIN_WINDOW_SECONDS = 60
 
 
 @app.route('/api/kanban/cards')
@@ -248,6 +331,17 @@ def create_card():
     if not title:
         return jsonify(error='Titre requis'), 400
 
+    err = _validate_card_data(data)
+    if err:
+        return err
+
+    priority = data.get('priority', 'moyenne')
+    if priority not in VALID_PRIORITIES:
+        priority = 'moyenne'
+    column_name = data.get('column_name', 'propose')
+    if column_name not in VALID_COLUMNS:
+        column_name = 'propose'
+
     db = get_db()
     card_id = secrets.token_hex(16)
     now = _now()
@@ -257,13 +351,13 @@ def create_card():
             repo_url, prod_url, created_by, created_at, updated_at)
            VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)''',
         (card_id, title,
-         data.get('description', ''),
-         data.get('priority', 'moyenne'),
-         data.get('category', ''),
-         data.get('column_name', 'propose'),
-         data.get('position', 0),
-         data.get('repo_url', ''),
-         data.get('prod_url', ''),
+         data.get('description', '')[:5000],
+         priority,
+         data.get('category', '')[:255],
+         column_name,
+         max(0, int(data.get('position', 0) or 0)),
+         data.get('repo_url', '')[:500],
+         data.get('prod_url', '')[:500],
          g.current_user['id'], now, now),
     )
     db.commit()
@@ -281,16 +375,14 @@ def update_card(card_id):
     if not existing:
         return jsonify(error='Carte non trouvee'), 404
 
+    err = _validate_card_data(data)
+    if err:
+        return err
+
     allowed = ('title', 'description', 'priority', 'category', 'column_name', 'position',
                'repo_url', 'prod_url', 'stack', 'loc', 'test_coverage', 'file_count',
                'notes', 'target_audience', 'potential_users', 'sponsor', 'dev_duration',
-               'dev_duration_real', 'commit_count',
-               'entry_sponsor', 'entry_besoin', 'entry_donnees',
-               'entry_hors_bercyhub', 'entry_pas_existant', 'entry_prototypable',
-               'score_impact', 'score_urgence', 'score_donnees',
-               'score_visibilite', 'score_complexite', 'score_reutilisabilite',
-               'score_total', 'entry_criteria_met',
-               'evaluated_at', 'evaluation_notes')
+               'dev_duration_real', 'commit_count')
     updates = {k: data[k] for k in allowed if k in data}
     if not updates:
         return jsonify(card=dict(existing))
@@ -431,8 +523,12 @@ def upload_screenshot(card_id):
     if len(file_data) > MAX_FILE_SIZE:
         return jsonify(error='Fichier trop volumineux (max 5 Mo)'), 400
 
+    detected = _validate_image_magic(file_data)
+    if not detected:
+        return jsonify(error='Contenu du fichier invalide'), 400
+
     screenshot_id = secrets.token_hex(16)
-    safe_filename = f'{screenshot_id}.{ext}'
+    safe_filename = f'{screenshot_id}.{detected}'
     filepath = os.path.join(_screenshots_dir(), safe_filename)
 
     with open(filepath, 'wb') as f:
@@ -455,9 +551,15 @@ def upload_screenshot(card_id):
 # GitHub proxy (avoid CORS from browser)
 # ---------------------------------------------------------------------------
 
+_GITHUB_PATH_RE = re.compile(r'^[a-zA-Z0-9_.-]+/[a-zA-Z0-9_.-]+(/[a-z]+)?$')
+
+
 @app.route('/api/github-proxy/<path:repo_path>')
 @require_auth
 def github_proxy(repo_path):
+    if not _GITHUB_PATH_RE.match(repo_path):
+        return jsonify(error='Chemin GitHub invalide'), 400
+
     url = 'https://api.github.com/repos/' + repo_path
     req = urllib.request.Request(url, headers={
         'Accept': 'application/vnd.github.v3+json',
@@ -468,10 +570,9 @@ def github_proxy(repo_path):
             data = json_module.loads(response.read().decode())
             return jsonify(data)
     except urllib.error.HTTPError as e:
-        body = e.read().decode() if e.fp else '{}'
-        return jsonify(error='GitHub API: ' + str(e.code)), e.code
-    except Exception as e:
-        return jsonify(error=str(e)), 502
+        return jsonify(error='Erreur GitHub API'), e.code
+    except Exception:
+        return jsonify(error='Erreur de connexion GitHub'), 502
 
 
 @app.route('/api/kanban/cards/<card_id>/screenshots/<screenshot_id>', methods=['DELETE'])
