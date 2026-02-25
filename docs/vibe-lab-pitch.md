@@ -6,12 +6,12 @@ Bertrand Matge — MIWEB / SNUM — Fevrier 2026
 
 ---
 
-## 6 mois. 1 agent. 8 outils.
+## 6 mois. 1 agent. 16 outils.
 
 **Retour d'experience : septembre 2025 – fevrier 2026**
 
-- **8 outils numeriques** fonctionnels, testes
-- **663 K€** cout presta. equivalent (1 105 jours-homme)
+- **16 outils numeriques** fonctionnels, testes
+- **~700 K€** cout presta. equivalent (~1 200 jours-homme)
 - **88 % d'economie** vs. prestation classique
 
 > Aucun de ces projets n'aurait existe sans l'IA. Non pas parce que les competences manquent, mais parce que les circuits classiques rendent leur cout et leur delai disproportionnes.
@@ -20,7 +20,7 @@ Bertrand Matge — MIWEB / SNUM — Fevrier 2026
 
 ---
 
-## 8 outils, 3 dimensions du design
+## 16 outils, 3 dimensions du design
 
 **Design visuel :**
 - ChartsBuilder (dataviz DSFR)
@@ -37,7 +37,7 @@ Bertrand Matge — MIWEB / SNUM — Fevrier 2026
 - ChartsBuilder (redacteurs)
 - LeFouineur (contributeurs)
 
-**~376 000 lignes de code** · **1 800+ tests automatises** · **100 % DSFR** conforme · **Open source** publie sur GitHub
+**~420 000 lignes de code** · **1 800+ tests automatises** · **100 % DSFR** conforme · **Open source** publie sur GitHub
 
 ---
 
@@ -88,7 +88,7 @@ Aucune donnee personnelle, aucun SI sensible, aucun secret.
 
 ## La demande
 
-- **1 a 3 agents dedies** — Profils tech/produit qui connaissent les metiers du ministere
+- **1,5 a 3 ETP dedies** — Profils tech/produit qui connaissent les metiers du ministere. La premiere annee, le Lab peut fonctionner avec 1,5 ETP en mobilisant deux ou trois agents deja en poste qui consacreront d'un tiers a deux tiers de leur temps au sujet.
 - **~1 000 €/mois de licences** — Claude + GitHub Copilot (~350 €/personne/mois)
 - **0 € d'infrastructure** — GitHub, CI/CD, Docker : tout est deja en place
 
@@ -113,9 +113,9 @@ Aucune donnee personnelle, aucun SI sensible, aucun secret.
 
 > Structurer le Vibe Lab, c'est transformer une initiative personnelle en capacite institutionnelle.
 
-- **8 outils produits**
+- **16 outils produits**
 - **88 % d'economie demontree**
-- **1 a 3 agents + 1 000 €/mois**
+- **1,5 a 3 ETP + 1 000 €/mois**
 - **ROI immediat**
 
 Bertrand Matge — MIWEB / SNUM

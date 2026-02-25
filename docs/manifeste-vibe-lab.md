@@ -56,7 +56,7 @@ Tout ce que nous produisons est publié en **open source**. Ce n'est pas un choi
 
 ### Des agents, pas des prestataires
 
-**1 à 3 personnes** qui connaissent les métiers du ministère, maîtrisent les outils d'IA générative, et savent faire le lien entre un besoin métier et une solution technique. Le vibe coding ne nécessite pas d'être développeur senior, mais de savoir guider l'IA avec une **vision claire** et un **socle technique solide**.
+**1,5 à 3 ETP** qui connaissent les métiers du ministère, maîtrisent les outils d'IA générative, et savent faire le lien entre un besoin métier et une solution technique. La première année, le Lab peut fonctionner avec 1,5 ETP en mobilisant deux ou trois agents déjà en poste qui consacreront d'un tiers à deux tiers de leur temps au sujet. Le vibe coding ne nécessite pas d'être développeur senior, mais de savoir guider l'IA avec une **vision claire** et un **socle technique solide**.
 
 ### Des licences, pas des marchés
 

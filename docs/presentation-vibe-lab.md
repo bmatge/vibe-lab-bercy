@@ -10,8 +10,8 @@ Retour d'experience · Proposition · Gouvernance · Feuille de route
 
 ## Le constat : 6 mois d'experimentation
 
-- **8 outils produits** en 6 mois, 1 agent
-- **663 K€ de valeur produite** (cout presta. equiv.)
+- **16 outils produits** en 6 mois, 1 agent
+- **~700 K€ de valeur produite** (cout presta. equiv.)
 - **88 % d'economie** vs. prestation
 
 1 agent · Claude + Copilot · Aucun budget dedie · DSFR · RGAA · ANSSI
@@ -43,7 +43,7 @@ Retour d'experience · Proposition · Gouvernance · Feuille de route
 
 ## La proposition
 
-- **1 a 3 agents** — Profils tech/produit qui connaissent les metiers du ministere
+- **1,5 a 3 ETP** — Profils tech/produit qui connaissent les metiers du ministere. La premiere annee, le Lab peut fonctionner avec 1,5 ETP en mobilisant deux ou trois agents deja en poste qui consacreront d'un tiers a deux tiers de leur temps au sujet.
 - **~1 000 €/mois** — Licences IA (Claude + Copilot), infrastructure existante
 - **15 600 €/an** — Cout total hors masse salariale = 2,4 % de la valeur deja produite
 
@@ -115,9 +115,9 @@ Ecosysteme : **44/50** · ExcelExit : **47/50**
 
 | Phase | Periode | Contenu | Equipe |
 |---|---|---|---|
-| Fondations | T0 – T+6 | Communication (acquis), ExcelExit, 2-3 projets RH/formation | 1 agent |
-| Extension | T+6 – T+12 | Finances / pilotage, Coordination interminist. | 2 agents |
-| Perimetre complet | T+12 – T+18 | Immobilier + DSI, Perimetre complet SG | 3 agents |
+| Fondations | T0 – T+6 | Communication (acquis), ExcelExit, 2-3 projets RH/formation | 1,5 ETP |
+| Extension | T+6 – T+12 | Finances / pilotage, Coordination interminist. | 2 ETP |
+| Perimetre complet | T+12 – T+18 | Immobilier + DSI, Perimetre complet SG | 3 ETP |
 
 ~1 000 €/mois de licences tout au long · Infrastructure existante · 0 investissement supplementaire
 
@@ -127,8 +127,8 @@ Ecosysteme : **44/50** · ExcelExit : **47/50**
 
 > Structurer le Vibe Lab, c'est transformer une initiative personnelle en capacite institutionnelle.
 
-- **8 outils produits** · **663 K€ de valeur** · **88 % d'economie**
+- **16 outils produits** · **~700 K€ de valeur** · **88 % d'economie**
 - Gouvernance formalisee · Risques maitrises · BercyHub articule
 - ExcelExit pret (**47/50**) · 16 cas d'usage SG identifies
 - Plan de communication en 12 semaines
-- **1 a 3 agents · ~1 000 €/mois · infrastructure existante**
+- **1,5 a 3 ETP · ~1 000 €/mois · infrastructure existante**

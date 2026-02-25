@@ -16,16 +16,16 @@ Février 2026
 
 ### 1. Synthèse exécutive
 
-Entre septembre 2025 et février 2026, une démarche expérimentale de **vibe coding** — développement logiciel assisté par IA générative — a été menée au sein de la MIWEB. Un seul agent, équipé de **Claude (Anthropic)** et **GitHub Copilot**, a produit **8 outils numériques fonctionnels** couvrant un spectre large : monitoring web, intelligence éditoriale, dataviz, enquêtes publiques, organigrammes, comparateurs de données ouvertes et outillage contributeur.
+Entre septembre 2025 et février 2026, une démarche expérimentale de **vibe coding** — développement logiciel assisté par IA générative — a été menée au sein de la MIWEB. Un seul agent, équipé de **Claude (Anthropic)** et **GitHub Copilot**, a produit **16 outils numériques fonctionnels** couvrant un spectre large : monitoring web, intelligence éditoriale, dataviz, enquêtes publiques, organigrammes, comparateurs de données ouvertes, outillage contributeur, maturité communication, formulaires DSFR et prototypage consommation.
 
-Ce dossier détaille les réalisations, analyse la qualité du code produit, et propose la création d'un **Vibe Lab structuré** : 1 à 3 agents dédiés à temps plein, un investissement en licences plafonné à ~1 000 €/mois, et un accès à l'infrastructure de déploiement existante.
+Ce dossier détaille les réalisations, analyse la qualité du code produit, et propose la création d'un **Vibe Lab structuré** : 1,5 à 3 ETP, un investissement en licences plafonné à ~1 000 €/mois, et un accès à l'infrastructure de déploiement existante. La première année, l'équipe peut se limiter à 1,5 ETP en mobilisant deux ou trois agents déjà en poste qui consacreront d'un tiers à deux tiers de leur temps au sujet.
 
 **Chiffres clés :**
 
 | | | |
 | --- | --- | --- |
-| **8 produits numériques** fonctionnels, testés, documentés | **~376 000 lignes de code** qualité professionnelle | **663 K€** coût presta. équiv. — 1 105 jours-homme |
-| **~80 K€** coût réel estimé — 130 j/h, 1 agent + IA | **88 % d'économie** vs. prestation classique | **6 mois** durée totale — initiative personnelle |
+| **16 produits numériques** fonctionnels, testés, documentés | **~423 000 lignes de code** qualité professionnelle | **~704 K€** coût presta. équiv. — ~1 173 jours-homme |
+| **~85 K€** coût réel estimé — ~140 j/h, 1 agent + IA | **88 % d'économie** vs. prestation classique | **6 mois** durée totale — initiative personnelle |
 
 ### 2. Le vibe coding : un tandem humain-IA
 
@@ -63,13 +63,14 @@ Bibliothèque de **24 web components DSFR** pour la dataviz gouvernementale. 5 c
 
 Thème DSFR complet pour LimeSurvey avec plugin **ConversationIA** (Albert), plugin **DSFRMail** pour les emails ministériels, et type de question avancé (ranking). Documentation exhaustive (60 Ko+).
 
-- **45 j/h** · 27 000 € équiv.
+- **~21 000 LOC** · 45 j/h · 27 000 € équiv.
+- **Stack :** PHP/Yii, Twig, DSFR, Docker
 
 #### 3.5 Organigrammes service public
 
 Générateur automatique d'organigrammes à partir de l'API Annuaire du service public. Recherche par organisme, construction BFS de l'arbre hiérarchique, deux modes de rendu (HTML/CSS et D3 interactif), filtrage par catégorie, export multi-format.
 
-- **~500 LOC** · 10 j/h · 6 000 € équiv.
+- **~2 900 LOC** · 10 j/h · 6 000 € équiv.
 
 #### 3.6 Comparateurs de données ouvertes
 
@@ -88,22 +89,80 @@ Extension navigateur (Manifest V3) d'alerte et d'analyse qualité pour les contr
 
 - **~2 000 LOC** · 15 j/h · 9 000 € équiv.
 
+#### 3.8 Site vitrine Vibe Lab
+
+Site web de présentation du Vibe Lab lui-même, construit avec Flask et le DSFR. Kanban de suivi des projets, fiches détaillées avec métriques GitHub automatiques, affichage des README, galerie de captures d'écran, page de proposition avec gouvernance.
+
+- **~3 000 LOC** · 5 j/h · 3 000 € équiv.
+- **Stack :** Python, Flask, JS vanilla, DSFR
+
+#### 3.9 POC Portail Consommation (DGCCRF)
+
+Prototype de portail d'information consommateur pour la DGCCRF. Recherche multi-critères, fiches thématiques, parcours guidés, connexion aux API de données publiques (rappels de produits, signalements).
+
+- **~7 300 LOC** · ~30 j/h · 18 000 € équiv.
+- **Stack :** Python, FastAPI, JS, DSFR
+
+#### 3.10 Modèle de maturité communication
+
+Outil d'auto-évaluation de la maturité numérique des équipes communication du ministère. Questionnaire interactif multi-axes, scoring radar, recommandations personnalisées, export PDF, benchmark anonymisé.
+
+- **~4 500 LOC** · 10 j/h · 6 000 € équiv.
+- **Stack :** Python, Flask, JS, DSFR
+
+#### 3.11 Grist Form DSFR
+
+Générateur de formulaires DSFR connectés à Grist (plateforme de tableurs collaboratifs de la DINUM). L'interface DSFR sert de couche de saisie moderne pour les documents Grist, préfigurant l'approche ExcelExit.
+
+- **~2 100 LOC** · 5 j/h · 3 000 € équiv.
+- **Stack :** JS, DSFR, Grist API, Docker
+
+#### 3.12 Archinalyzer
+
+Outil d'analyse automatique d'architectures techniques à partir des dépôts GitHub. Détection des technologies, cartographie des dépendances, métriques de qualité, rapports de synthèse.
+
+- **~5 000 LOC** · 10 j/h · 6 000 € équiv.
+- **Stack :** Python, Shell, JS
+
+#### 3.13 Plugin DSFR Email (LimeSurvey)
+
+Plugin LimeSurvey dédié à la mise en forme des emails en charte DSFR. Templates responsives, personnalisation par enquête, respect de l'identité graphique ministérielle dans les notifications.
+
+- **~1 100 LOC** · 3 j/h · 1 800 € équiv.
+- **Stack :** HTML, PHP, LimeSurvey API
+
+#### 3.14 Plugin Albert / ConversationIA (LimeSurvey)
+
+Plugin LimeSurvey intégrant l'IA souveraine Albert pour enrichir les enquêtes de questions conversationnelles. Appels API Albert, gestion du contexte, interface de configuration dans le backoffice LimeSurvey.
+
+- **~1 000 LOC** · 5 j/h · 3 000 € équiv.
+- **Stack :** PHP, JS, LimeSurvey API, Albert
+
 ### 4. Synthèse des coûts
 
 | Projet | LOC | J/H | Coût presta. |
 | --- | --- | --- | --- |
 | Écosystème (G3) | ~238 000 | 520 | 312 000 € |
 | Portail Eco Browser | ~88 500 | 270 | 162 000 € |
-| ChartsBuilder | ~41 500 | 200 | 120 000 € |
-| LimeSurvey DSFR | — | 45 | 27 000 € |
-| Organigrammes | ~500 | 10 | 6 000 € |
-| Comparateurs (x2) | ~5 500 | 45 | 27 000 € |
-| LeFouineur | ~2 000 | 15 | 9 000 € |
-| **TOTAL** | **~376 000** | **1 105** | **663 000 €** |
+| ChartsBuilder (gouv-widgets) | ~41 500 | 200 | 120 000 € |
+| Thème LimeSurvey DSFR | ~21 000 | 45 | 27 000 € |
+| Organigrammes | ~2 900 | 10 | 6 000 € |
+| Prix Contrôle Technique | ~3 300 | 25 | 15 000 € |
+| Tarifs Bancaires | ~2 100 | 20 | 12 000 € |
+| LeFouineur (extension) | ~2 000 | 15 | 9 000 € |
+| Site vitrine Vibe Lab | ~3 000 | 5 | 3 000 € |
+| POC portail conso (DGCCRF) | ~7 300 | ~30 | 18 000 € |
+| Modèle maturité communication | ~4 500 | 10 | 6 000 € |
+| Grist Form DSFR | ~2 100 | 5 | 3 000 € |
+| Archinalyzer | ~5 000 | 10 | 6 000 € |
+| Plugin DSFR Email (LimeSurvey) | ~1 100 | 3 | 1 800 € |
+| Plugin Albert (LimeSurvey) | ~1 000 | 5 | 3 000 € |
+| ExcelExit | — | à venir | à venir |
+| **TOTAL (hors ExcelExit)** | **~423 000** | **~1 173** | **~704 000 €** |
 
-> **Coût prestataire estimé : 663 000 €** (1 105 jours-homme)
-> **Coût vibe coding estimé : ~80 000 €** (130 jours-homme, 1 agent + IA)
-> **Économie estimée : 583 000 €**, soit **88 %** du coût prestataire
+> **Coût prestataire estimé : ~704 000 €** (~1 173 jours-homme)
+> **Coût vibe coding estimé : ~85 000 €** (~140 jours-homme, 1 agent + IA)
+> **Économie estimée : ~619 000 €**, soit **88 %** du coût prestataire
 >
 > Note : hors coûts de pilotage et contractualisation (+20 à 40 % en réalité).
 
@@ -111,7 +170,7 @@ Extension navigateur (Manifest V3) d'alerte et d'analyse qualité pour les contr
 
 Tous les projets front-end intègrent le **DSFR**, garantissant cohérence visuelle et conformité avec la charte de l'État. Les déploiements utilisent **Docker** avec des configurations Traefik conformes aux préconisations ANSSI. Plusieurs projets intègrent **Albert** (IA souveraine Etalab) et se connectent exclusivement aux API publiques françaises.
 
-- **Typage strict :** TypeScript sur 5/8 projets, Pydantic côté Python
+- **Typage strict :** TypeScript sur 5/16 projets, Pydantic côté Python
 - **Tests :** 1 800+ tests unitaires et d'intégration + E2E Playwright
 - **CI/CD :** GitHub Actions (linting, tests, build Docker, scan Trivy)
 - **Documentation :** README détaillés, ADR, documentation technique générée
@@ -122,7 +181,7 @@ Ces outils n'ont pas été produits au détriment de développeurs humains. Ils 
 
 Le vibe coding inverse la logique des projets classiques : on répond au besoin quand il se présente, avec un outil calibré pour l'instant présent. Si le besoin évolue, on adapte en quelques heures. S'il disparaît, on passe à autre chose sans regret — le coût engagé reste dérisoire.
 
-> Aucun de ces 8 projets n'aurait été réalisé sans l'IA. Non pas parce que les compétences manquent, mais parce que les circuits classiques rendent leur coût et leur délai disproportionnés par rapport au besoin.
+> Aucun de ces 16 projets n'aurait été réalisé sans l'IA. Non pas parce que les compétences manquent, mais parce que les circuits classiques rendent leur coût et leur délai disproportionnés par rapport au besoin.
 
 ---
 
@@ -159,11 +218,12 @@ L'ensemble des projets sont open source et publiés sur GitHub. Les données man
 
 #### 8.1 Direction de la Communication
 
-Les 8 outils déjà produits couvrent les trois dimensions du **design ministériel** :
+Les 16 outils déjà produits couvrent les trois dimensions du **design ministériel** :
 
-- **Design visuel :** ChartsBuilder, thème LimeSurvey, organigrammes, cohérence de marque
-- **Design de service :** comparateurs grand public, Écosystème, LeFouineur, parcours utilisateur
+- **Design visuel :** ChartsBuilder, thème LimeSurvey, organigrammes, modèle de maturité, cohérence de marque
+- **Design de service :** comparateurs grand public, Écosystème, LeFouineur, POC portail conso, parcours utilisateur
 - **Design éditorial :** Portail Eco Browser, LeFouineur contributeurs, ChartsBuilder rédacteurs
+- **Design de données :** Grist Form DSFR, Archinalyzer, ExcelExit, outillage et automatisation
 
 Le Lab donne à la communication la capacité de **piloter les sites du ministère par les données** (Écosystème : 18 critères, alertes automatiques), de **produire de la dataviz conforme sans prestataire** (ChartsBuilder), et de tester sur du réel plutôt que sur des maquettes Figma.
 
@@ -316,7 +376,7 @@ Le plan de communication vise à transformer la visibilité du Lab pour génére
 
 | Audience | Ce qu'ils redoutent | Le message clé |
 | --- | --- | --- |
-| SNUM / Direction | Risque, coût, doublon BercyHub | 663 K€ de valeur, 1 agent, ~1 000 €/mois, 0 interférence |
+| SNUM / Direction | Risque, coût, doublon BercyHub | ~704 K€ de valeur, 1 agent, ~1 000 €/mois, 0 interférence |
 | BercyHub | Confusion de périmètre | On est votre éclaireur, pas votre concurrent |
 | DSI / Architectes | Shadow IT, dette technique | Tout est open source, CI/CD, Docker, DSFR natif |
 | Directions métier | Un gadget de plus | Un outil construit pour vous en 2 semaines |
@@ -335,9 +395,9 @@ Le plan de communication vise à transformer la visibilité du Lab pour génére
 
 ### 15. Moyens demandés
 
-**Équipe : 1 à 3 agents à temps plein** (profils tech/produit)
+**Équipe : 1,5 à 3 ETP** (profils tech/produit)
 
-Des profils qui connaissent les métiers du ministère et maîtrisent les fondamentaux techniques. Le vibe coding ne nécessite pas d'être développeur senior, mais de savoir guider, valider et corriger le code produit par l'IA.
+La première année, le Lab peut fonctionner avec **1,5 ETP** en mobilisant deux ou trois agents déjà en poste qui consacreront d'un tiers à deux tiers de leur temps au sujet. À terme, l'objectif est d'atteindre 2 à 3 agents dédiés. Le vibe coding ne nécessite pas d'être développeur senior, mais de savoir guider, valider et corriger le code produit par l'IA.
 
 **Licences IA : plafonnées à ~1 000 €/mois**
 
@@ -356,15 +416,15 @@ GitHub, CI/CD, Docker, hébergement — tout est déjà en place. Aucun investis
 | Abonnements API | ~100 € | ~1 200 € |
 | **TOTAL** | **~1 300 €** | **~15 600 €** |
 
-> Le coût annuel du Lab (15 600 €) représente **2,4 %** de l'équivalent prestataire des 8 outils déjà produits (663 000 €). Le Lab s'autofinance dès son premier mois.
+> Le coût annuel du Lab (15 600 €) représente **2,2 %** de l'équivalent prestataire des 16 outils déjà produits (~704 000 €). Le Lab s'autofinance dès son premier mois.
 
 ### 16. Montée en charge progressive
 
 | Phase | Périmètre | Moyens |
 | --- | --- | --- |
-| T0 – T+6 | Communication (acquis) + ExcelExit + 2-3 projets RH/formation | 1 agent + licences existantes |
-| T+6 – T+12 | + Finances/pilotage + coordination interministérielle | 2 agents + backlog partagé |
-| T+12 – T+18 | + Immobilier + DSI + périmètre complet SG | 3 agents + gouvernance complète |
+| T0 – T+6 | Communication (acquis) + ExcelExit + 2-3 projets RH/formation | 1,5 ETP (2-3 agents à temps partiel) + licences existantes |
+| T+6 – T+12 | + Finances/pilotage + coordination interministérielle | 2 ETP + backlog partagé |
+| T+12 – T+18 | + Immobilier + DSI + périmètre complet SG | 3 ETP + gouvernance complète |
 
 ### 17. Indicateurs de succès
 
@@ -375,9 +435,9 @@ GitHub, CI/CD, Docker, hébergement — tout est déjà en place. Aucun investis
 
 ### 18. Conclusion
 
-Les résultats de cette expérimentation sont sans ambiguïté : **8 produits numériques fonctionnels**, **~376 000 lignes de code** de qualité professionnelle, produits par un seul agent en 6 mois. L'économie estimée est de l'ordre de **583 000 €**, sans compter les coûts indirects de pilotage et contractualisation.
+Les résultats de cette expérimentation sont sans ambiguïté : **16 produits numériques fonctionnels**, **~423 000 lignes de code** de qualité professionnelle, produits par un seul agent en 6 mois. L'économie estimée est de l'ordre de **619 000 €**, sans compter les coûts indirects de pilotage et contractualisation.
 
-La demande est modeste : **1 à 3 agents dédiés** et environ **1 000 € de licences par mois**. Le retour sur investissement est immédiat. Le cadre est formalisé : gouvernance légère, grille d'évaluation objective, matrice des risques maîtrisée, articulation BercyHub documentée, plan de communication structuré. Et le prochain projet — **ExcelExit, 47/50** — est prêt.
+La demande est modeste : **1,5 à 3 ETP** et environ **1 000 € de licences par mois**. La première année, 1,5 ETP suffisent en mobilisant deux ou trois agents déjà en poste. Le retour sur investissement est immédiat. Le cadre est formalisé : gouvernance légère, grille d'évaluation objective, matrice des risques maîtrisée, articulation BercyHub documentée, plan de communication structuré. Et le prochain projet — **ExcelExit, 47/50** — est prêt.
 
 > Structurer le Vibe Lab, c'est transformer une initiative personnelle en capacité institutionnelle. C'est un investissement modeste pour un effet de levier considérable sur la production, le positionnement et la visibilité du ministère.
 
@@ -389,12 +449,19 @@ La demande est modeste : **1 à 3 agents dédiés** et environ **1 000 € de li
 
 - **Écosystème (G3) :** github.com/bmatge/g3
 - **Portail Eco Browser :** github.com/bmatge/portail-eco-browser
-- **ChartsBuilder :** github.com/bmatge/datasource-charts-webcomponents
-- **LimeSurvey DSFR :** github.com/bmatge/LimeSurvey-DSFR
+- **ChartsBuilder (gouv-widgets) :** github.com/bmatge/datasource-charts-webcomponents
+- **Thème LimeSurvey DSFR :** github.com/bmatge/LimeSurvey-DSFR
 - **Organigrammes :** github.com/bmatge/org-chart-service-public
 - **Prix Contrôle Technique :** github.com/bmatge/prix-controle-technique
 - **Tarifs Bancaires :** github.com/bmatge/tarifs-bancaires
 - **LeFouineur :** github.com/bmatge/eco-alert-bo
+- **Site vitrine Vibe Lab :** github.com/bmatge/vibe-lab-bercy
+- **POC Portail Consommation :** github.com/bmatge/portail-conso
+- **Modèle maturité communication :** github.com/bmatge/modele-maturite-com
+- **Grist Form DSFR :** github.com/bmatge/grist-form-dsfr
+- **Archinalyzer :** github.com/bmatge/archinalyzer
+- **Plugin DSFR Email :** github.com/bmatge/limesurvey-dsfr-mail
+- **Plugin Albert :** github.com/bmatge/limesurvey-albert
 
 ### Documents de référence
 

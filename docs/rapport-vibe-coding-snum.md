@@ -9,18 +9,18 @@ Service du numérique (SNUM) -- Fevrier 2026
 
 ## 1. Synthese executive
 
-> En 6 mois, **1 agent** equipe d'IA generative a produit **8 outils numeriques** de qualite professionnelle representant **~376 000 lignes de code** -- soit l'equivalent de **~663 K Euros** en prestation, pour un cout reel inferieur a **80 K Euros**.
+> En 6 mois, **1 agent** equipe d'IA generative a produit **16 outils numeriques** de qualite professionnelle representant **~420 000 lignes de code** -- soit l'equivalent de **~700 K Euros** en prestation, pour un cout reel inferieur a **85 K Euros**.
 >
-> Ce rapport propose la creation d'un **Lab Vibe Coding** : 1 a 3 agents dedies + ~1 000 Euros/mois de licences.
+> Ce rapport propose la creation d'un **Lab Vibe Coding** : 1,5 a 3 ETP + ~1 000 Euros/mois de licences. La premiere annee, le Lab peut fonctionner avec 1,5 ETP en mobilisant deux ou trois agents deja en poste qui consacreront d'un tiers a deux tiers de leur temps au sujet.
 
-Entre septembre 2025 et fevrier 2026, une demarche experimentale de "vibe coding" -- developpement logiciel assiste par IA generative -- a ete menee au sein de la MIWEB. Un seul agent, equipe de **Claude (Anthropic)** et **GitHub Copilot**, a produit 8 outils numeriques fonctionnels couvrant un spectre large : monitoring web, intelligence editoriale, dataviz, enquetes publiques, organigrammes, comparateurs de donnees ouvertes et outillage contributeur.
+Entre septembre 2025 et fevrier 2026, une demarche experimentale de "vibe coding" -- developpement logiciel assiste par IA generative -- a ete menee au sein de la MIWEB. Un seul agent, equipe de **Claude (Anthropic)** et **GitHub Copilot**, a produit 16 outils numeriques fonctionnels couvrant un spectre large : monitoring web, intelligence editoriale, dataviz, enquetes publiques, organigrammes, comparateurs de donnees ouvertes, outillage contributeur, maturite communication, formulaires DSFR et prototypage consommation.
 
-Ce rapport detaille les realisations, analyse la qualite du code produit, et propose la creation d'une mission dediee "Lab Vibe Coding" : **1 a 3 agents** a temps plein, un investissement en licences plafonne a **~1 000 Euros/mois**, et un acces a l'infrastructure de deploiement existante.
+Ce rapport detaille les realisations, analyse la qualite du code produit, et propose la creation d'une mission dediee "Lab Vibe Coding" : **1,5 a 3 ETP**, un investissement en licences plafonne a **~1 000 Euros/mois**, et un acces a l'infrastructure de deploiement existante. La premiere annee, l'equipe peut se limiter a 1,5 ETP en mobilisant deux ou trois agents deja en poste qui consacreront d'un tiers a deux tiers de leur temps au sujet.
 
 | | | |
 | --- | --- | --- |
-| **8** produits numeriques fonctionnels, testes, documentes | **~376 000** lignes de code qualite professionnelle | **663 K Euros** cout presta. equiv. -- 1 105 jours-homme |
-| **~80 K Euros** cout reel estime -- 130 j/h, 1 agent + IA | **88 %** d'economie vs. prestation classique | **6 mois** duree totale -- initiative personnelle |
+| **16** produits numeriques fonctionnels, testes, documentes | **~420 000** lignes de code qualite professionnelle | **~700 K Euros** cout presta. equiv. -- ~1 200 jours-homme |
+| **~85 K Euros** cout reel estime -- ~140 j/h, 1 agent + IA | **88 %** d'economie vs. prestation classique | **6 mois** duree totale -- initiative personnelle |
 
 ---
 
@@ -114,6 +114,69 @@ Extension navigateur (Manifest V3) d'alerte et d'analyse qualite pour les contri
 | **~2 000 LOC** | **Stack** | **Qualite** |
 | 15 j/h -- 9 000 Euros | JavaScript vanilla, HTML5, CSS3, Manifest V3, SVG | Architecture modulaire (content script / popup / config), branding professionnel (logo SVG, icones multi-resolution) |
 
+### 3.8 Site vitrine Vibe Lab -- Presentation et suivi du Lab
+
+Mini-site de presentation de la demarche Vibe Lab avec acces aux documents strategiques, Kanban de suivi des projets, backlog avec grille d'evaluation, et fiches projet detaillees avec edition inline et synchronisation GitHub.
+
+| | | |
+| --- | --- | --- |
+| **~3 000 LOC** | **Stack** | **Qualite** |
+| 5 j/h -- 3 000 Euros | Python, Flask, JavaScript vanilla, HTML/CSS, DSFR, SQLite, Docker | Architecture Jinja2 + API REST, authentification JWT, proxy GitHub, deploiement Docker/Traefik |
+
+### 3.9 POC portail consommation (DGCCRF)
+
+Prototype pour la DGCCRF : redaction automatisee de fiches pratiques, recherche semantique dans le corpus reglementaire, orientation des consommateurs via arbre de decision. Premiere collaboration inter-directions du Lab.
+
+| | | |
+| --- | --- | --- |
+| **~7 300 LOC** | **Stack** | **Qualite** |
+| ~30 j/h -- 18 000 Euros | Python, FastAPI, JavaScript, HTML/CSS, DSFR, Docker | Architecture RAG, embeddings semantiques, interface DSFR responsive |
+
+### 3.10 Modele de maturite communication numerique
+
+Outil d'analyse et de suivi de la maturite de la communication numerique des ministeres. Grille d'evaluation multicriteres, radar de visualisation, historique des evaluations, export PDF.
+
+| | | |
+| --- | --- | --- |
+| **~4 500 LOC** | **Stack** | **Qualite** |
+| 10 j/h -- 6 000 Euros | Python, Flask, JavaScript, HTML/CSS, DSFR, Docker | Interface DSFR, scoring multicriteres, visualisation radar, deploiement Docker |
+
+### 3.11 Grist Form DSFR -- Formulaires conformes
+
+Service proxy qui applique le style DSFR aux formulaires Grist publies. Permet aux agents de creer des formulaires conformes a la charte de l'Etat sans competence technique, en s'appuyant sur l'infrastructure interministerielle Grist.
+
+| | | |
+| --- | --- | --- |
+| **~2 100 LOC** | **Stack** | **Qualite** |
+| 5 j/h -- 3 000 Euros | JavaScript, HTML/CSS, DSFR, Grist API, Docker | Proxy transparent, transformation CSS en temps reel, deploiement Docker |
+
+### 3.12 Archinalyzer -- Analyse d'architecture web
+
+Outil d'archivage et d'analyse des sites web ministeriels, avec potentiel de deploiement de briques IA et de verification reglementaire via Legifrance.
+
+| | | |
+| --- | --- | --- |
+| **~5 000 LOC** | **Stack** | **Qualite** |
+| 10 j/h -- 6 000 Euros | Python, Shell, JavaScript | Architecture modulaire, pipeline d'analyse, export structure |
+
+### 3.13 Plugin DSFR email (LimeSurvey)
+
+Plugin LimeSurvey qui transforme les emails de notification en messages conformes au DSFR. S'integre dans l'ecosysteme LimeSurvey DSFR (section 3.4).
+
+| | | |
+| --- | --- | --- |
+| **~1 100 LOC** | **Stack** | **Qualite** |
+| 3 j/h -- 1 800 Euros | HTML, PHP, LimeSurvey plugin API | Plugin structure (config.xml), templates email DSFR, integration native LimeSurvey |
+
+### 3.14 Plugin Albert (LimeSurvey)
+
+Plugin LimeSurvey integrant une conversation IA via Albert (IA souveraine Etalab) dans un type de question avance. Permet de recueillir des retours qualitatifs enrichis par l'IA dans les enquetes publiques.
+
+| | | |
+| --- | --- | --- |
+| **~1 000 LOC** | **Stack** | **Qualite** |
+| 5 j/h -- 3 000 Euros | PHP, JavaScript, CSS, LimeSurvey plugin API, API Albert | Plugin structure, integration API Albert, interface conversationnelle DSFR |
+
 ---
 
 ## 4. Synthese comparative des couts
@@ -123,18 +186,26 @@ Extension navigateur (Manifest V3) d'alerte et d'analyse qualite pour les contri
 | Ecosysteme (G3) | ~238 000 | 520 | 312 000 Euros | TypeScript, React 19, Express, PostgreSQL, Redis, Docker |
 | Portail Eco Browser | ~88 500 | 270 | 162 000 Euros | React 18, FastAPI, Elasticsearch, ML/NLP |
 | ChartsBuilder (gouv-widgets) | ~41 500 | 200 | 120 000 Euros | TypeScript, Lit 3, DSFR Chart, Tauri |
-| Theme LimeSurvey DSFR | -- | 45 | 27 000 Euros | PHP/Yii, Twig, DSFR, Docker |
-| Organigrammes service public | -- | 10 | 6 000 Euros | JS vanilla, D3, API Annuaire, DSFR |
+| Theme LimeSurvey DSFR | ~21 000 | 45 | 27 000 Euros | PHP/Yii, Twig, DSFR, Docker |
+| Organigrammes service public | ~2 900 | 10 | 6 000 Euros | JS vanilla, D3, API Annuaire, DSFR |
 | Prix Controle Technique | ~3 300 | 25 | 15 000 Euros | React 18, Leaflet, Zustand, DSFR |
 | Tarifs Bancaires | ~2 100 | 20 | 12 000 Euros | Vanilla JS, Node.js natif, DSFR |
 | LeFouineur (extension) | ~2 000 | 15 | 9 000 Euros | JS vanilla, Manifest V3 |
-| **TOTAL** | **~376 000** | **1 105** | **663 000 Euros** | |
+| Site vitrine Vibe Lab | ~3 000 | 5 | 3 000 Euros | Python, Flask, JS vanilla, DSFR |
+| POC portail conso (DGCCRF) | ~7 300 | ~30 | 18 000 Euros | Python, FastAPI, JS, DSFR |
+| Modele maturite communication | ~4 500 | 10 | 6 000 Euros | Python, Flask, JS, DSFR |
+| Grist Form DSFR | ~2 100 | 5 | 3 000 Euros | JS, DSFR, Grist API, Docker |
+| Archinalyzer | ~5 000 | 10 | 6 000 Euros | Python, Shell, JS |
+| Plugin DSFR email (LimeSurvey) | ~1 100 | 3 | 1 800 Euros | HTML, PHP, LimeSurvey API |
+| Plugin Albert (LimeSurvey) | ~1 000 | 5 | 3 000 Euros | PHP, JS, LimeSurvey API, Albert |
+| ExcelExit | -- | a venir | a venir | Python, Grist API, DSFR |
+| **TOTAL (hors ExcelExit)** | **~423 000** | **~1 173** | **~704 000 Euros** | |
 
-> **Cout prestataire estime : 663 000 Euros** (1 105 jours-homme, equipes de 1 a 4 developpeurs)
+> **Cout prestataire estime : ~704 000 Euros** (~1 200 jours-homme, equipes de 1 a 4 developpeurs)
 >
-> **Cout vibe coding estime : ~80 000 Euros** equivalent (130 jours-homme, 1 agent + IA)
+> **Cout vibe coding estime : ~85 000 Euros** equivalent (~140 jours-homme, 1 agent + IA)
 >
-> **Economie estimee : 583 000 Euros, soit 88 %** du cout prestataire
+> **Economie estimee : ~620 000 Euros, soit 88 %** du cout prestataire
 >
 > Note : ces estimations n'incluent pas les couts de pilotage, contractualisation, reunions de suivi et recette qui majorent le cout prestataire reel de 20 a 40 % supplementaires.
 
@@ -148,7 +219,7 @@ Tous les projets front-end integrent le **DSFR**, garantissant coherence visuell
 
 ### 5.2 Pratiques de developpement
 
-- **Typage strict** : TypeScript utilise sur 5 des 8 projets, Pydantic pour la validation Python
+- **Typage strict** : TypeScript utilise sur 5 des 16 projets, Pydantic pour la validation Python
 - **Tests automatises** : plus de 1 800 tests unitaires et d'integration, completes par des tests E2E Playwright
 - **Architecture** : patterns Repository/Service/Handler, monorepos avec workspaces, separation des responsabilites
 - **CI/CD** : pipelines GitHub Actions (linting, tests, build Docker, scan de securite Trivy)
@@ -162,7 +233,7 @@ Le vibe coding n'est pas exempt de limites. Certains fichiers presentent une tai
 
 ## 6. L'IA ne remplace pas les competences -- elle debloque ce qui etait impossible
 
-> Aucun de ces 8 projets n'aurait ete realise sans l'IA. Non pas parce que les competences manquent, mais parce que les circuits classiques rendent leur cout et leur delai disproportionnes par rapport au besoin.
+> Aucun de ces 16 projets n'aurait ete realise sans l'IA. Non pas parce que les competences manquent, mais parce que les circuits classiques rendent leur cout et leur delai disproportionnes par rapport au besoin.
 
 Il est essentiel de lever une ambiguite : ces outils n'ont pas ete produits par l'IA au detriment de developpeurs humains. Ils **n'auraient tout simplement jamais existe autrement**. Aucun responsable n'aurait lance un marche public de 312 000 Euros pour une plateforme de monitoring, ni mobilise 3 developpeurs pendant 5 mois pour un generateur d'organigrammes ou un comparateur de tarifs bancaires. Ces besoins sont reels, mais leur rapport cout/benefice ne justifiait pas une prestation classique.
 
@@ -234,8 +305,8 @@ Creer une mission dediee "Lab Vibe Coding" au sein du service du numerique, char
 
 ### 8.3 Moyens demandes
 
-- **Equipe** : 1 a 3 agents a temps plein (profils tech/produit)
-  Idealement des profils qui connaissent les metiers du ministere et maitrisent les fondamentaux techniques (architecture, API, deploiement). Le vibe coding ne necessite pas d'etre developpeur senior, mais d'etre capable de guider, valider et corriger le code produit par l'IA.
+- **Equipe** : 1,5 a 3 ETP (profils tech/produit)
+  La premiere annee, le Lab peut fonctionner avec **1,5 ETP** en mobilisant deux ou trois agents deja en poste qui consacreront d'un tiers a deux tiers de leur temps au sujet. A terme, l'objectif est d'atteindre 2 a 3 agents dedies. Idealement des profils qui connaissent les metiers du ministere et maitrisent les fondamentaux techniques (architecture, API, deploiement). Le vibe coding ne necessite pas d'etre developpeur senior, mais d'etre capable de guider, valider et corriger le code produit par l'IA.
 
 - **Licences IA** : plafonnees a ~1 000 Euros/mois
   Abonnements Claude Pro ou Team (Anthropic) + GitHub Copilot, soit environ 200-350 Euros/personne/mois. Pour 3 agents : ~1 000 Euros/mois maximum.
@@ -254,7 +325,7 @@ Creer une mission dediee "Lab Vibe Coding" au sein du service du numerique, char
 
 > **Cout total hors masse salariale : ~15 600 Euros/an**
 >
-> Pour comparaison, l'equivalent prestataire des 8 outils deja produits est estime a 663 000 Euros. Le cout annuel du Lab represente **2,4 %** de cette somme.
+> Pour comparaison, l'equivalent prestataire des 16 outils deja produits est estime a ~704 000 Euros. Le cout annuel du Lab represente **2,2 %** de cette somme.
 >
 > Autrement dit : le Lab s'autofinance des son premier mois de fonctionnement en evitement de couts prestataires.
 
@@ -300,9 +371,9 @@ Le principe fondamental : **la valeur repose dans les donnees et les formules Gr
 
 > Structurer le Lab Vibe Coding, c'est transformer une initiative personnelle en capacite institutionnelle. C'est positionner le service du numerique comme pionnier dans l'utilisation de l'IA generative au service de l'administration publique. Un cadre complet accompagne cette proposition : fiche de gouvernance (cycle de vie des projets, instances, roles), grille d'evaluation (criteres d'entree et de scoring), matrice des risques (8 risques identifies, 0 residuel critique), plan de communication (12 semaines pour generer la demande), et note de cadrage ExcelExit (premier projet du backlog elargi).
 
-Les resultats de cette experimentation sont sans ambiguite : **8 produits numeriques fonctionnels**, **~376 000 lignes de code** de qualite professionnelle, produits par un seul agent en 6 mois. L'economie estimee par rapport a un developpement en prestation classique est de l'ordre de **583 000 Euros**, sans compter les couts indirects de pilotage et contractualisation.
+Les resultats de cette experimentation sont sans ambiguite : **16 produits numeriques fonctionnels**, **~420 000 lignes de code** de qualite professionnelle, produits par un seul agent en 6 mois. L'economie estimee par rapport a un developpement en prestation classique est de l'ordre de **620 000 Euros**, sans compter les couts indirects de pilotage et contractualisation.
 
-La demande est modeste : **1 a 3 agents dedies** et environ **1 000 Euros de licences par mois**. Le retour sur investissement est immediat : chaque prototype livre evite des semaines de specification et des dizaines de milliers d'euros de prestation.
+La demande est modeste : **1,5 a 3 ETP** et environ **1 000 Euros de licences par mois**. La premiere annee, l'equipe peut se limiter a 1,5 ETP en mobilisant deux ou trois agents deja en poste qui consacreront d'un tiers a deux tiers de leur temps au sujet. Le retour sur investissement est immediat : chaque prototype livre evite des semaines de specification et des dizaines de milliers d'euros de prestation.
 
 Au-dela de l'economie financiere, le Lab Vibe Coding offrirait au service du numerique un **avantage strategique** : la capacite a tester rapidement des idees, valider des hypotheses produit, et livrer de la valeur metier avant meme que les circuits classiques n'aient demarre.
 
@@ -314,9 +385,16 @@ Au-dela de l'economie financiere, le Lab Vibe Coding offrirait au service du num
 | --- | --- |
 | Ecosysteme (G3) | https://github.com/bmatge/g3 |
 | Portail Eco Browser | https://github.com/bmatge/portail-eco-browser |
-| ChartsBuilder | https://github.com/bmatge/datasource-charts-webcomponents |
-| LimeSurvey DSFR | https://github.com/bmatge/LimeSurvey-DSFR |
+| ChartsBuilder (gouv-widgets) | https://github.com/bmatge/gouv-widgets |
+| LimeSurvey DSFR | https://github.com/bmatge/limesurvey-theme-dsfr |
 | Organigrammes | https://github.com/bmatge/org-chart-service-public |
 | Prix Controle Technique | https://github.com/bmatge/prix-controle-technique |
 | Tarifs Bancaires | https://github.com/bmatge/tarifs-bancaires |
 | LeFouineur | https://github.com/bmatge/eco-alert-bo |
+| Site vitrine Vibe Lab | https://github.com/bmatge/vibe-lab-bercy |
+| POC portail conso | https://github.com/bmatge/portail-conso-corpus |
+| Modele maturite communication | https://github.com/bmatge/maturity-model |
+| Grist Form DSFR | https://github.com/bmatge/grist-dsfr-form |
+| Archinalyzer | https://github.com/bmatge/archinalyzer |
+| Plugin DSFR email | https://github.com/bmatge/limesurvey-email-dsfr |
+| Plugin Albert | https://github.com/bmatge/limesurvey-conversation-albert |

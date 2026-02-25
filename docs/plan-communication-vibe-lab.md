@@ -6,7 +6,7 @@ Ministere de l'Economie et des Finances -- Fevrier 2026
 > **Faire connaitre le Vibe Lab pour generer la demande.**
 > Audiences, messages, canaux, calendrier.
 
-> Le meilleur projet du monde echoue s'il n'est pas connu. Aujourd'hui le Vibe Lab a **8 outils en production**, **663 K EUR de valeur demontree** -- et une poignee de personnes au courant de son existence.
+> Le meilleur projet du monde echoue s'il n'est pas connu. Aujourd'hui le Vibe Lab a **16 outils en production**, **~700 K EUR de valeur demontree** -- et une poignee de personnes au courant de son existence.
 >
 > Ce plan de communication vise a transformer la visibilite du Lab pour **generer la demande** : que chaque direction sache ce que le Lab peut faire pour elle, et que les decideurs disposent des arguments pour le soutenir.
 
@@ -36,7 +36,7 @@ Chaque audience a un frein different. Le meme message ne fonctionne pas pour un 
 
 - **Qui** : SG, directeurs, cabinet, n+2 du SNUM
 - **Ce qu'ils redoutent** : Que ca derape (securite, donnees, image), que ca fasse doublon avec BercyHub, que ca coute sans resultat visible
-- **Le message** : "Le Vibe Lab a produit **663 K EUR de valeur en 6 mois**, avec 1 agent et ~1 000 EUR/mois. Zero donnee sensible, zero interference BercyHub. C'est le meilleur ratio cout/impact du ministere."
+- **Le message** : "Le Vibe Lab a produit **~700 K EUR de valeur en 6 mois**, avec 1 agent et ~1 000 EUR/mois. Zero donnee sensible, zero interference BercyHub. C'est le meilleur ratio cout/impact du ministere."
 - **Le format qui convainc** : Note de synthese 2 pages (deja produite), 10 min en comite de direction avec demo live
 
 ### B. Directions metier (DRH, DAF, DIRCOM, DSI, Immobilier)
@@ -64,7 +64,7 @@ Chaque audience a un frein different. Le meme message ne fonctionne pas pour un 
 
 - **Qui** : Developpeurs SNUM, equipes DINUM, beta.gouv, reseau des labs d'innovation publique
 - **Ce qu'ils redoutent** : Que ce soit du bricolage non professionnel, que le code ne soit pas a la hauteur
-- **Le message** : "238K LOC, 1 800+ tests, CI/CD, DSFR natif, open source sur GitHub. Le vibe coding n'est pas du no-code -- c'est du code professionnel accelere par l'IA."
+- **Le message** : "~420K LOC, 1 800+ tests, CI/CD, DSFR natif, open source sur GitHub. Le vibe coding n'est pas du no-code -- c'est du code professionnel accelere par l'IA."
 - **Le format qui convainc** : README exemplaire sur GitHub, talk en meetup interne, article technique sur le blog SNUM
 
 ### F. Organisations syndicales
@@ -99,7 +99,7 @@ Chaque audience a une peur specifique. Le plan de communication doit **desamorce
 
 | Objection | Reponse |
 | --- | --- |
-| "C'est un gadget, ca ne tiendra pas" | 8 outils en production depuis 6 mois, 663 K EUR de valeur mesuree, code open source sur GitHub. Si c'etait un gadget, les chiffres ne seraient pas la. |
+| "C'est un gadget, ca ne tiendra pas" | 16 outils en production depuis 6 mois, ~700 K EUR de valeur mesuree, code open source sur GitHub. Si c'etait un gadget, les chiffres ne seraient pas la. |
 | "Ca fait doublon avec BercyHub" | Perimetres strictement separes : donnees publiques vs. donnees sensibles, prototypage rapide vs. industrialisation. Documente dans la note d'opportunite. Confirme (ou a confirmer) par BercyHub. |
 | "L'IA va remplacer des agents" | Le Lab produit des outils pour les agents, pas a leur place. Aucun poste supprime. Les agents gagnent du temps sur les taches repetitives pour se concentrer sur leur coeur de metier. |
 | "C'est un homme seul, si il part tout s'arrete" | Code publie sur GitHub, documente, teste, en architecture standard. N'importe quel developpeur peut reprendre. Le plan prevoit la montee a 2-3 agents. |
@@ -127,7 +127,7 @@ Le plan se deploie en **trois temps** : d'abord securiser le soutien hierarchiqu
 
 | Sem. | Action | Cible | Livrable |
 | --- | --- | --- | --- |
-| S5 | Tournee DIRCOM : demo des 8 outils existants. Collecte des nouveaux besoins. | DIRCOM | 2-3 projets candidats |
+| S5 | Tournee DIRCOM : demo des 16 outils existants. Collecte des nouveaux besoins. | DIRCOM | 2-3 projets candidats |
 | S6 | Tournee DRH + DAF : demo ExcelExit sur un vrai fichier. Identification d'un pilote. | DRH, DAF | 1 fichier Excel pilote |
 | S7 | Tournee DSI + Immobilier : presentation d'Ecosysteme + cas d'usage peripheriques. | DSI, Immobilier | Besoins identifies |
 | S8 | Mise en ligne de la page vitrine intranet avec formulaire "proposer un besoin" | Tous agents | Canal d'entree permanent |

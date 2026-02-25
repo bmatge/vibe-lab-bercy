@@ -1,21 +1,21 @@
 # Rapport d'opportunité : Le vibe coding au service de la communication publique
 
-**8 outils numériques pour renforcer la visibilité, la gouvernance et l'image du ministère**
+**16 outils numériques pour renforcer la visibilité, la gouvernance et l'image du ministère**
 
 Bertrand Matge — MIWEB, Mission Ingénierie du Web
 Service du numérique (SNUM) — Février 2026
 
-> En 6 mois, **1 agent public** équipé d'IA générative a produit **8 outils numériques** directement utiles à la communication ministérielle — pour un coût estimé **8 fois inférieur** à une prestation équivalente.
+> En 6 mois, **1 agent public** équipé d'IA générative a produit **16 outils numériques** directement utiles à la communication ministérielle — pour un coût estimé **8 fois inférieur** à une prestation équivalente.
 
 | | | |
 | --- | --- | --- |
-| **8 outils produits** — tous orientés communication | **~663 K€** coût presta. équivalent — 1 105 jours-homme | **88 % d'économie** vs. prestation classique |
+| **16 outils produits** — tous orientés communication | **~700 K€** coût presta. équivalent — ~1 200 jours-homme | **88 % d'économie** vs. prestation classique |
 
 ---
 
 ## 1. Pourquoi ce rapport vous concerne
 
-Ce document présente les résultats d'une expérimentation menée entre **septembre 2025 et février 2026** au sein de la MIWEB. En utilisant une méthode appelée **« vibe coding »** — développement assisté par intelligence artificielle — un seul agent public a produit **8 outils numériques fonctionnels**.
+Ce document présente les résultats d'une expérimentation menée entre **septembre 2025 et février 2026** au sein de la MIWEB. En utilisant une méthode appelée **« vibe coding »** — développement assisté par intelligence artificielle — un seul agent public a produit **16 outils numériques fonctionnels**.
 
 Ce qui rend ces réalisations particulièrement pertinentes pour la Direction de la Communication, c'est que chacun de ces outils répond à un **besoin concret de visibilité, de gouvernance éditoriale ou d'image du ministère**. Ils ne sont pas des exercices techniques : ce sont des **solutions opérationnelles** au service de la stratégie de communication.
 
@@ -31,7 +31,7 @@ Ce n'est pas du code « brouillon ». Les outils produits respectent le **Design
 
 ---
 
-## 3. 8 outils au service de la communication
+## 3. 16 outils au service de la communication
 
 Chaque projet est présenté ici sous l'angle de sa **valeur pour la Direction de la Communication** : quel problème résout-il ? Quelle visibilité apporte-t-il ?
 
@@ -141,29 +141,50 @@ Chaque projet est présenté ici sous l'angle de sa **valeur pour la Direction d
 | --- | --- |
 | **90 Ko** ultra-léger — 0 dépendance externe | **9 K€** coût presta. équiv. |
 
+### 3.8 Nouveaux outils (2e vague)
+
+Depuis les 8 premiers projets, 8 outils supplémentaires ont été produits avec la même méthode :
+
+- **Site vitrine Vibe Lab** — Mini-site de présentation de la démarche avec accès aux documents, Kanban de suivi et fiches projet détaillées (~3 000 LOC, 5 j/h)
+- **POC portail consommation (DGCCRF)** — Prototype de fiches automatisées et recherche sémantique pour les consommateurs. Première collaboration inter-directions du Lab (~7 300 LOC, ~30 j/h)
+- **Modèle de maturité communication** — Outil d'évaluation de la maturité communication numérique des ministères, avec radar de visualisation (~4 500 LOC, 10 j/h)
+- **Grist Form DSFR** — Proxy qui applique le style DSFR aux formulaires Grist, permettant aux agents de créer des formulaires conformes sans compétence technique (~2 100 LOC, 5 j/h)
+- **Archinalyzer** — Outil d'archivage et d'analyse des sites web ministériels (~5 000 LOC, 10 j/h)
+- **Plugin DSFR email** — Emails de notification LimeSurvey conformes au DSFR (~1 100 LOC, 3 j/h)
+- **Plugin Albert** — Conversation IA Albert intégrée dans les enquêtes LimeSurvey (~1 000 LOC, 5 j/h)
+- **ExcelExit** — Migration des fichiers Excel critiques vers Grist (en roadmap)
+
 ---
 
 ## 4. Synthèse des coûts
 
-Le tableau ci-dessous consolide les estimations pour l'ensemble des 8 projets, sur la base d'un **TJM prestataire de 600 €** (développeur junior/intermédiaire en marché public).
+Le tableau ci-dessous consolide les estimations pour l'ensemble des 16 projets, sur la base d'un **TJM prestataire de 600 €** (développeur junior/intermédiaire en marché public).
 
 | Projet | LOC | Jours-homme | Coût presta. |
 | --- | --- | --- | --- |
 | Écosystème — Gouvernance web | 238 000 | 520 j/h | 312 000 € |
 | Portail Eco Browser | 88 500 | 270 j/h | 162 000 € |
 | ChartsBuilder (gouv-widgets) | 41 500 | 200 j/h | 120 000 € |
-| Thème LimeSurvey DSFR | — | 45 j/h | 27 000 € |
-| Organigrammes service public | — | 10 j/h | 6 000 € |
+| Thème LimeSurvey DSFR | ~21 000 | 45 j/h | 27 000 € |
+| Organigrammes service public | ~2 900 | 10 j/h | 6 000 € |
 | Prix Contrôle Technique | 3 300 | 25 j/h | 15 000 € |
 | Tarifs Bancaires | 2 100 | 20 j/h | 12 000 € |
 | LeFouineur (extension) | 2 000 | 15 j/h | 9 000 € |
-| **TOTAL** | **~376 000** | **1 105 j/h** | **663 000 €** |
+| Site vitrine Vibe Lab | ~3 000 | 5 j/h | 3 000 € |
+| POC portail conso (DGCCRF) | ~7 300 | ~30 j/h | 18 000 € |
+| Modèle maturité communication | ~4 500 | 10 j/h | 6 000 € |
+| Grist Form DSFR | ~2 100 | 5 j/h | 3 000 € |
+| Archinalyzer | ~5 000 | 10 j/h | 6 000 € |
+| Plugin DSFR email | ~1 100 | 3 j/h | 1 800 € |
+| Plugin Albert | ~1 000 | 5 j/h | 3 000 € |
+| ExcelExit | — | à venir | à venir |
+| **TOTAL (hors ExcelExit)** | **~423 000** | **~1 173 j/h** | **~704 000 €** |
 
-> **Coût prestataire estimé** : 663 000 € (1 105 jours-homme, équipes de 1 à 4 développeurs)
+> **Coût prestataire estimé** : ~704 000 € (~1 200 jours-homme, équipes de 1 à 4 développeurs)
 >
-> **Coût vibe coding estimé** : ~80 000 € équivalent (130 jours-homme, 1 agent + IA)
+> **Coût vibe coding estimé** : ~85 000 € équivalent (~140 jours-homme, 1 agent + IA)
 >
-> **Économie estimée** : 583 000 €, soit **88 %** du coût prestataire
+> **Économie estimée** : ~620 000 €, soit **88 %** du coût prestataire
 >
 > *Note : ces estimations n'incluent pas les coûts de pilotage, contractualisation, réunions de suivi et recette qui majorent significativement le coût prestataire réel.*
 
@@ -193,7 +214,7 @@ Plusieurs outils intègrent **Albert**, l'IA souveraine d'Etalab, et se connecte
 
 ### 5.6 L'IA ne remplace pas les compétences — elle débloque ce qui était impossible
 
-> Aucun de ces 8 projets n'aurait été réalisé sans l'IA. Non pas parce que les compétences manquent, mais parce que les circuits classiques rendent leur coût et leur délai disproportionnés par rapport au besoin.
+> Aucun de ces 16 projets n'aurait été réalisé sans l'IA. Non pas parce que les compétences manquent, mais parce que les circuits classiques rendent leur coût et leur délai disproportionnés par rapport au besoin.
 
 Il est essentiel de lever une ambiguïté : ces outils n'ont pas été produits par l'IA **au détriment de développeurs humains**. Ils n'auraient tout simplement **jamais existé** autrement. Aucun responsable n'aurait lancé un marché public de 312 000 € pour une plateforme de monitoring, ni mobilisé 3 développeurs pendant 5 mois pour un générateur d'organigrammes ou un comparateur de tarifs bancaires. Ces besoins sont réels, mais leur rapport coût/bénéfice ne justifie pas une prestation classique.
 
@@ -220,7 +241,7 @@ Pour pérenniser ces acquis et démultiplier leur impact, nous proposons la cré
 
 ### Moyens envisagés
 
-Une équipe légère de **2 à 3 personnes** (profils tech/produit), équipée d'abonnements aux outils d'IA générative, avec accès aux API publiques et à une infrastructure de déploiement. **Coût annuel estimé : 200 à 300 K€** tout compris — soit la moitié du coût de ce qui a déjà été produit en prestation équivalente.
+Une équipe de **1,5 à 3 ETP** (profils tech/produit), équipée d'abonnements aux outils d'IA générative, avec accès aux API publiques et à une infrastructure de déploiement. La première année, le Lab peut fonctionner avec **1,5 ETP** en mobilisant deux ou trois agents déjà en poste qui consacreront d'un tiers à deux tiers de leur temps au sujet. **Coût annuel estimé : 200 à 300 K€** tout compris — soit un tiers du coût de ce qui a déjà été produit en prestation équivalente.
 
 ### Indicateurs de succès
 
@@ -248,7 +269,7 @@ Le premier projet du backlog élargi est **ExcelExit** : la migration systémati
 
 ## 8. En résumé
 
-> **8 outils numériques fonctionnels**, tous orientés communication et visibilité.
+> **16 outils numériques fonctionnels**, tous orientés communication et visibilité.
 >
 > Un **coût de revient 8 fois inférieur** à la prestation classique.
 >
@@ -264,9 +285,16 @@ La Direction de la Communication est la **première bénéficiaire** de cette ca
 
 - **Écosystème (G3)** : https://github.com/bmatge/g3
 - **Portail Eco Browser** : https://github.com/bmatge/portail-eco-browser
-- **ChartsBuilder** : https://github.com/bmatge/datasource-charts-webcomponents
-- **LimeSurvey DSFR** : https://github.com/bmatge/LimeSurvey-DSFR
+- **ChartsBuilder (gouv-widgets)** : https://github.com/bmatge/gouv-widgets
+- **LimeSurvey DSFR** : https://github.com/bmatge/limesurvey-theme-dsfr
 - **Organigrammes** : https://github.com/bmatge/org-chart-service-public
 - **Prix Contrôle Technique** : https://github.com/bmatge/prix-controle-technique
 - **Tarifs Bancaires** : https://github.com/bmatge/tarifs-bancaires
 - **LeFouineur** : https://github.com/bmatge/eco-alert-bo
+- **Site vitrine Vibe Lab** : https://github.com/bmatge/vibe-lab-bercy
+- **POC portail conso** : https://github.com/bmatge/portail-conso-corpus
+- **Modèle maturité communication** : https://github.com/bmatge/maturity-model
+- **Grist Form DSFR** : https://github.com/bmatge/grist-dsfr-form
+- **Archinalyzer** : https://github.com/bmatge/archinalyzer
+- **Plugin DSFR email** : https://github.com/bmatge/limesurvey-email-dsfr
+- **Plugin Albert** : https://github.com/bmatge/limesurvey-conversation-albert

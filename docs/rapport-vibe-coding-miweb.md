@@ -4,18 +4,18 @@
 
 Bertrand Matge — MIWEB (Mission Ingénierie du Web) — Février 2026
 
-> En 6 mois, le vibe coding a permis de produire 8 outils numériques couvrant les trois dimensions du design ministériel : **design visuel**, **design de service** et **design éditorial**.
+> En 6 mois, le vibe coding a permis de produire 16 outils numériques couvrant les trois dimensions du design ministériel : **design visuel**, **design de service** et **design éditorial**.
 >
 > Cette note propose d'en faire un levier structurant pour la mission, en élargissant son périmètre de l'ingénierie du web à l'intelligence du web : prototypage rapide, tests utilisateurs sur maquettes réelles, automatisation de l'accessibilité, et recherche UX augmentée par l'IA.
 
-| 8 outils produits en 6 mois, par 1 agent | 88 % d'économie vs. prestation classique | 3 dimensions du design : visuel · service · éditorial |
+| 16 outils produits en 6 mois, par 1 agent | 88 % d'économie vs. prestation classique | 3 dimensions du design : visuel · service · éditorial |
 | --- | --- | --- |
 
 ---
 
 ## 1. Ce que le vibe coding change pour la mission
 
-Le **vibe coding** — développement assisté par IA générative — a permis en 6 mois de produire **8 outils numériques fonctionnels** représentant l'équivalent d'environ **663 000 € de prestation**. Ces chiffres sont détaillés dans les notes parallèles destinées au chef du service du numérique et à la direction de la communication.
+Le **vibe coding** — développement assisté par IA générative — a permis en 6 mois de produire **16 outils numériques fonctionnels** représentant l'équivalent d'environ **700 000 € de prestation**. Ces chiffres sont détaillés dans les notes parallèles destinées au chef du service du numérique et à la direction de la communication.
 
 La présente note se concentre sur ce que ces résultats signifient concrètement pour la MIWEB — et sur l'opportunité qu'ils représentent pour faire évoluer le **positionnement**, les **capacités** et la **visibilité** de la mission.
 
@@ -23,7 +23,7 @@ La présente note se concentre sur ce que ces résultats signifient concrètemen
 
 ## 2. Trois dimensions du design, déjà couvertes
 
-Les 8 outils produits ne sont pas des exercices techniques. Ils couvrent déjà les **trois axes du design ministériel**, ce qui préfigure naturellement ce que pourrait produire un Vibe Lab structuré.
+Les 16 outils produits ne sont pas des exercices techniques. Ils couvrent déjà les **trois axes du design ministériel**, ce qui préfigure naturellement ce que pourrait produire un Vibe Lab structuré.
 
 Le point commun entre ces outils : ils renforcent chacun la capacité de la mission à **produire**, **piloter** et **améliorer** l'expérience numérique du ministère. C'est exactement le périmètre d'une mission de design, élargi par la puissance de l'IA.
 
@@ -32,6 +32,8 @@ Le point commun entre ces outils : ils renforcent chacun la capacité de la miss
 | **ChartsBuilder** (dataviz DSFR) | **Comparateurs** grand public | **Portail Eco Browser** |
 | **Thème LimeSurvey** DSFR | **Écosystème** (gouvernance web) | **LeFouineur** (contributeurs) |
 | **Organigrammes** service public | **LeFouineur** (qualité web) | **ChartsBuilder** (rédacteurs) |
+| **Grist Form DSFR** (formulaires) | **POC portail conso** (DGCCRF) | **Archinalyzer** (archivage web) |
+| **Modèle de maturité** (radar comm.) | **Site vitrine Vibe Lab** (pilotage) | **Plugin Albert** (IA dans les enquêtes) |
 | Cohérence de marque sur tous les supports | Parcours utilisateur, monitoring, outils métier | Connaissance du contenu, qualité éditoriale, dataviz |
 
 ---
@@ -98,7 +100,7 @@ La recherche UX est un levier majeur de qualité pour les services numériques, 
 
 ## 6. L'IA augmente les compétences, elle ne s'y substitue pas
 
-Il est important de le préciser : aucun de ces 8 outils n'a été produit au détriment de développeurs ou de designers humains. Ils **n'auraient tout simplement jamais existé autrement**. Personne n'aurait lancé un marché pour un générateur d'organigrammes, un comparateur de tarifs ou une bibliothèque de dataviz. Le rapport coût/bénéfice ne le justifiait pas dans le circuit classique.
+Il est important de le préciser : aucun de ces 16 outils n'a été produit au détriment de développeurs ou de designers humains. Ils **n'auraient tout simplement jamais existé autrement**. Personne n'aurait lancé un marché pour un générateur d'organigrammes, un comparateur de tarifs ou une bibliothèque de dataviz. Le rapport coût/bénéfice ne le justifiait pas dans le circuit classique.
 
 Le vibe coding rend viable ce qui était déraisonnable. Un besoin ponctuel trouve sa réponse en quelques jours. L'outil peut être pérenne ou jetable : peu importe, son coût de production est marginal. Si le besoin évolue, on adapte en quelques heures. S'il disparaît, on passe à autre chose.
 
@@ -138,11 +140,11 @@ La MIWEB gère l'écosystème web ministériel : éditorial, technique, conformi
 
 La mise en place d'un Vibe Lab au sein de la MIWEB repose sur des **moyens modestes** :
 
-- **1 à 3 agents dédiés à temps plein.** Des profils tech/produit qui connaissent les métiers de la mission. Le vibe coding ne nécessite pas d'être développeur senior, mais de savoir guider l'IA avec une vision métier et un socle technique solide.
+- **1,5 à 3 ETP.** La première année, le Lab peut fonctionner avec **1,5 ETP** en mobilisant deux ou trois agents déjà en poste qui consacreront d'un tiers à deux tiers de leur temps au sujet. À terme, l'objectif est d'atteindre 2 à 3 agents dédiés. Des profils tech/produit qui connaissent les métiers de la mission. Le vibe coding ne nécessite pas d'être développeur senior, mais de savoir guider l'IA avec une vision métier et un socle technique solide.
 - **~1 000 €/mois de licences IA (plafonné).** Claude Pro/Team + GitHub Copilot, soit 200-350 €/personne/mois. Pour 3 agents : ~1 000 €/mois maximum.
 - **Infrastructure existante.** GitHub, CI/CD, Docker, hébergement — tout est déjà en place. Aucun investissement supplémentaire. Les projets open source de communication ne présentent aucun risque sécurité ni RGPD : code public, données publiques, usages publics.
 
-Pour comparaison : les 8 outils déjà produits représentent l'équivalent de **663 000 € en prestation**. Le coût annuel en licences du Lab (**15 600 €**) en représente **2,4 %**. Le Lab s'autofinance dès son premier mois.
+Pour comparaison : les 16 outils déjà produits représentent l'équivalent de **~700 000 € en prestation**. Le coût annuel en licences du Lab (**~15 600 €**) en représente **2,2 %**. Le Lab s'autofinance dès son premier mois.
 
 ---
 
@@ -181,7 +183,7 @@ Le projet **ExcelExit** incarne cette ambition élargie : migration systématiqu
 > - **Augmenter** la recherche UX par l'IA
 > - **Couvrir** les 3 dimensions du design : visuel, service, éditorial
 >
-> Pour **1 à 3 agents** et **~1 000 €/mois** de licences.
+> Pour **1,5 à 3 ETP** et **~1 000 €/mois** de licences. La première année : 1,5 ETP avec deux ou trois agents déjà en poste.
 
 L'expérimentation a démontré ce qui est possible. La structurer en Vibe Lab transformerait une initiative individuelle en **capacité collective**, et donnerait à la mission les moyens de passer de l'ingénierie du web à l'intelligence du web.
 
@@ -193,9 +195,16 @@ C'est un investissement modeste pour un **effet de levier considérable** sur la
 
 - **Écosystème (G3)** : https://github.com/bmatge/g3
 - **Portail Eco Browser** : https://github.com/bmatge/portail-eco-browser
-- **ChartsBuilder** : https://github.com/bmatge/datasource-charts-webcomponents
-- **LimeSurvey DSFR** : https://github.com/bmatge/LimeSurvey-DSFR
+- **ChartsBuilder (gouv-widgets)** : https://github.com/bmatge/gouv-widgets
+- **LimeSurvey DSFR** : https://github.com/bmatge/limesurvey-theme-dsfr
 - **Organigrammes** : https://github.com/bmatge/org-chart-service-public
 - **Prix Contrôle Technique** : https://github.com/bmatge/prix-controle-technique
 - **Tarifs Bancaires** : https://github.com/bmatge/tarifs-bancaires
 - **LeFouineur** : https://github.com/bmatge/eco-alert-bo
+- **Site vitrine Vibe Lab** : https://github.com/bmatge/vibe-lab-bercy
+- **POC portail conso** : https://github.com/bmatge/portail-conso-corpus
+- **Modèle maturité communication** : https://github.com/bmatge/maturity-model
+- **Grist Form DSFR** : https://github.com/bmatge/grist-dsfr-form
+- **Archinalyzer** : https://github.com/bmatge/archinalyzer
+- **Plugin DSFR email** : https://github.com/bmatge/limesurvey-email-dsfr
+- **Plugin Albert** : https://github.com/bmatge/limesurvey-conversation-albert

@@ -6,17 +6,17 @@
 
 ---
 
-> Le Vibe Lab a demontré sa valeur sur le perimetre de la communication : **8 outils en 6 mois**, **663 K\u20ac d'equivalent prestation**, **88 % d'economie**. Cette note explore les cas d'usage pour les autres fonctions du secretariat general -- RH, finances, immobilier, DSI, coordination -- en restant strictement dans le perimetre du Vibe Lab : donnees publiques ou agregees, aucun SI sensible, complementarite totale avec BercyHub.
+> Le Vibe Lab a demontré sa valeur sur le perimetre de la communication : **16 outils en 6 mois**, **~700 K\u20ac d'equivalent prestation**, **88 % d'economie**. Cette note explore les cas d'usage pour les autres fonctions du secretariat general -- RH, finances, immobilier, DSI, coordination -- en restant strictement dans le perimetre du Vibe Lab : donnees publiques ou agregees, aucun SI sensible, complementarite totale avec BercyHub.
 
 ---
 
 ## 1. Contexte : un modele valide, un potentiel a elargir
 
-Le Vibe Lab -- laboratoire de prototypage assiste par IA generative -- a produit en 6 mois, avec un seul agent, 8 outils numeriques fonctionnels pour le perimetre de la communication ministerielle. Les resultats sont documentes dans les notes paralleles adressees au chef du service du numerique et a la direction de la communication.
+Le Vibe Lab -- laboratoire de prototypage assiste par IA generative -- a produit en 6 mois, avec un seul agent, 16 outils numeriques fonctionnels pour le perimetre de la communication ministerielle. Les resultats sont documentes dans les notes paralleles adressees au chef du service du numerique et a la direction de la communication.
 
 | Outils produits | Cout prestation equivalent | Economie |
 | --- | --- | --- |
-| **8 outils** en 6 mois, par 1 agent | **663 K\u20ac** -- 1 105 jours-homme | **88 %** vs. prestation classique |
+| **16 outils** en 6 mois, par 1 agent | **~700 K\u20ac** -- ~1 200 jours-homme | **88 %** vs. prestation classique |
 
 Ces resultats soulevent une question naturelle : si le vibe coding est aussi efficace pour produire des outils de gouvernance web, d'intelligence editoriale et de dataviz, que pourrait-il apporter aux autres fonctions du secretariat general ?
 
@@ -284,7 +284,7 @@ Le Vibe Lab devient un **eclaireur** : il derisque les projets avant qu'ils ne m
 
 L'elargissement du Vibe Lab aux fonctions support du secretariat general ne necessite pas un changement de modele. Le meme dispositif s'applique :
 
-- **1 a 3 agents dedies a temps plein.** Les memes profils que pour le perimetre communication, avec une connaissance elargie des metiers du secretariat general. Le recrutement peut se faire progressivement : 1 agent supplementaire par perimetre ouvert.
+- **1,5 a 3 ETP dedies a temps plein.** Les memes profils que pour le perimetre communication, avec une connaissance elargie des metiers du secretariat general. La premiere annee, le Lab peut fonctionner avec 1,5 ETP en mobilisant deux ou trois agents deja en poste qui consacreront d'un tiers a deux tiers de leur temps au sujet. Le recrutement peut se faire progressivement : 1 agent supplementaire par perimetre ouvert.
 - **~1 000 /mois de licences IA.** Montant inchange : les licences sont par agent, pas par projet. Ajouter des cas d'usage ne coute pas plus cher en licences.
 - **Un backlog partage avec les directions.** Chaque direction concernee (DRH, DAF, SG Immobilier, DSI) propose des besoins. Le Vibe Lab priorise avec un comite mensuel. Les prototypes sont livres en sprints de 1 a 2 semaines.
 - **Une coordination legere avec BercyHub.** Un point trimestriel suffit : revue des projets en cours, identification des transferts possibles, partage des retours d'experience. Pas de gouvernance lourde.
@@ -295,9 +295,9 @@ L'elargissement n'a pas besoin d'etre simultane. Un scenario realiste :
 
 | Phase | Perimetre | Moyens |
 | --- | --- | --- |
-| T0 -- T+6 | Communication (acquis) + 2-3 projets RH/formation | 1 agent + licences existantes |
-| T+6 -- T+12 | + Finances/pilotage + coordination interministerielle | 2 agents + backlog partage |
-| T+12 -- T+18 | + Immobilier + DSI + perimetre complet SG | 3 agents + gouvernance legere |
+| T0 -- T+6 | Communication (acquis) + 2-3 projets RH/formation | 1,5 ETP (2-3 agents a temps partiel) + licences existantes |
+| T+6 -- T+12 | + Finances/pilotage + coordination interministerielle | 2 ETP + backlog partage |
+| T+12 -- T+18 | + Immobilier + DSI + perimetre complet SG | 3 ETP + gouvernance legere |
 
 ### 11.2 Gouvernance et cadre operationnel
 
@@ -319,7 +319,7 @@ Le secretariat general dispose de dizaines de problemes concrets dont la solutio
 
 > Le Vibe Lab a demontre son modele sur la communication. L'etendre aux fonctions support du secretariat general, c'est multiplier l'impact sans changer la recette :
 >
-> - **Memes moyens** (1-3 agents, ~1 000 /mois)
+> - **Memes moyens** (1,5 a 3 ETP, ~1 000 /mois)
 > - **Meme perimetre securise** (donnees publiques, aucun SI sensible)
 > - **Meme methode** (prototype rapide, test utilisateur, iteration)
 > - **Complementarite totale avec BercyHub** (pas de chevauchement)
