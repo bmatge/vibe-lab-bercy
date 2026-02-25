@@ -86,6 +86,9 @@
         ['test', 'candidat', 'deploye'].includes(c.column_name)
       );
 
+      // Tri par note décroissante (projets sans note en dernier)
+      realisations.sort((a, b) => (b.score_total || 0) - (a.score_total || 0));
+
       if (realisations.length === 0) {
         container.innerHTML = '';
         return;
@@ -116,6 +119,15 @@
           footerLinks += '</ul></div>';
         }
 
+        // Badge de score
+        let scoreBadge = '';
+        if (card.score_total != null) {
+          const scoreClass = card.score_total >= 30 ? 'fr-badge--green-emeraude'
+            : card.score_total >= 20 ? 'fr-badge--yellow-tournesol'
+            : 'fr-badge--orange-terre-battue';
+          scoreBadge = `<span class="fr-badge fr-badge--sm fr-badge--no-icon ${scoreClass}" title="Score d'évaluation">${card.score_total}/50</span> `;
+        }
+
         html += `
           <div class="fr-col-12 fr-col-md-4">
             <div class="fr-card fr-card--shadow">
@@ -123,7 +135,7 @@
                 <div class="fr-card__content">
                   <h4 class="fr-card__title">${titleHtml}</h4>
                   <p class="fr-card__detail">
-                    <span class="fr-badge fr-badge--sm fr-badge--no-icon ${status.badge}">${status.label}</span>
+                    ${scoreBadge}<span class="fr-badge fr-badge--sm fr-badge--no-icon ${status.badge}">${status.label}</span>
                     ${card.category ? `<span class="fr-tag fr-tag--sm fr-ml-1w">${escapeHtml(card.category)}</span>` : ''}
                   </p>
                   ${card.description ? `<p class="fr-card__desc">${escapeHtml(card.description)}</p>` : ''}

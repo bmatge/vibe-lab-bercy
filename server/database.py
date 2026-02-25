@@ -117,6 +117,7 @@ def init_db():
     _migrate_scoring_columns(db)
     _seed_default_user(db)
     _seed_kanban_cards(db)
+    _migrate_default_scores(db)
     db.close()
 
 
@@ -225,3 +226,26 @@ def _seed_kanban_cards(db):
              card['category'], card['column_name'], card['position'], created_by, now, now),
         )
     db.commit()
+
+
+def _migrate_default_scores(db):
+    """Attribue une note par défaut aux projets non évalués, basée sur leur avancement."""
+    default_scores = {
+        'deploye': 40,
+        'candidat': 36,
+        'test': 32,
+        'developpement': 28,
+        'roadmap': 22,
+        'propose': 16,
+    }
+    rows = db.execute(
+        'SELECT id, column_name FROM kanban_cards WHERE score_total IS NULL'
+    ).fetchall()
+    for row in rows:
+        score = default_scores.get(row['column_name'], 20)
+        db.execute(
+            'UPDATE kanban_cards SET score_total = ?, evaluated_at = ? WHERE id = ?',
+            (score, _now(), row['id']),
+        )
+    if rows:
+        db.commit()

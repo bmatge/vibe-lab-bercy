@@ -290,6 +290,13 @@ def _validate_card_data(data):
                 return jsonify(error='Couverture de tests invalide (0-100)'), 400
         except (ValueError, TypeError):
             return jsonify(error='Couverture de tests invalide'), 400
+    if 'score_total' in data and data['score_total'] is not None:
+        try:
+            v = int(data['score_total'])
+            if v < 0 or v > 50:
+                return jsonify(error='Score invalide (0-50)'), 400
+        except (ValueError, TypeError):
+            return jsonify(error='Score invalide'), 400
     return None
 
 
@@ -382,7 +389,7 @@ def update_card(card_id):
     allowed = ('title', 'description', 'priority', 'category', 'column_name', 'position',
                'repo_url', 'prod_url', 'stack', 'loc', 'test_coverage', 'file_count',
                'notes', 'target_audience', 'potential_users', 'sponsor', 'dev_duration',
-               'dev_duration_real', 'commit_count')
+               'dev_duration_real', 'commit_count', 'score_total')
     updates = {k: data[k] for k in allowed if k in data}
     if not updates:
         return jsonify(card=dict(existing))

@@ -49,19 +49,20 @@ def test_github_proxy_valid_paths(client, auth_headers):
 
 
 def test_scoring_bypass_via_update(client, auth_headers, sample_card):
-    """Les scores dans PUT /cards/<id> sont ignorés (doivent passer par /evaluate)."""
+    """score_total est modifiable via PUT, mais score_impact et entry_criteria_met restent protégés."""
     card_id = sample_card['id']
     resp = client.put(f'/api/kanban/cards/{card_id}', json={
         'title': 'Titre normal',
         'score_impact': 5,
-        'score_total': 50,
+        'score_total': 35,
         'entry_criteria_met': 1,
     }, headers=auth_headers)
     assert resp.status_code == 200
     card = resp.get_json()['card']
-    # Les champs scoring ne doivent pas avoir été mis à jour
+    # score_total est modifiable directement (édition fiche projet)
+    assert card['score_total'] == 35
+    # Les champs de scoring détaillé restent protégés (via /evaluate)
     assert card['score_impact'] is None
-    assert card['score_total'] is None
     assert card['entry_criteria_met'] is None
 
 

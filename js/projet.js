@@ -105,7 +105,15 @@ const Projet = (() => {
 
     const status = statusLabels[card.column_name] || { label: card.column_name, badge: '' };
 
-    let html = `<span class="fr-badge fr-badge--sm fr-badge--no-icon ${status.badge}">${status.label}</span>`;
+    let html = '';
+    // Badge score
+    if (card.score_total != null) {
+      const scoreClass = card.score_total >= 30 ? 'fr-badge--green-emeraude'
+        : card.score_total >= 20 ? 'fr-badge--yellow-tournesol'
+        : 'fr-badge--orange-terre-battue';
+      html += `<span class="fr-badge fr-badge--sm fr-badge--no-icon ${scoreClass}" title="Score d'évaluation">${card.score_total}/50</span> `;
+    }
+    html += `<span class="fr-badge fr-badge--sm fr-badge--no-icon ${status.badge}">${status.label}</span>`;
     html += ` <span class="fr-badge fr-badge--sm fr-badge--no-icon ${priorityClass}">Priorité ${card.priority}</span>`;
     if (card.category) {
       html += ` <span class="fr-tag fr-tag--sm">${escapeHtml(card.category)}</span>`;
@@ -373,6 +381,7 @@ const Projet = (() => {
     document.getElementById('pm-repo-url').value = card.repo_url || '';
     document.getElementById('pm-prod-url').value = card.prod_url || '';
     document.getElementById('pm-notes').value = card.notes || '';
+    document.getElementById('pm-score-total').value = card.score_total != null ? card.score_total : '';
 
     document.getElementById('pm-title').focus();
   }
@@ -408,6 +417,7 @@ const Projet = (() => {
       repo_url: document.getElementById('pm-repo-url').value.trim(),
       prod_url: document.getElementById('pm-prod-url').value.trim(),
       notes: document.getElementById('pm-notes').value,
+      score_total: (() => { const v = document.getElementById('pm-score-total').value; return v !== '' ? parseInt(v, 10) : null; })(),
     };
 
     document.getElementById('projet-content').setAttribute('data-mode', 'view');
